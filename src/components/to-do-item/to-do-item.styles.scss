@@ -1,0 +1,16 @@
+.to-do-item {
+    display: flex;
+    align-items: center;
+    background-color: #707eff;
+    color: white;
+    width: 70%;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 2.4rem;
+
+    .text {
+        margin-left: 4rem;
+    }
+}

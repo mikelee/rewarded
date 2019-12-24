@@ -2,11 +2,13 @@ import React from 'react';
 
 import './to-do-container.styles.scss';
 
+import ToDoItem from '../to-do-item/to-do-item.component';
+
 const ToDoContainer = () => (
     <div className='to-do-container'>
-        <h2>Todo 1</h2>
-        <h2>Todo 2</h2>
-        <h2>Todo 3</h2>
+        <ToDoItem text='To-Do 1' />
+        <ToDoItem text='To-Do 2' />
+        <ToDoItem text='To-Do 3' />
     </div>
 );
 
