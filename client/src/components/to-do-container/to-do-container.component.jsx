@@ -22,7 +22,7 @@ class ToDoContainer extends React.Component {
     render() {
         return (
             <div className='to-do-container'>
-                {this.state.to_dos.map(to_do => <ToDoItem text={to_do.text} key={to_do.to_do_id} />)}
+                {this.state.to_dos.map(to_do => <ToDoItem key={to_do.to_do_id} id={to_do.to_do_id} text={to_do.text} />)}
             </div>
         );
     }
