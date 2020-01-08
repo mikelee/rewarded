@@ -1,0 +1,21 @@
+.add-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 70%;
+    height: 4.8rem;
+    border-radius: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: rgba(#707eff, .7);
+
+    .add-item-toggle-button {
+        margin-right: 4rem;
+    }
+    
+    .add-item-text {
+        color: white;
+        font-size: 2.4rem;
+    }
+}

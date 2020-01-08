@@ -25,7 +25,7 @@ connection.connect(err => {
 // API Routes
 
 // Get all to-dos
-app.get('/api', function(req, res) {
+app.get('/api', (req, res) => {
     connection.query("SELECT * FROM to_dos WHERE owner_id = '1'", (err, results) => {
         if (!err) {
             res.json(results);
@@ -35,15 +35,22 @@ app.get('/api', function(req, res) {
     });
 });
 
+// Create to-do
+app.post('/api/todo', (req, res) => {
+    connection.query(`INSERT INTO to_dos (owner_id) VALUES ('1')`, (data) => {
+        res.send(data);
+    });
+});
+
 // Update to-do
-app.put('/api/todo/:id', function(req, res) {
+app.put('/api/todo/:id', (req, res) => {
     connection.query(`UPDATE to_dos SET text = '${req.body.text}' WHERE to_do_id = '${req.params.id}'`, () => {
         res.redirect('/');
     });
 });
 
 // Delete to-do
-app.delete('/api/todo/:id', function(req, res) {
+app.delete('/api/todo/:id', (req, res) => {
     connection.query(`DELETE FROM to_dos WHERE to_do_id = '${req.params.id}'`, () => {
         res.redirect('/');
     });
