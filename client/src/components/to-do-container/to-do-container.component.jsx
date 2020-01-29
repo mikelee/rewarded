@@ -12,7 +12,8 @@ class ToDoContainer extends React.Component {
         this.getToDos = this.getToDos.bind(this);
 
         this.state = {
-            to_dos: []
+            to_dos: null,
+            currentUser: null
         }
     }
 
@@ -21,16 +22,27 @@ class ToDoContainer extends React.Component {
     }
 
     getToDos() {
-        fetch('http://localhost:4444/api')
-        .then(response => response.json())
-        .then(json => this.setState({ to_dos: json }))
+        if (this.props.currentUser) {
+            fetch('http://localhost:4444/api', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials' : true
+                },
+                body: JSON.stringify(this.props.currentUser)
+            })
+            .then(response => response.json())
+            .then(json => this.setState({ to_dos: json }));
+        }
     }
 
     render() {
         return (
             <div className='to-do-container'>
-                {this.state.to_dos.map(to_do => <ToDoItem key={to_do.to_do_id} id={to_do.to_do_id} text={to_do.text} />)}
-                <AddItem updateState={this.getToDos} />
+                {this.state.to_dos ? this.state.to_dos.map(to_do => <ToDoItem key={to_do.to_do_id} id={to_do.to_do_id} text={to_do.text} />) : null}
+                {this.state.to_dos ? <AddItem updateState={this.getToDos} currentUser={this.props.currentUser} /> : null}
             </div>
         );
     }

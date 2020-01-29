@@ -1,0 +1,29 @@
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+    align-items: center;
+    font-size: 2rem;
+    background-color: #606eff;
+    padding: 2rem;
+    margin-bottom: 3rem;
+
+    .logout-button {
+        background-color: transparent;
+        border: 2px solid white;
+        border-radius: 3rem;
+        font-size: 2rem;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        color: white;
+        padding: .5rem 2rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+
+        &:last-child {
+            margin-right: 3rem;
+        }
+    }
+}

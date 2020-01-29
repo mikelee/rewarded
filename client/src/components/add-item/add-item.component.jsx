@@ -9,7 +9,14 @@ class addItem extends React.Component {
 
     addToDo = () => {
         fetch('http://localhost:4444/api/todo', {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials' : true
+            },
+            body: JSON.stringify(this.props.currentUser)
         })
         .then(() => this.props.updateState())
     }
