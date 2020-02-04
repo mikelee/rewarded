@@ -103,7 +103,7 @@ app.post('/logout', (req, res) => {
 app.post('/api', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query(`SELECT * FROM to_dos WHERE owner_id = '${user_id}'`, (err, results) => {
+    connection.query(`SELECT * FROM to_dos WHERE owner_id = '${user_id}'; SELECT * FROM rewards WHERE owner_id = '${user_id}'`, (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -116,24 +116,57 @@ app.post('/api', (req, res) => {
 app.post('/api/todo', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query(`INSERT INTO to_dos (owner_id) VALUES ('${user_id}')`, (data) => {
-        res.send(data);
+    connection.query(`INSERT INTO to_dos (owner_id) VALUES ('${user_id}')`, (err, result) => {
+        res.send(result);
     });
 });
 
 // Update to-do
 app.put('/api/todo/:id', (req, res) => {
-    connection.query(`UPDATE to_dos SET text = '${req.body.text}' WHERE to_do_id = '${req.params.id}'`, () => {
-        res.redirect('/');
+    const { id, text } = req.body;
+
+    connection.query(`UPDATE to_dos SET text = '${text}' WHERE to_do_id = '${id}'`, (err, result) => {
+        res.send(result);
     });
 });
 
 // Delete to-do
 app.delete('/api/todo/:id', (req, res) => {
-    connection.query(`DELETE FROM to_dos WHERE to_do_id = '${req.params.id}'`, () => {
-        res.redirect('/');
+    connection.query(`DELETE FROM to_dos WHERE to_do_id = '${req.params.id}'`, (err, result) => {
+        res.send(result);
     });
 });
+
+
+
+// Reward routes
+
+// Create reward
+app.post('/api/reward', (req, res) => {
+    const { user_id } = req.body;
+
+    connection.query(`INSERT INTO rewards (owner_id) VALUES ('${user_id}')`, (err, result) => {
+        res.send(result);
+    });
+});
+
+// Update Reward
+app.put('/api/reward/:id', (req, res) => {
+    const { id, text } = req.body;
+
+    connection.query(`UPDATE rewards SET text = '${text}' WHERE reward_id = '${id}'`, (err, result) => {
+        res.send(result);
+    });
+});
+
+// Delete Reward
+app.delete('/api/reward/:id', (req, res) => {
+    connection.query(`DELETE FROM rewards WHERE reward_id = '${req.params.id}'`, (err, result) => {
+        res.send(result);
+    });
+});
+
+
 
 app.listen(process.env.PORT || 4444, () => {
     console.log('Server started');

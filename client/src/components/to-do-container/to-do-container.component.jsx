@@ -4,24 +4,26 @@ import './to-do-container.styles.scss';
 
 import ToDoItem from '../to-do-item/to-do-item.component';
 import AddItem from '../add-item/add-item.component';
+import RewardItem from '../reward-item/reward-item.component';
 
 class ToDoContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.getToDos = this.getToDos.bind(this);
+        this.getToDosAndRewards = this.getToDosAndRewards.bind(this);
 
         this.state = {
+            currentUser: null,
             to_dos: null,
-            currentUser: null
+            rewards: null
         }
     }
 
     componentDidMount() {
-        this.getToDos();
+        this.getToDosAndRewards();
     }
 
-    getToDos() {
+    getToDosAndRewards() {
         if (this.props.currentUser) {
             fetch('http://localhost:4444/api', {
                 method: 'POST',
@@ -34,15 +36,23 @@ class ToDoContainer extends React.Component {
                 body: JSON.stringify(this.props.currentUser)
             })
             .then(response => response.json())
-            .then(json => this.setState({ to_dos: json }));
+            .then(json => this.setState({
+                to_dos: json[0],
+                rewards: json[1]
+            }));
         }
     }
 
     render() {
         return (
             <div className='to-do-container'>
-                {this.state.to_dos ? this.state.to_dos.map(to_do => <ToDoItem key={to_do.to_do_id} id={to_do.to_do_id} text={to_do.text} />) : null}
-                {this.state.to_dos ? <AddItem updateState={this.getToDos} currentUser={this.props.currentUser} /> : null}
+                <h2 className='title'>To Do</h2>
+                {this.state.to_dos ? this.state.to_dos.map(to_do => <ToDoItem key={to_do.to_do_id} id={to_do.to_do_id} text={to_do.text} updateState={this.getToDosAndRewards} />) : null}
+                <AddItem type='todo' updateState={this.getToDosAndRewards} currentUser={this.props.currentUser} />
+
+                <h3 className='title'>Rewards</h3>
+                {this.state.rewards ? this.state.rewards.map(reward => <RewardItem key={reward.reward_id} id={reward.reward_id} text={reward.text} updateState={this.getToDosAndRewards} />) : null}
+                <AddItem type='reward' updateState={this.getToDosAndRewards} currentUser={this.props.currentUser} />
             </div>
         );
     }

@@ -1,0 +1,22 @@
+.reward-item {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    font-size: 2rem;
+    background-color: #4c93fd;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    .reward {
+        display: flex;
+        justify-content: space-between;
+        width: 60%;
+
+        #standard-basic {
+            width: 40rem;
+            font-size: 2rem;
+        }
+    }
+}

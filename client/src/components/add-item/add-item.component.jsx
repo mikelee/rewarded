@@ -8,7 +8,7 @@ import { AddRounded } from '@material-ui/icons';
 class addItem extends React.Component {
 
     addToDo = () => {
-        fetch('http://localhost:4444/api/todo', {
+        fetch(`http://localhost:4444/api/${this.props.type}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -22,12 +22,14 @@ class addItem extends React.Component {
     }
     
     render() {
+        const { type } = this.props;
+        
         return (
-            <div className='add-item' onClick={this.addToDo} >
+            <div className={`add-item add-item-${type}`} onClick={this.addToDo} >
                 <ToggleButton className='add-item-toggle-button' value='plus' >
                     <AddRounded fontSize='large' />
                 </ToggleButton>
-                <p className='add-item-text' >Add Item</p>
+                <p className='add-item-text' >{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
             </div>
         );
     }

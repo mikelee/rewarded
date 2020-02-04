@@ -1,12 +1,10 @@
 import React from 'react';
 
-import './to-do-item.styles.scss';
+import './reward-item.styles.scss';
 
-import { CheckRounded } from '@material-ui/icons';
-import { ToggleButton } from '@material-ui/lab';
 import { Button, TextField } from '@material-ui/core';
 
-class ToDoItem extends React.Component {
+class RewardItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,7 +20,7 @@ class ToDoItem extends React.Component {
             text: this.state.text
         }
 
-        fetch(`http://localhost:4444/api/todo/${this.props.id}`, {
+        fetch(`http://localhost:4444/api/reward/${this.props.id}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -38,7 +36,7 @@ class ToDoItem extends React.Component {
     deleteItem = event => {
         event.preventDefault();
 
-        fetch(`http://localhost:4444/api/todo/${this.props.id}`, {
+        fetch(`http://localhost:4444/api/reward/${this.props.id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -57,23 +55,23 @@ class ToDoItem extends React.Component {
             text: value
         })
     }
-
+    
     render() {
         const { id, text } = this.props;
 
         return (
-            <div className='to-do-item'>
-                <div className='check-and-todo'>
-                    <ToggleButton className='toggle-button' value="check" >
-                        <CheckRounded fontSize='large' />
-                    </ToggleButton>
-                    <form id={`edit-form-${id}`} onSubmit={this.editItem} >
-                        <TextField id='standard-basic' name='text' className='text-field' onChange={this.handleChange} placeholder='I want to...' defaultValue={text}/>
+            <div className='reward-item'>
+                <div className='reward'>
+                    <form id={`reward-form-${id}`} onSubmit={this.editItem} >
+                        <TextField id='standard-basic' defaultValue={text} name='text' onChange={this.handleChange} ></TextField>
                     </form>
                 </div>
+                <div className='to-complete'>
+                    <p>To Dos go here</p>
+                </div>
                 <div className='buttons'>
-                    <Button form={`edit-form-${id}`}  className='edit-button' type='submit' variant='outlined'>Edit</Button>
-                    <form className='delete-form' onSubmit={this.deleteItem}>
+                    <Button form={`reward-form-${id}`} type ='submit' variant='outlined'>Edit</Button>
+                    <form onSubmit={this.deleteItem}>
                         <Button type='submit' variant='contained' color='secondary'>Delete</Button>
                     </form>
                 </div>
@@ -82,4 +80,4 @@ class ToDoItem extends React.Component {
     }
 }
 
-export default ToDoItem;
+export default RewardItem;
