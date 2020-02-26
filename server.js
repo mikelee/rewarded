@@ -96,14 +96,33 @@ app.post('/logout', (req, res) => {
     req.logout();
 });
 
+// Data
 
-// To-do Routes
-
-// Get all to-dos
+// Get all to-dos, rewards, and requirements
 app.post('/api', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query(`SELECT * FROM to_dos WHERE owner_id = '${user_id}'; SELECT * FROM rewards WHERE owner_id = '${user_id}'`, (err, results) => {
+    connection.query(`
+        SELECT * FROM to_dos WHERE owner_id = '${user_id}';
+        SELECT * FROM rewards WHERE owner_id = '${user_id}';
+        SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = '${user_id}';
+    `, (err, results) => {
+        if (!err) {
+            res.json(results);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+// To-do Routes
+
+// Get to_dos
+app.post('/api/todo/get', (req, res) => {
+    const { user_id } = req.body;
+
+    connection.query(`SELECT * FROM to_dos WHERE owner_id = '${user_id}'`, (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -130,9 +149,18 @@ app.put('/api/todo/:id', (req, res) => {
     });
 });
 
+// Toggle to-do Completed
+app.post('/api/todo/complete', (req, res) => {
+    const { id } = req.body;
+
+    connection.query(`UPDATE to_dos SET completed = NOT completed WHERE to_do_id = '${id}';`, (err, result) => {
+        res.send(result);
+    });
+});
+
 // Delete to-do
 app.delete('/api/todo/:id', (req, res) => {
-    connection.query(`DELETE FROM to_dos WHERE to_do_id = '${req.params.id}'`, (err, result) => {
+    connection.query(`DELETE FROM to_dos WHERE to_do_id = '${req.params.id}'; DELETE FROM requirements WHERE to_do_id = '${req.params.id}'`, (err, result) => {
         res.send(result);
     });
 });
@@ -166,6 +194,100 @@ app.delete('/api/reward/:id', (req, res) => {
     });
 });
 
+
+// Requirement Routes
+
+// Get requirements
+app.post('/api/requirements', (req, res) => {
+    const { id } = req.body;
+
+    connection.query(`SELECT * FROM to_dos t INNER JOIN requirements q ON t.to_do_id = q.to_do_id WHERE reward_id = ${id}`, (err, results) => {
+        if (!err) {
+            res.json(results);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+// Get requirements and to-dos
+app.post('/api/get-requirements-and-todos', (req, res) => {
+    const { reward_id, owner_id } = req.body;
+
+    connection.query(`
+        SELECT *
+        FROM (
+            SELECT
+                t.to_do_id AS to_do_id,
+                t.text AS text,
+                q.reward_id AS reward_id,
+                t.completed AS completed,
+                t.owner_id AS owner_id
+            FROM to_dos t
+            LEFT JOIN requirements q
+            ON t.to_do_id = q.to_do_id
+            WHERE q.reward_id = ? AND t.owner_id = ?
+            GROUP BY to_do_id
+
+            UNION
+            
+            SELECT
+                t.to_do_id AS to_do_id,
+                t.text AS text,
+                q.reward_id AS reward_id,
+                t.completed AS completed,
+                t.owner_id AS owner_id
+            FROM to_dos t
+            LEFT JOIN requirements q
+            ON t.to_do_id = q.to_do_id
+            WHERE q.reward_id <> ? OR q.reward_id IS NULL AND t.owner_id = ?
+            GROUP BY to_do_id
+        ) AS a
+        GROUP BY to_do_id;
+    `, [reward_id, owner_id, reward_id, owner_id], (err, results) => {
+        if (!err) {
+            res.json(results);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+// Create or Delete requirement
+app.post('/api/requirements/toggle', (req, res) => {
+    const { toDoId, rewardId, selected } = req.body;
+
+    if (selected) {
+        connection.query(`DELETE FROM requirements WHERE reward_id = '${rewardId}' AND to_do_id = '${toDoId}'`, (err, results) => {
+            if (!err) {
+                res.send(results);
+            } else {
+                console.log(err);
+            }
+        });
+    } else {
+        connection.query(`INSERT INTO requirements (reward_id, to_do_id) VALUES ('${rewardId}', '${toDoId}')`, (err, results) => {
+            if (!err) {
+                res.send(results);
+            } else {
+                console.log(err);
+            }
+        });
+    }
+});
+
+// Delete Requirement
+app.delete('/api/requirements/:id', (req, res) => {
+    const { reward_id, to_do_id } = req.body;
+
+    connection.query(`DELETE FROM requirements WHERE reward_id = '${reward_id}' AND to_do_id = '${to_do_id}'`, (err, results) => {
+        if (!err) {
+            res.send(results);
+        } else {
+            console.log(err);
+        }
+    });
+});
 
 
 app.listen(process.env.PORT || 4444, () => {

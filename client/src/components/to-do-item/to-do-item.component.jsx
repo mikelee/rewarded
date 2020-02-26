@@ -58,15 +58,61 @@ class ToDoItem extends React.Component {
         })
     }
 
+    toggleToDoCompleted = () => {
+        const data = {
+            id: this.props.id
+        }
+
+        fetch(`http://localhost:4444/api/todo/complete`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials' : true
+            },
+            body: JSON.stringify(data)
+        })
+        .then(() => this.props.updateState())
+    }
+
+    createOrDeleteRequirement = () => {
+        let selected = this.props.selectedReward === this.props.associatedReward;
+        
+        const data = {
+            toDoId: this.props.id,
+            rewardId: this.props.selectedReward,
+            selected
+        }
+        
+        fetch(`http://localhost:4444/api/requirements/toggle`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials' : true
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
     render() {
-        const { id, text } = this.props;
+        const { id, text, completed, selectedReward, associatedReward } = this.props;
 
         return (
             <div className='to-do-item'>
                 <div className='check-and-todo'>
-                    <ToggleButton className='toggle-button' value="check" >
-                        <CheckRounded fontSize='large' />
-                    </ToggleButton>
+                    {selectedReward === null
+                    ?
+                        <ToggleButton className='toggle-button' value="check" selected={completed === 1 ? true : false} onChange={this.toggleToDoCompleted}>
+                            <CheckRounded fontSize='large' />
+                        </ToggleButton>
+                    :
+                        <ToggleButton className='toggle-button' value="check" selected={selectedReward === associatedReward ? true : false} onChange={this.createOrDeleteRequirement}>
+                            <CheckRounded fontSize='large' />
+                        </ToggleButton>
+                    }
                     <form id={`edit-form-${id}`} onSubmit={this.editItem} >
                         <TextField id='standard-basic' name='text' className='text-field' onChange={this.handleChange} placeholder='I want to...' defaultValue={text}/>
                     </form>

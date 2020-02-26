@@ -1,0 +1,31 @@
+.requirement {
+    display: flex;
+    align-items: center;
+    background-color: #8fbcff;
+    border-radius: 2rem;
+    width: 38rem;
+    margin: 1rem 2rem;
+
+    &-check-space {
+        padding: 0 1rem;
+        width: 5%;
+    }
+
+    &-form {
+        display: flex;
+        justify-content: space-between;
+        width: 95%;
+        align-items: center;
+        padding: 0 1.6rem;
+
+        &-text {
+            margin: 0;
+        }
+
+        &-clear-icon {
+            color: white;
+            background-color: rgb(233, 3, 3);
+            border-radius: 2rem;
+        }
+    }
+}
