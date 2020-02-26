@@ -31,7 +31,7 @@ passport.use(new LocalStrategy({
     function(req, username1, password1, done) {
         const { username, password } = req.body;
 
-        connection.query(`SELECT * FROM users WHERE username = '${username}'`, (err, foundUser) => {
+        connection.query('SELECT * FROM users WHERE username = ?', [username], (err, foundUser) => {
             if (!err) {
                 const user = foundUser[0];
 
@@ -44,7 +44,7 @@ passport.use(new LocalStrategy({
                     });
                 } else {
                     bcrypt.hash(password, 10, (err, hash) => {
-                        connection.query(`INSERT INTO users (username, hash) VALUES ('${username}', '${hash}')`, (err, newUser) => {
+                        connection.query('INSERT INTO users (username, hash) VALUES (?, ?)', [username, hash], (err, newUser) => {
                             if (!err) {
                                 const passportUser = {user_id: newUser.insertId, username: username}
                                 return done(null, passportUser)
@@ -79,7 +79,7 @@ connection.connect(err => {
 // Sign-In route
 app.post('/sign-in', 
   passport.authenticate('local', { failureRedirect: '/sign-in' }), (req, res) => {
-    connection.query(`SELECT * FROM to_dos WHERE owner_id = '${req.user.user_id}'`, (err, results) => {
+    connection.query('SELECT * FROM to_dos WHERE owner_id = ?', [req.user.user_id], (err, results) => {
         if (!err) {
             return res.json({
                 user: req.user,
@@ -103,10 +103,10 @@ app.post('/api', (req, res) => {
     const { user_id } = req.body;
 
     connection.query(`
-        SELECT * FROM to_dos WHERE owner_id = '${user_id}';
-        SELECT * FROM rewards WHERE owner_id = '${user_id}';
-        SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = '${user_id}';
-    `, (err, results) => {
+        SELECT * FROM to_dos WHERE owner_id = ?;
+        SELECT * FROM rewards WHERE owner_id = ?;
+        SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = ?;
+    `, [user_id, user_id, user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -122,7 +122,7 @@ app.post('/api', (req, res) => {
 app.post('/api/todo/get', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query(`SELECT * FROM to_dos WHERE owner_id = '${user_id}'`, (err, results) => {
+    connection.query('SELECT * FROM to_dos WHERE owner_id = ?', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -135,7 +135,7 @@ app.post('/api/todo/get', (req, res) => {
 app.post('/api/todo', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query(`INSERT INTO to_dos (owner_id) VALUES ('${user_id}')`, (err, result) => {
+    connection.query('INSERT INTO to_dos (owner_id) VALUES (?)', [user_id], (err, result) => {
         res.send(result);
     });
 });
@@ -144,7 +144,7 @@ app.post('/api/todo', (req, res) => {
 app.put('/api/todo/:id', (req, res) => {
     const { id, text } = req.body;
 
-    connection.query(`UPDATE to_dos SET text = '${text}' WHERE to_do_id = '${id}'`, (err, result) => {
+    connection.query('UPDATE to_dos SET text = ? WHERE to_do_id = ?', [text, id], (err, result) => {
         res.send(result);
     });
 });
@@ -153,14 +153,16 @@ app.put('/api/todo/:id', (req, res) => {
 app.post('/api/todo/complete', (req, res) => {
     const { id } = req.body;
 
-    connection.query(`UPDATE to_dos SET completed = NOT completed WHERE to_do_id = '${id}';`, (err, result) => {
+    connection.query('UPDATE to_dos SET completed = NOT completed WHERE to_do_id = ?', [id], (err, result) => {
         res.send(result);
     });
 });
 
 // Delete to-do
 app.delete('/api/todo/:id', (req, res) => {
-    connection.query(`DELETE FROM to_dos WHERE to_do_id = '${req.params.id}'; DELETE FROM requirements WHERE to_do_id = '${req.params.id}'`, (err, result) => {
+    const { id } = req.params;
+
+    connection.query('DELETE FROM to_dos WHERE to_do_id = ?; DELETE FROM requirements WHERE to_do_id = ?', [id ,id], (err, result) => {
         res.send(result);
     });
 });
@@ -173,7 +175,7 @@ app.delete('/api/todo/:id', (req, res) => {
 app.post('/api/reward', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query(`INSERT INTO rewards (owner_id) VALUES ('${user_id}')`, (err, result) => {
+    connection.query('INSERT INTO rewards (owner_id) VALUES (?)', [user_id], (err, result) => {
         res.send(result);
     });
 });
@@ -182,14 +184,16 @@ app.post('/api/reward', (req, res) => {
 app.put('/api/reward/:id', (req, res) => {
     const { id, text } = req.body;
 
-    connection.query(`UPDATE rewards SET text = '${text}' WHERE reward_id = '${id}'`, (err, result) => {
+    connection.query('UPDATE rewards SET text = ? WHERE reward_id = ?', [text, id], (err, result) => {
         res.send(result);
     });
 });
 
 // Delete Reward
 app.delete('/api/reward/:id', (req, res) => {
-    connection.query(`DELETE FROM rewards WHERE reward_id = '${req.params.id}'`, (err, result) => {
+    const { id } = req.params;
+
+    connection.query('DELETE FROM rewards WHERE reward_id = ?', [id], (err, result) => {
         res.send(result);
     });
 });
@@ -201,7 +205,7 @@ app.delete('/api/reward/:id', (req, res) => {
 app.post('/api/requirements', (req, res) => {
     const { id } = req.body;
 
-    connection.query(`SELECT * FROM to_dos t INNER JOIN requirements q ON t.to_do_id = q.to_do_id WHERE reward_id = ${id}`, (err, results) => {
+    connection.query('SELECT * FROM to_dos t INNER JOIN requirements q ON t.to_do_id = q.to_do_id WHERE reward_id = ?', [id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -258,7 +262,7 @@ app.post('/api/requirements/toggle', (req, res) => {
     const { toDoId, rewardId, selected } = req.body;
 
     if (selected) {
-        connection.query(`DELETE FROM requirements WHERE reward_id = '${rewardId}' AND to_do_id = '${toDoId}'`, (err, results) => {
+        connection.query('DELETE FROM requirements WHERE reward_id = ? AND to_do_id = ?', [rewardID, toDoId], (err, results) => {
             if (!err) {
                 res.send(results);
             } else {
@@ -266,7 +270,7 @@ app.post('/api/requirements/toggle', (req, res) => {
             }
         });
     } else {
-        connection.query(`INSERT INTO requirements (reward_id, to_do_id) VALUES ('${rewardId}', '${toDoId}')`, (err, results) => {
+        connection.query('INSERT INTO requirements (reward_id, to_do_id) VALUES (?, ?)', [rewardId, toDoId], (err, results) => {
             if (!err) {
                 res.send(results);
             } else {
@@ -280,7 +284,7 @@ app.post('/api/requirements/toggle', (req, res) => {
 app.delete('/api/requirements/:id', (req, res) => {
     const { reward_id, to_do_id } = req.body;
 
-    connection.query(`DELETE FROM requirements WHERE reward_id = '${reward_id}' AND to_do_id = '${to_do_id}'`, (err, results) => {
+    connection.query('DELETE FROM requirements WHERE reward_id = ? AND to_do_id = ?', [reward_id, to_do_id], (err, results) => {
         if (!err) {
             res.send(results);
         } else {
