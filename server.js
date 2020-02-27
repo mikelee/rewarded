@@ -136,7 +136,7 @@ app.post('/api/todo', (req, res) => {
     const { user_id } = req.body;
 
     connection.query('INSERT INTO to_dos (owner_id) VALUES (?)', [user_id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -145,7 +145,7 @@ app.put('/api/todo/:id', (req, res) => {
     const { id, text } = req.body;
 
     connection.query('UPDATE to_dos SET text = ? WHERE to_do_id = ?', [text, id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -154,7 +154,7 @@ app.post('/api/todo/complete', (req, res) => {
     const { id } = req.body;
 
     connection.query('UPDATE to_dos SET completed = NOT completed WHERE to_do_id = ?', [id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -163,7 +163,7 @@ app.delete('/api/todo/:id', (req, res) => {
     const { id } = req.params;
 
     connection.query('DELETE FROM to_dos WHERE to_do_id = ?; DELETE FROM requirements WHERE to_do_id = ?', [id ,id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -176,7 +176,7 @@ app.post('/api/reward', (req, res) => {
     const { user_id } = req.body;
 
     connection.query('INSERT INTO rewards (owner_id) VALUES (?)', [user_id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -185,7 +185,7 @@ app.put('/api/reward/:id', (req, res) => {
     const { id, text } = req.body;
 
     connection.query('UPDATE rewards SET text = ? WHERE reward_id = ?', [text, id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -194,7 +194,7 @@ app.delete('/api/reward/:id', (req, res) => {
     const { id } = req.params;
 
     connection.query('DELETE FROM rewards WHERE reward_id = ?', [id], (err, result) => {
-        res.send(result);
+        res.json(result);
     });
 });
 
@@ -264,7 +264,7 @@ app.post('/api/requirements/toggle', (req, res) => {
     if (selected) {
         connection.query('DELETE FROM requirements WHERE reward_id = ? AND to_do_id = ?', [rewardID, toDoId], (err, results) => {
             if (!err) {
-                res.send(results);
+                res.json(results);
             } else {
                 console.log(err);
             }
@@ -272,7 +272,7 @@ app.post('/api/requirements/toggle', (req, res) => {
     } else {
         connection.query('INSERT INTO requirements (reward_id, to_do_id) VALUES (?, ?)', [rewardId, toDoId], (err, results) => {
             if (!err) {
-                res.send(results);
+                res.json(results);
             } else {
                 console.log(err);
             }
@@ -286,7 +286,7 @@ app.delete('/api/requirements/:id', (req, res) => {
 
     connection.query('DELETE FROM requirements WHERE reward_id = ? AND to_do_id = ?', [reward_id, to_do_id], (err, results) => {
         if (!err) {
-            res.send(results);
+            res.json(results);
         } else {
             console.log(err);
         }
