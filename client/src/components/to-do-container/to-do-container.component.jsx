@@ -15,8 +15,6 @@ class ToDoContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.getToDosAndRewards = this.getToDosAndRewards.bind(this);
-
         this.state = {
             currentUser: null,
             to_dos: null,
@@ -76,7 +74,7 @@ class ToDoContainer extends React.Component {
         }
     }
 
-    getToDosAndRewards() {
+    getToDosAndRewards = () => {
         if (this.props.currentUser) {
             fetch('http://localhost:4444/api', {
                 method: 'POST',
