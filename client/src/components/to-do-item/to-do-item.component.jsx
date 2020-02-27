@@ -22,7 +22,7 @@ class ToDoItem extends React.Component {
             text: this.state.text
         }
 
-        fetch(`http://localhost:4444/api/todo/${this.props.id}`, {
+        fetch(`http://localhost:4444/api/todo/update`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -38,14 +38,19 @@ class ToDoItem extends React.Component {
     deleteItem = event => {
         event.preventDefault();
 
-        fetch(`http://localhost:4444/api/todo/${this.props.id}`, {
+        const data = {
+            id: this.props.id
+        }
+
+        fetch(`http://localhost:4444/api/todo/delete`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials' : true
-            }
+            },
+            body: JSON.stringify(data)
         })
         .then(() => this.props.updateState())
     }
@@ -85,7 +90,7 @@ class ToDoItem extends React.Component {
             selected
         }
         
-        fetch(`http://localhost:4444/api/requirements/toggle`, {
+        fetch(`http://localhost:4444/api/requirement/toggle`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -36,7 +36,7 @@ class ToDoContainer extends React.Component {
             owner_id: this.props.currentUser.user_id
         }
 
-        fetch(`http://localhost:4444/api/get-requirements-and-todos`, {
+        fetch('http://localhost:4444/api/get-requirements-and-todos', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

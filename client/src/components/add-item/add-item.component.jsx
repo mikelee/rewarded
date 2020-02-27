@@ -8,7 +8,7 @@ import { AddRounded } from '@material-ui/icons';
 class addItem extends React.Component {
 
     addToDo = () => {
-        fetch(`http://localhost:4444/api/${this.props.type}`, {
+        fetch(`http://localhost:4444/api/${this.props.type}/create`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -20,7 +20,7 @@ class RewardItem extends React.Component {
     }
 
     componentDidMount() {
-        this.updateRequirements();
+        this.getRequirements();
     }
 
     editItem = event => {
@@ -30,7 +30,7 @@ class RewardItem extends React.Component {
             text: this.state.text
         }
 
-        fetch(`http://localhost:4444/api/reward/${this.props.id}`, {
+        fetch('http://localhost:4444/api/reward/update', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -46,24 +46,29 @@ class RewardItem extends React.Component {
     deleteItem = event => {
         event.preventDefault();
 
-        fetch(`http://localhost:4444/api/reward/${this.props.id}`, {
+        const data = {
+            id: this.props.id
+        }
+
+        fetch('http://localhost:4444/api/reward/delete', {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials' : true
-            }
+            },
+            body: JSON.stringify(data)
         })
         .then(() => this.props.updateState())
     }
     
-    updateRequirements = () => {
+    getRequirements = () => {
         const data = {
             id: this.props.id
         }
 
-        fetch(`http://localhost:4444/api/requirements`, {
+        fetch('http://localhost:4444/api/requirement/get', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -96,7 +101,7 @@ class RewardItem extends React.Component {
                 to_do_id: id
             }
 
-            fetch(`http://localhost:4444/api/requirements/${this.props.id}`, {
+            fetch('http://localhost:4444/api/requirement/delete', {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -106,7 +111,7 @@ class RewardItem extends React.Component {
                 },
                 body: JSON.stringify(data)
             })
-            .then(() => this.updateRequirements())
+            .then(() => this.getRequirements())
         }
     }
 
