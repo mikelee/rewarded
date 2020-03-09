@@ -1,15 +1,15 @@
 import { toDosActionTypes } from './to-dos.types';
 
 const initialState = {
-    to_dos: null
+    toDos: null
 }
 
 const toDosReducer = (state = initialState, action) => {
     switch(action.type) {
-        case toDosActionTypes.GET_TO_DOS:
+        case toDosActionTypes.SET_TO_DOS:
             return {
                 ...state,
-                to_dos: action.payload
+                toDos: action.payload
             };
         default:
             return state;

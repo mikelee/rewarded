@@ -15,7 +15,15 @@ class ToDoItem extends React.Component {
         }
     }
 
-    editItem = event => {
+    handleTextChange = event => {
+        const { value } = event.target;
+        
+        this.setState({
+            text: value
+        });
+    }
+
+    updateTodo = event => {
         event.preventDefault();
         const data = {
             id: this.props.id,
@@ -32,10 +40,11 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.updateState())
+        .then(() => this.props.fetchToDos())
+        .then(() => this.props.fetchRequirements());
     }
 
-    deleteItem = event => {
+    deleteToDo = event => {
         event.preventDefault();
 
         const data = {
@@ -52,15 +61,8 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.updateState())
-    }
-
-    handleChange = event => {
-        const { value } = event.target;
-        
-        this.setState({
-            text: value
-        })
+        .then(() => this.props.fetchToDos())
+        .then(() => this.props.fetchRequirements());
     }
 
     toggleToDoCompleted = () => {
@@ -78,7 +80,8 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.updateState())
+        .then(() => this.props.fetchToDos())
+        .then(() => this.props.fetchRequirements())
     }
 
     createOrDeleteRequirement = () => {
@@ -100,6 +103,8 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
+        .then(this.props.fetchToDosForSelection())
+        .then(this.props.fetchRequirements());
     }
 
     render() {
@@ -118,13 +123,13 @@ class ToDoItem extends React.Component {
                             <CheckRounded fontSize='large' />
                         </ToggleButton>
                     }
-                    <form id={`edit-form-${id}`} onSubmit={this.editItem} >
-                        <TextField id='standard-basic' name='text' className='text-field' onChange={this.handleChange} placeholder='I want to...' defaultValue={text}/>
+                    <form id={`edit-form-${id}`} onSubmit={this.updateTodo} >
+                        <TextField id='standard-basic' name='text' className='text-field' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
                     </form>
                 </div>
                 <div className='buttons'>
                     <Button form={`edit-form-${id}`}  className='edit-button' type='submit' variant='outlined'>Edit</Button>
-                    <form className='delete-form' onSubmit={this.deleteItem}>
+                    <form className='delete-form' onSubmit={this.deleteToDo}>
                         <Button type='submit' variant='contained' color='secondary'>Delete</Button>
                     </form>
                 </div>

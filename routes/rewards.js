@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../db');
 
+// Get rewards
+router.post('/get', (req, res) => {
+    const { user_id } = req.body;
+
+    connection.query('SELECT * FROM rewards WHERE owner_id = ?', [user_id], (err, results) => {
+        if (!err) {
+            res.json(results);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 // Create reward
 router.post('/create', (req, res) => {
     const { user_id } = req.body;
@@ -24,7 +37,7 @@ router.put('/update', (req, res) => {
 router.delete('/delete', (req, res) => {
     const { id } = req.body;
 
-    connection.query('DELETE FROM rewards WHERE reward_id = ?', [id], (err, result) => {
+    connection.query('DELETE FROM rewards WHERE reward_id = ?; DELETE FROM requirements WHERE reward_id = ?', [id, id], (err, result) => {
         res.json(result);
     });
 });

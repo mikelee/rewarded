@@ -9,8 +9,7 @@ import Nav from './components/nav/nav.component';
 import ToDoContainer from './components/to-do-container/to-do-container.component';
 import SignIn from './components/sign-in/sign-in.component';
 
-import { selectCurrentUser } from './redux/user/user.selectors';
-import { setCurrentUser } from './redux/user/user.actions';
+import { getCurrentUser } from './redux/user/user.selectors';
 
 const App = ({ currentUser }) => (
 	<div>
@@ -42,11 +41,7 @@ const App = ({ currentUser }) => (
 );
 
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser
+	currentUser: getCurrentUser
 });
 
-const mapDispatchToProps = dispatch => ({
-	setCurrentUser: user => dispatch(setCurrentUser(user))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

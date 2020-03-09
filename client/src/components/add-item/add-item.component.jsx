@@ -18,7 +18,11 @@ class addItem extends React.Component {
             },
             body: JSON.stringify(this.props.currentUser)
         })
-        .then(() => this.props.updateState())
+        .then(() => {
+            this.props.type === 'todo'
+                ? this.props.fetchToDos()
+                : this.props.fetchRewards()
+        });
     }
     
     render() {

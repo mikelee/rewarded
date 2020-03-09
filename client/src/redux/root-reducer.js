@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from './user/user.reducer';
 import toDosReducer from './to-dos/to-dos.reducer';
 import rewardReducer from './rewards/rewards.reducer';
+import requirementReducer from './requirements/requirements.reducer';
 
 const persistConfig = {
     key: 'root',
@@ -13,8 +14,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userReducer,
-    to_dos: toDosReducer,
-    rewards: rewardReducer 
+    toDos: toDosReducer,
+    rewards: rewardReducer,
+    requirements: requirementReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

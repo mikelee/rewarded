@@ -35,7 +35,7 @@ router.post('/api', (req, res) => {
     connection.query(`
         SELECT * FROM to_dos WHERE owner_id = ?;
         SELECT * FROM rewards WHERE owner_id = ?;
-        SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = ?;
+        SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.text as text, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = ?;
     `, [user_id, user_id, user_id], (err, results) => {
         if (!err) {
             res.json(results);
@@ -78,7 +78,8 @@ router.post('/api/get-requirements-and-todos', (req, res) => {
             WHERE q.reward_id <> ? OR q.reward_id IS NULL AND t.owner_id = ?
             GROUP BY to_do_id
         ) AS a
-        GROUP BY to_do_id;
+        GROUP BY to_do_id
+        ORDER BY to_do_id;
     `, [reward_id, owner_id, reward_id, owner_id], (err, results) => {
         if (!err) {
             res.json(results);

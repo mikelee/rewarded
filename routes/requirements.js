@@ -4,9 +4,9 @@ const connection = require('../db');
 
 // Get requirements
 router.post('/get', (req, res) => {
-    const { id } = req.body;
+    const { userId } = req.body;
 
-    connection.query('SELECT * FROM to_dos t INNER JOIN requirements q ON t.to_do_id = q.to_do_id WHERE reward_id = ?', [id], (err, results) => {
+    connection.query('SELECT * FROM to_dos t INNER JOIN requirements q ON t.to_do_id = q.to_do_id WHERE t.owner_id = ?', [userId], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
