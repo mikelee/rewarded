@@ -2,9 +2,9 @@ import React from 'react';
 
 import './to-do-item.styles.scss';
 
-import { CheckRounded } from '@material-ui/icons';
+import { CheckRounded, Clear } from '@material-ui/icons';
 import { ToggleButton } from '@material-ui/lab';
-import { Button, TextField } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 
 class ToDoItem extends React.Component {
     constructor(props) {
@@ -24,7 +24,10 @@ class ToDoItem extends React.Component {
     }
 
     updateTodo = event => {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
+
         const data = {
             id: this.props.id,
             text: this.state.text
@@ -111,28 +114,31 @@ class ToDoItem extends React.Component {
         const { id, text, completed, selectedReward, associatedReward } = this.props;
 
         return (
-            <div className='to-do-item'>
-                <div className='check-and-todo'>
-                    {selectedReward === null
+            <div className='todo'>
+                <div className='todo-check'>
+                    {!selectedReward
                     ?
-                        <ToggleButton className='toggle-button' value="check" selected={completed === 1 ? true : false} onChange={this.toggleToDoCompleted}>
-                            <CheckRounded fontSize='large' />
+                        <ToggleButton className='todo-toggle-button' value='check' selected={completed === 1 ? true : false} onChange={this.toggleToDoCompleted}>
+                            <CheckRounded className='todo-toggle-button-check-icon' fontSize='large' />
                         </ToggleButton>
                     :
-                        <ToggleButton className='toggle-button' value="check" selected={selectedReward === associatedReward ? true : false} onChange={this.createOrDeleteRequirement}>
+                        <ToggleButton className='todo-toggle-button' value='check' selected={selectedReward === associatedReward ? true : false} onChange={this.createOrDeleteRequirement}>
                             <CheckRounded fontSize='large' />
                         </ToggleButton>
                     }
-                    <form id={`edit-form-${id}`} onSubmit={this.updateTodo} >
-                        <TextField id='standard-basic' name='text' className='text-field' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
-                    </form>
                 </div>
-                <div className='buttons'>
-                    <Button form={`edit-form-${id}`}  className='edit-button' type='submit' variant='outlined'>Edit</Button>
-                    <form className='delete-form' onSubmit={this.deleteToDo}>
-                        <Button type='submit' variant='contained' color='secondary'>Delete</Button>
+                <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
+                    <input name='text' className='todo-edit-form-textfield' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
+                </form>
+                {!selectedReward
+                ?
+                    <form className='todo-delete-form' onSubmit={this.deleteToDo}>
+                        <IconButton className='todo-icon-button' type='submit'>
+                            <Clear className='todo-clear-icon' fontSize='large'/>
+                        </IconButton>
                     </form>
-                </div>
+                : null
+                }
             </div>
         );
     }

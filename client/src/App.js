@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
-import './App.css';
+import './App.scss';
 
 import Nav from './components/nav/nav.component';
 import ToDoContainer from './components/to-do-container/to-do-container.component';

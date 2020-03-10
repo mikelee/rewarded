@@ -1,33 +1,61 @@
-.to-do-item {
+.todo {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: #707eff;
-    color: white;
+    background-color: white;
+    color: black;
     width: 70%;
-    padding: 1rem;
+    padding-right: 1rem;
     border-radius: .5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 
-    .check-and-todo {
-        display: flex;
+    &-check {
+        background-color: #707eff;
+        padding: 1rem 0 1rem 1rem;
+        border-radius: .5rem 0 0 .5rem;
+        clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+        width: 10%;
+    }
 
-        .toggle-button {
-            margin-right: 4rem;
-        }
+    &-toggle-button {
+        margin-right: 4rem;
 
-        #standard-basic {
+        &-check-icon {
             color: white;
-            font-size: 2.4rem;
         }
     }
 
-    .buttons {
-        display: flex;
-        
-        .edit-button {
+    &-edit-form {
+        width: 85%;
+
+        &-textfield {
+            color: black;
+            font-family: 'Noir';
+            font-size: 2.4rem;
+            width: 50rem;
+            margin-left: 2rem;
+            border: none;
+            line-height: 4rem;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    &-delete-form {
+        width: 5%;
+
+        .todo-icon-button {
             margin-right: 1rem;
+            justify-self: flex-end;
+    
+    
+            .todo-clear-icon {
+                color: white;
+                background-color: #4254f7;
+                border-radius: 2rem;
+            }
         }
     }
 }
