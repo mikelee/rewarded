@@ -7,11 +7,15 @@
     border-radius: .5rem;
     margin-top: 1rem;
     margin-bottom: 12rem;
-    padding: 1rem;
+    padding: 1rem 0 1rem 1rem;
     cursor: pointer;
 
     .add-item-toggle-button {
         margin-right: 4rem;
+    }
+
+    .add-item-icon {
+        color: white;
     }
     
     .add-item-text {
