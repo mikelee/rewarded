@@ -35,6 +35,7 @@ class RewardItem extends React.Component {
 
     editReward = event => {
         event.preventDefault();
+
         const data = {
             id: this.props.id,
             text: this.state.text
@@ -71,32 +72,12 @@ class RewardItem extends React.Component {
             body: JSON.stringify(data)
         })
         .then(() => this.props.fetchRewards())
-        .then(() => this.props.props.fetchRequirements())
-        .then(() => {
-            const isUnlocked = this.props.requirements.every(requirement => requirement.completed === 1);
-            
-            let data = {
-                rewardId: this.props.id,
-                isUnlocked
-            }
-
-            this.props.setIsUnlocked(data);
-        });
+        .then(() => this.props.fetchRequirements())
     }
 
     addOrDeleteRequirement = async () => {
         await this.props.setSelectedReward(this.props.id);
-
         await this.props.fetchToDosForSelection();
-
-        const isUnlocked = this.props.requirements.every((el) => el.completed === 1);
-            
-        let data = {
-            rewardId: this.props.id,
-            isUnlocked
-        }
-
-        this.props.setIsUnlocked(data);
     }
 
     deleteRequirement = id => {
@@ -141,7 +122,8 @@ class RewardItem extends React.Component {
                 </div>
                 <div className='to-complete'>
                     <h3 className='requirements-title'>Requirements</h3>
-                    {requirements !== null ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
+                    {requirements !== null
+                    ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
                         <Requirement key={requirement.to_do_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
                     ))
                     : null }
