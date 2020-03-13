@@ -5,8 +5,8 @@ import { createStructuredSelector } from 'reselect';
 import './reward-item.styles.scss';
 
 import Requirement from '../requirement/requirement.component';
-import { Button, IconButton, TextField } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { IconButton } from '@material-ui/core';
+import { Add, Clear } from '@material-ui/icons';
 
 import { getRewards, getIsUnlocked } from '../../redux/rewards/rewards.selectors';
 import { setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
@@ -34,7 +34,9 @@ class RewardItem extends React.Component {
     }
 
     editReward = event => {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
 
         const data = {
             id: this.props.id,
@@ -107,34 +109,26 @@ class RewardItem extends React.Component {
         const { id, text, requirements, isUnlocked } = this.props;
 
         return (
-            <div className='reward-item'>
-                
-                <div className='reward'>
-                    <form id={`reward-form-${id}`} onSubmit={this.editReward} >
-                        <TextField id='standard-basic' defaultValue={text} name='text' onChange={this.handleTextChange}></TextField>
-                    </form>
-                    <h3>
-                        {isUnlocked
-                            ? 'unlocked'
-                            : 'locked'
-                        }
-                    </h3>
-                </div>
-                <div className='to-complete'>
-                    <h3 className='requirements-title'>Requirements</h3>
-                    {requirements !== null
-                    ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
-                        <Requirement key={requirement.to_do_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
-                    ))
-                    : null }
-                    <IconButton className='add-requirement-button' onClick={this.addOrDeleteRequirement}>
-                        <AddIcon className='add-requirement-icon' fontSize='large'/>
-                    </IconButton>
-                </div>
-                <div className='buttons'>
-                    <Button form={`reward-form-${id}`} type='submit' variant='outlined'>Edit</Button>
+            <div className={`reward ${isUnlocked ? 'unlocked': ''}`}>
+                <form className='reward-form' id={`reward-form-${id}`} onBlur={this.editReward} onSubmit={this.editReward} >
+                    <input className='reward-form-textfield' defaultValue={text} name='text' onChange={this.handleTextChange} />
+                </form>
+                <div className='reward-right-side'>
+                    <div className='reward-to-complete'>
+                        <h3 className='requirements-title'>Requirements</h3>
+                        {requirements !== null
+                        ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
+                            <Requirement key={requirement.to_do_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
+                        ))
+                        : null }
+                        <IconButton className='requirement-add-button' onClick={this.addOrDeleteRequirement}>
+                            <Add className='requirement-add-icon' fontSize='large'/>
+                        </IconButton>
+                    </div>
                     <form onSubmit={this.deleteReward}>
-                        <Button type='submit' variant='contained' color='secondary'>Delete</Button>
+                        <IconButton type='submit'>
+                            <Clear className='reward-delete-icon' fontSize='large' />
+                        </IconButton>
                     </form>
                 </div>
             </div>

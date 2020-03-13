@@ -1,42 +1,75 @@
-.reward-item {
+.reward {
     display: flex;
     justify-content: space-between;
     width: 70%;
     font-size: 2rem;
-    background-color: #4c93fd;
-    padding: 1rem;
+    background-color: white;
+    color: white;
+    padding-left: 1rem;
     border-radius: .5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    box-shadow: 1rem 1rem 2rem rgba(black, .2);
 
-    .reward {
-        width: 60%;
 
-        #standard-basic {
-            width: 40rem;
-            font-size: 2rem;
-        }
-    }
+    &-form {
+        align-self: center;
+        width: 100%;
+        margin-left: 2rem;
 
-    .to-complete {
-        display: flex;
-        flex-direction: column;
-
-        .requirements-title {
-            text-align: center;
-        }
-
-        .add-requirement-button {
-            align-self: flex-end;
-            max-width: 7rem;
+        &-textfield {
+            color: #707eff;
+            background-color: transparent;
+            font-family: 'Noir';
+            font-size: 2.4rem;
+            width: 90%;
+            border: none;
+            border-bottom: 1px solid #707eff;
+            line-height: 4rem;
     
-            .add-requirement-icon {
-                justify-self: flex-end;
-                background-color: #2f75de;
-                color: white;
-                border-radius: 2rem;
-                padding: 1rem;
+            &:focus {
+                outline: none;
             }
         }
     }
+
+    &-right-side {
+        display: flex;
+        background-color: #707eff;
+        padding-left: 6rem;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+        border-radius: 0 .5rem .5rem 0;
+
+        .reward-to-complete {
+            display: flex;
+            flex-direction: column;
+    
+            .requirements-title {
+                text-align: center;
+            }
+    
+            .requirement-add-button {
+                align-self: flex-end;
+                max-width: 7rem;
+        
+                .requirement-add-icon {
+                    justify-self: flex-end;
+                    background-color: #4254f7;
+                    color: white;
+                    border-radius: 2rem;
+                    padding: 1rem;
+                }
+            }
+        }
+
+        .reward-delete-icon {
+            color: white;
+            background-color: #4254f7;
+            border-radius: 2rem;
+        }
+    } 
+}
+
+.unlocked {
+    box-shadow: 0 0 2.5rem rgba(rgb(233, 176, 20), .8);
 }
