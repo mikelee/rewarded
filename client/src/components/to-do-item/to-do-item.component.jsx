@@ -123,7 +123,7 @@ class ToDoItem extends React.Component {
                         </ToggleButton>
                     :
                         <ToggleButton className='todo-toggle-button' value='check' selected={selectedReward === associatedReward ? true : false} onChange={this.createOrDeleteRequirement}>
-                            <CheckRounded fontSize='large' />
+                            <CheckRounded className='todo-toggle-button-check-icon' fontSize='large' />
                         </ToggleButton>
                     }
                 </div>
