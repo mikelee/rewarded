@@ -1,7 +1,8 @@
 .requirement {
     display: flex;
     align-items: center;
-    background-color: #8fbcff;
+    background-color: white;
+    color: black;
     border-radius: 2rem;
     width: 38rem;
     margin: 1rem 2rem;
@@ -24,7 +25,7 @@
 
         &-clear-icon {
             color: white;
-            background-color: rgb(233, 3, 3);
+            background-color: #4254f7;
             border-radius: 2rem;
         }
     }
