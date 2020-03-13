@@ -29,7 +29,7 @@ class addItem extends React.Component {
         const { type } = this.props;
         
         return (
-            <div className={`add-item add-item-${type}`} onClick={this.addToDo} >
+            <div className='add-item' onClick={this.addToDo} >
                 <ToggleButton className='add-item-toggle-button' value='plus' >
                     <AddRounded className='add-item-icon' fontSize='large' />
                 </ToggleButton>

@@ -8,26 +8,20 @@
     margin-top: 1rem;
     margin-bottom: 12rem;
     padding: 1rem 0 1rem 1rem;
+    background-color: rgba(#707eff, .7);
+    box-shadow: 1rem 1rem 2rem rgba(black, .2);
     cursor: pointer;
 
     .add-item-toggle-button {
         margin-right: 4rem;
-    }
 
-    .add-item-icon {
-        color: white;
-    }
+        .add-item-icon {
+            color: white;
+        }
+    }    
     
     .add-item-text {
         color: white;
         font-size: 2.4rem;
     }
-}
-
-.add-item-todo {
-    background-color: rgba(#707eff, .7);
-}
-
-.add-item-reward {
-    background-color: rgba(#70cbff, .7);
 }
