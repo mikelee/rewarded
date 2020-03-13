@@ -53,8 +53,13 @@ class SignIn extends React.Component {
 
         return (
             <div className='sign-in'>
-                { alreadySignedUp ? null : <h3>I DO NOT HAVE AN ACCOUNT</h3> }
-                <form onSubmit={this.handleSubmit} >
+                <h3 className='sign-in-message'>
+                    {alreadySignedUp
+                    ? 'Welcome Back!'
+                    : 'Sign Up And Start Achieving!'
+                    }
+                </h3>
+                <form className='sign-in-form' onSubmit={this.handleSubmit} >
                     <input type='text' name='username' onChange={this.handleChange} placeholder='username'></input>
                     <input type='password' name='password' onChange={this.handleChange} placeholder='password'></input>
                     { alreadySignedUp ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }

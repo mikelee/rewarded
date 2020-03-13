@@ -1,0 +1,49 @@
+.sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-message {
+        color: #707eff;
+        font-size: 4rem;
+    }
+
+    &-form {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+
+         & input {
+             border: 1px solid #707eff;
+             border-radius: .5rem;
+             padding: 1rem;
+             margin-bottom: 1rem;
+
+             &:focus {
+                 outline: none;
+             }
+         }
+
+         & button {
+             color: white;
+             background-color: #707eff;
+             font-size: 2rem;
+             border: none;
+             border-radius: 2rem;
+             padding: 1rem;
+             outline: none;
+             transition: all .2s;
+
+             &:hover {
+                 transform: translateY(-2px);
+                 box-shadow: 0 1rem 1rem rgba(black, .2);
+             }
+             
+             &:active {
+                 transform: translateY(2px);
+                 box-shadow: none;
+
+             }
+         }
+    }
+}
