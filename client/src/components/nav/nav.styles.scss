@@ -3,28 +3,49 @@
     justify-content: flex-end;
     margin: auto;
     align-items: center;
+    height: 2rem;
     font-size: 2rem;
-    background-color: #606eff;
+    background-color: #707eff;
     padding: 2rem;
     margin-bottom: 3rem;
 
-    .logout-button {
-        background-color: transparent;
-        border: 2px solid white;
-        border-radius: 3rem;
-        font-size: 2rem;
-    }
+    &-buttons {
+        display: flex;
+        align-items: center;
 
-    .nav-item {
-        text-decoration: none;
-        color: white;
-        padding: .5rem 2rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
-        cursor: pointer;
+        .nav-username {
+            color: white;
+            margin-right: 2rem;
+        }
 
-        &:last-child {
-            margin-right: 3rem;
+        .nav-item {
+            text-decoration: none;
+            color: white;
+            padding: .5rem 2rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            cursor: pointer;
+    
+            &:last-child {
+                margin-right: 3rem;
+            }
+        }
+
+        .nav-logout-button {
+            background-color: transparent;
+            border: 2px solid white;
+            border-radius: 3rem;
+            font-size: 2rem;
+            height: 50%;
         }
     }
+
+
+
+
+    
+
+    
+
+    
 }

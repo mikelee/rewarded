@@ -28,9 +28,12 @@ class Nav extends React.Component {
         return (
             <div className='nav'>
                 {currentUser ?
-                    <button className='nav-item logout-button' onClick={this.logout}>Logout</button>
+                    <div className='nav-buttons'>
+                        <h3 className='nav-username'>Hi, {currentUser.username}</h3>
+                        <button className='nav-item nav-logout-button' onClick={this.logout}>Logout</button>
+                    </div>
                     :
-                    <div className='sign-in-buttons'>
+                    <div className='nav-buttons'>
                         <Link to='/sign-up' className='nav-item'>Sign Up</Link>
                         <Link to='/sign-in' className='nav-item'>Sign In</Link>
                     </div>
