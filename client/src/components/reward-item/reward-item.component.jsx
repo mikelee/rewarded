@@ -80,6 +80,7 @@ class RewardItem extends React.Component {
     addOrDeleteRequirement = async () => {
         await this.props.setSelectedReward(this.props.id);
         await this.props.fetchToDosForSelection();
+        this.props.scroll();
     }
 
     deleteRequirement = id => {

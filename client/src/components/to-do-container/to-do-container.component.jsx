@@ -16,6 +16,11 @@ import { getRequirements } from '../../redux/requirements/requirements.selectors
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 
 class ToDoContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.selectionTitle = React.createRef();
+    }
 
     componentDidMount() {
         this.fetchToDosRewardsAndRequirements();
@@ -148,10 +153,14 @@ class ToDoContainer extends React.Component {
         .then(json => this.props.setToDos(json));
     }
 
+    scrollToSelection = () => {
+        this.selectionTitle.current.scrollIntoView({behavior: 'smooth'});
+    }
+
     exitSelection = () => {
         this.props.setSelectedReward(null);
         this.fetchToDos();
-    }    
+    }
 
     render() {
         const { toDos, rewards, selectedReward } = this.props;
@@ -159,7 +168,7 @@ class ToDoContainer extends React.Component {
         return (
             <div className='to-do-container'>
                 {selectedReward
-                    ? <h2 className='title'>Select Reward Requirements</h2>
+                    ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
                     : <h2 className='title'>To Do</h2>
                 }
                 {this.props.selectedReward !== null ? <button onClick={this.exitSelection}>Exit Selection</button> : null}
@@ -167,7 +176,7 @@ class ToDoContainer extends React.Component {
                 <AddItem fetchToDos={this.fetchToDos} type='todo' currentUser={this.props.currentUser} />
 
                 <h3 className='title'>Rewards</h3>
-                {rewards ? rewards.map(reward => <RewardItem fetchRewards={this.fetchRewards} fetchRequirements={this.fetchRequirements} key={reward.reward_id} id={reward.reward_id} text={reward.text} fetchToDosForSelection={this.fetchToDosForSelection} />) : null}
+                {rewards ? rewards.map(reward => <RewardItem fetchRewards={this.fetchRewards} fetchRequirements={this.fetchRequirements} key={reward.reward_id} id={reward.reward_id} text={reward.text} fetchToDosForSelection={this.fetchToDosForSelection} scroll={this.scrollToSelection}/>) : null}
                 <AddItem fetchRewards={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
             </div>
         );
