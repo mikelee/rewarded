@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import './App.scss';
 
 import Nav from './components/nav/nav.component';
+import HomePage from './components/homepage/homepage.component';
 import ToDoContainer from './components/to-do-container/to-do-container.component';
 import SignIn from './components/sign-in/sign-in.component';
 
@@ -19,7 +20,7 @@ const App = ({ currentUser }) => (
                 exact path='/'
                 render={() => currentUser
                     ? <ToDoContainer currentUser={currentUser} />
-                    : <h2>No currentUser in app.js</h2>
+                    : <HomePage />
                 }
             />
             <Route
