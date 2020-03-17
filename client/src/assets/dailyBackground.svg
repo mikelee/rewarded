@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="619px" viewBox="0 0 1280 619" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-7" fill="#FFFFFF" x="0" y="1" width="1280" height="618"></rect>
+        <path d="M162.549624,343.520222 C242.410441,475.277493 377.830349,555.904763 411.976643,619.000878 L0,619 L0,1 L38.0768933,0.996810007 C65.5027689,74.7283685 92.7459116,228.571597 162.549624,343.520222 Z" id="Combined-Shape" fill="#ACBAFF"></path>
+        <path d="M1280,1 L1280,619 L895.008889,619.00141 C917.776717,571.769899 952.072911,512.658963 972.320321,455.230807 C1011.17077,345.038448 998.757021,241.262914 1044.27412,140.363887 C1068.699,86.3745134 1109.70332,33.2051235 1153.53678,0.994499084 L1280,1 Z" id="Combined-Shape" fill="#ACBAFF"></path>
+    </g>
+</svg>

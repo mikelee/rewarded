@@ -1,0 +1,32 @@
+.homepage {
+    margin-top: -3rem;
+    height: calc(100vh - 6rem);
+    background-image: url(../../assets/dailyBackground.svg);
+    background-size: cover;
+    position: relative;
+    top: -.1rem;
+    overflow: hidden;
+
+    &-text-container {
+        text-align: center;
+        color: #707eff;
+
+        .homepage-text {
+            text-align: center;
+            font-size: 8rem;
+            letter-spacing: .5rem;
+            margin-top: 7rem;
+        }
+
+        .homepage-subtext {
+            font-size: 2.5rem;
+        }
+    }
+
+    &-graphic {
+        height: 25rem;
+        position: absolute;
+        bottom: 3rem;
+        left: 5%;
+    }
+}
