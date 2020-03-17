@@ -171,7 +171,7 @@ class ToDoContainer extends React.Component {
                     ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
                     : <h2 className='title'>To Do</h2>
                 }
-                {this.props.selectedReward !== null ? <button onClick={this.exitSelection}>Exit Selection</button> : null}
+                {this.props.selectedReward !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
                 {toDos ? toDos.map(toDo => <ToDoItem fetchToDos={this.fetchToDos} fetchRequirements={this.fetchRequirements} fetchToDosForSelection={this.fetchToDosForSelection} key={toDo.to_do_id} id={toDo.to_do_id} text={toDo.text} completed={toDo.completed} selectedReward={this.props.selectedReward} associatedReward={toDo.reward_id} />) : null}
                 <AddItem fetchToDos={this.fetchToDos} type='todo' currentUser={this.props.currentUser} />
 
