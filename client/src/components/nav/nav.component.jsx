@@ -8,7 +8,7 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 class Nav extends React.Component {
 
     logout = () => {
-        fetch('http://localhost:4444/logout', {
+        fetch('/logout', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

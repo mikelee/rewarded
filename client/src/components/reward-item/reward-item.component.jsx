@@ -43,7 +43,7 @@ class RewardItem extends React.Component {
             text: this.state.text
         }
 
-        fetch('http://localhost:4444/api/reward/update', {
+        fetch('/api/reward/update', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -63,7 +63,7 @@ class RewardItem extends React.Component {
             id: this.props.id
         }
 
-        fetch('http://localhost:4444/api/reward/delete', {
+        fetch('/api/reward/delete', {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -92,7 +92,7 @@ class RewardItem extends React.Component {
                 to_do_id: id
             }
 
-            fetch('http://localhost:4444/api/requirement/delete', {
+            fetch('/api/requirement/delete', {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',

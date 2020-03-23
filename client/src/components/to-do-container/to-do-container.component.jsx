@@ -59,7 +59,7 @@ class ToDoContainer extends React.Component {
 
     fetchToDosRewardsAndRequirements = () => {
         if (this.props.currentUser) {
-            fetch('http://localhost:4444/api', {
+            fetch('/api', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -81,7 +81,7 @@ class ToDoContainer extends React.Component {
 
     fetchToDos = () => {
         if (this.props.currentUser) {
-            fetch('http://localhost:4444/api/todo/get', {
+            fetch('/api/todo/get', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -98,7 +98,7 @@ class ToDoContainer extends React.Component {
 
     fetchRewards = () => {
         if (this.props.currentUser) {
-            fetch('http://localhost:4444/api/reward/get', {
+            fetch('/api/reward/get', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -118,7 +118,7 @@ class ToDoContainer extends React.Component {
             userId: this.props.currentUser.user_id
         }
 
-        fetch('http://localhost:4444/api/requirement/get', {
+        fetch('/api/requirement/get', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -139,7 +139,7 @@ class ToDoContainer extends React.Component {
             owner_id: this.props.currentUser.user_id
         }
 
-        fetch('http://localhost:4444/api/get-requirements-and-todos', {
+        fetch('/api/get-requirements-and-todos', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -19,7 +19,7 @@ class SignIn extends React.Component {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:4444/sign-in', {
+            const response = await fetch('/sign-in', {
                 method:'POST',
                 headers: {
                     'Accept': 'application/json',

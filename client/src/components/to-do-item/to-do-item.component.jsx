@@ -33,7 +33,7 @@ class ToDoItem extends React.Component {
             text: this.state.text
         }
 
-        fetch(`http://localhost:4444/api/todo/update`, {
+        fetch('/api/todo/update', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -54,7 +54,7 @@ class ToDoItem extends React.Component {
             id: this.props.id
         }
 
-        fetch(`http://localhost:4444/api/todo/delete`, {
+        fetch('/api/todo/delete', {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -73,7 +73,7 @@ class ToDoItem extends React.Component {
             id: this.props.id
         }
 
-        fetch(`http://localhost:4444/api/todo/complete`, {
+        fetch('/api/todo/complete', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -96,7 +96,7 @@ class ToDoItem extends React.Component {
             selected
         }
         
-        fetch(`http://localhost:4444/api/requirement/toggle`, {
+        fetch('/api/requirement/toggle', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
