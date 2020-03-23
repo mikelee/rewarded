@@ -2,19 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const path = require('path');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const redis = require('redis');
 const session = require('express-session');
 const connection = require('./db');
-const app = express();
 
 // Routes
 const indexRoutes = require('./routes/index');
 const toDoRoutes = require('./routes/toDos');
 const rewardRoutes = require('./routes/rewards');
 const requirementRoutes = require('./routes/requirements');
+
+const app = express();
+const port = process.env.PORT || 4444;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,6 +32,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false    
 }));
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+  
+    app.get('*', function(req, res) {
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+}
 
 // Passport
 app.use(passport.initialize());
@@ -79,6 +90,6 @@ app.use('/api/todo', toDoRoutes);
 app.use('/api/reward', rewardRoutes);
 app.use('/api/requirement', requirementRoutes);
 
-app.listen(process.env.PORT || 4444, () => {
+app.listen(port, () => {
     console.log('Server started');
 });
