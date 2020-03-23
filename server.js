@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const redis = require('redis');
 const session = require('express-session');
 const connection = require('./db');
 const app = express();
@@ -19,7 +20,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cors());
+
+let RedisStore = require('connect-redis')(session);
+let redisClient = redis.createClient(process.env.REDIS_URL);
 app.use(session({
+    store: new RedisStore({ client: redisClient }),
     secret: 'raspberry',
     resave: false,
     saveUninitialized: false    
