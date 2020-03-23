@@ -1,11 +1,8 @@
 const mysql = require('mysql');
-const config = require('./config');
 
-const connection = mysql.createConnection(config);
-connection.connect(err => {
-    if (err) {
-        console.log(err)
-    };
-});
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+
+const url = process.env.CLEARDB_DATABASE_URL + '&multipleStatements=true';
+const connection = mysql.createPool(url);
 
 module.exports = connection;
