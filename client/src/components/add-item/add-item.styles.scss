@@ -7,21 +7,26 @@
     border-radius: .5rem;
     margin-top: 1rem;
     margin-bottom: 12rem;
-    padding: 1rem 0 1rem 1rem;
+    padding: 1rem 1rem 1rem 0rem;
     background-color: rgba(#707eff, .7);
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
     cursor: pointer;
 
-    .add-item-toggle-button {
-        margin-right: 4rem;
-
-        .add-item-icon {
+    .plus-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 10%;
+    
+        .plus-icon {
             color: white;
         }
-    }    
+    }
     
     .add-item-text {
         color: white;
         font-size: 2.4rem;
+        margin-left: 2rem;
     }
 }

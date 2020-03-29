@@ -2,7 +2,6 @@ import React from 'react';
 
 import './add-item.styles.scss';
 
-import { ToggleButton } from '@material-ui/lab';
 import { AddRounded } from '@material-ui/icons';
 
 class addItem extends React.Component {
@@ -30,9 +29,9 @@ class addItem extends React.Component {
         
         return (
             <div className='add-item' onClick={this.addToDo} >
-                <ToggleButton className='add-item-toggle-button' value='plus' >
-                    <AddRounded className='add-item-icon' fontSize='large' />
-                </ToggleButton>
+                <div className='plus-container'>
+                    <AddRounded className='plus-icon' fontSize='large' />
+                </div>
                 <p className='add-item-text' >{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
             </div>
         );
