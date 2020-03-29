@@ -2,8 +2,8 @@ import React from 'react';
 
 import './to-do-item.styles.scss';
 
-import { CheckRounded, Clear } from '@material-ui/icons';
-import { ToggleButton } from '@material-ui/lab';
+import ToggleButton from '../toggle-button/toggle-button.component';
+import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
 class ToDoItem extends React.Component {
@@ -115,18 +115,10 @@ class ToDoItem extends React.Component {
 
         return (
             <div className='todo'>
-                <div className='todo-check'>
-                    {!selectedReward
-                    ?
-                        <ToggleButton className='todo-toggle-button' value='check' selected={completed === 1 ? true : false} onChange={this.toggleToDoCompleted}>
-                            <CheckRounded className='todo-toggle-button-check-icon' fontSize='large' />
-                        </ToggleButton>
-                    :
-                        <ToggleButton className='todo-toggle-button' value='check' selected={selectedReward === associatedReward ? true : false} onChange={this.createOrDeleteRequirement}>
-                            <CheckRounded className='todo-toggle-button-check-icon' fontSize='large' />
-                        </ToggleButton>
-                    }
-                </div>
+                {!selectedReward
+                ? <ToggleButton type='forTodo' completed={completed} toggleToDoCompleted={this.toggleToDoCompleted} />
+                : <ToggleButton type='forRequirement' selectedReward={selectedReward} associatedReward={associatedReward} toggleRequirement={this.createOrDeleteRequirement} />
+                }
                 <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
                     <input name='text' className='todo-edit-form-textfield' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
                 </form>
