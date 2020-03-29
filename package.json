@@ -2,6 +2,7 @@
   "name": "daily-achievements-server",
   "version": "1.0.0",
   "main": "server.js",
+  "proxy": "http://localhost:4444",
   "engines": {
     "node": "10.15.1",
     "npm": "6.13.4"
