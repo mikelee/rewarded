@@ -15,8 +15,8 @@ const Requirement = ({ to_do_id, text, completed, deleteRequirement }) => (
         </div>
         <form className='requirement-form' key={to_do_id} onSubmit={deleteRequirement(to_do_id)}>
             <p className='requirement-form-text'>{text}</p>
-            <IconButton type='submit'>
-                <Clear className='requirement-form-clear-icon' />
+            <IconButton className='requirement-delete-button' type='submit'>
+                <Clear className='requirement-delete-icon' />
             </IconButton>
         </form>
     </div>

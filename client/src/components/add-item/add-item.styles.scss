@@ -3,11 +3,10 @@
     align-items: center;
     justify-content: flex-start;
     width: 70%;
-    height: 4.8rem;
+    height: 6rem;
     border-radius: .5rem;
     margin-top: 1rem;
     margin-bottom: 12rem;
-    padding: 1rem 1rem 1rem 0rem;
     background-color: rgba(#707eff, .7);
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
     cursor: pointer;
@@ -28,5 +27,38 @@
         color: white;
         font-size: 2.4rem;
         margin-left: 2rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .add-item {
+        width: 80%;
+
+        .add-item-text {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .add-item {
+        width: 90%;
+
+        .add-item-text {
+            font-size: 1.8rem;
+            margin-left: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .add-item {
+        height: 5rem;
+        margin-bottom: 8rem;
+
+        .add-item-text {
+            font-size: 1.6rem;
+            margin-left: .5rem;
+        }
     }
 }

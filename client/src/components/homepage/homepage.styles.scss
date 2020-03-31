@@ -24,9 +24,54 @@
     }
 
     &-graphic {
-        height: 25rem;
+        height: 22rem;
         position: absolute;
         bottom: 3rem;
         left: 5%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .homepage {
+
+    .homepage-graphic {
+            height: 20rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .homepage {
+
+        .homepage-text {
+            font-size: 6rem;
+        }
+
+        .homepage-subtext {
+            font-size: 2rem;
+        }
+
+        .homepage-graphic {
+            height: 20rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .homepage {
+
+        .homepage-text {
+            font-size: 4rem;
+        }
+
+        .homepage-subtext {
+            font-size: 1.8rem;
+        }
+
+        .homepage-graphic {
+            height: 18rem;
+            // Center: 118.7655 = half width of graphic
+            left: calc(50% - 118.7655px);
+        }
     }
 }

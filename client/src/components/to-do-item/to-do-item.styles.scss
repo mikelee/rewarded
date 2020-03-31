@@ -4,10 +4,8 @@
     background-color: white;
     color: black;
     width: 70%;
-    padding-right: 1rem;
     border-radius: .5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
 
     &-check {
@@ -33,7 +31,7 @@
             color: black;
             font-family: 'Noir';
             font-size: 2.4rem;
-            width: 50rem;
+            width: 100%;
             margin-left: 2rem;
             border: none;
             line-height: 4rem;
@@ -46,16 +44,54 @@
 
     &-delete-form {
         width: 5%;
+        padding-right: 1rem;
 
         .todo-icon-button {
             margin-right: 1rem;
             justify-self: flex-end;
+            padding: 0;
     
             .todo-clear-icon {
                 color: white;
                 background-color: #4254f7;
                 border-radius: 2rem;
             }
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .todo {
+        width: 80%;
+
+        .todo-edit-form-textfield {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .todo {
+        width: 90%;
+
+        .todo-edit-form-textfield {
+            font-size: 1.8rem;
+            margin-left: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .todo {
+        height: 5rem;
+        margin: .75rem 0;
+
+        .todo-edit-form-textfield {
+            font-size: 1.6rem;
+        }
+
+        .todo-clear-icon {
+            font-size: large;
         }
     }
 }

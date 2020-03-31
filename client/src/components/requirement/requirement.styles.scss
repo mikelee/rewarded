@@ -4,8 +4,8 @@
     background-color: white;
     color: black;
     border-radius: 2rem;
-    width: 38rem;
-    margin: 1rem 2rem;
+    width: 100%;
+    margin: 1rem 0rem;
 
     &-check-space {
         padding: 0 1rem;
@@ -17,16 +17,50 @@
         justify-content: space-between;
         width: 95%;
         align-items: center;
-        padding: 0 1.6rem;
+        padding: 0 1rem;
 
         &-text {
             margin: 0;
+            padding: 1rem 0;
         }
 
-        &-clear-icon {
-            color: white;
-            background-color: #4254f7;
-            border-radius: 2rem;
+        .requirement-delete-button {
+            padding: 0;
+            margin-left: 1rem;
+
+            .requirement-delete-icon {
+                color: white;
+                background-color: #4254f7;
+                border-radius: 2rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .requirement {
+    
+        .requirement-form-text {
+            font-size: 1.8rem;
+    
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .requirement {
+
+        .requirement-form-text {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .requirement {
+
+        .requirement-form-text {
+            font-size: 1.4rem;
         }
     }
 }

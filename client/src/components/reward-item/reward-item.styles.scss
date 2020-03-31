@@ -5,7 +5,6 @@
     font-size: 2rem;
     background-color: white;
     color: white;
-    padding-left: 1rem;
     border-radius: .5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -35,6 +34,8 @@
 
     &-right-side {
         display: flex;
+        flex-direction: column;
+        width: 100%;
         background-color: #707eff;
         padding-left: 6rem;
         clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
@@ -43,33 +44,108 @@
         .reward-to-complete {
             display: flex;
             flex-direction: column;
+            width: 90%;
     
             .requirements-title {
                 text-align: center;
             }
-    
+        }
+
+        .reward-buttons {
+            display: flex;
+            justify-content: space-between;
+            height: 6rem;
+            padding: 1rem 0;
+
             .requirement-add-button {
-                align-self: flex-end;
+                align-self: flex-start;
                 max-width: 7rem;
+                padding: 0;
         
                 .requirement-add-icon {
-                    justify-self: flex-end;
                     background-color: #4254f7;
                     color: white;
                     border-radius: 2rem;
                     padding: 1rem;
                 }
             }
-        }
 
-        .reward-delete-icon {
-            color: white;
-            background-color: #4254f7;
-            border-radius: 2rem;
+            .reward-delete-form {
+                align-self: flex-end;
+                margin-bottom: -1rem;
+
+                .reward-clear-icon {
+                    color: white;
+                    background-color: #4254f7;
+                    border-radius: 2rem;
+                }
+            }
         }
     } 
 }
 
 .unlocked {
     box-shadow: 0 0 2.5rem rgba(rgb(233, 176, 20), .8);
+}
+
+@media screen and (max-width: 900px) {
+    .reward {
+        width: 80%;
+
+        .reward-form-textfield {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .reward {
+        width: 90%;
+
+        .reward-form-textfield {
+            font-size: 1.8rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .reward {
+        flex-direction: column;
+        padding: 0;
+
+        .reward-form {
+            margin: 0;
+            width: 100%;
+
+            .reward-form-textfield {
+                font-size: 1.6rem;
+                margin-top: 1rem;
+                text-align: center;
+                width: 100%;
+                border: none;
+            }
+        }
+
+        .reward-right-side {
+            clip-path: polygon(0 4rem, 100% 0, 100% 100%, 0 100%);
+            width: 100%;
+            padding-left: 0;
+            border-radius: 0 0 .5rem .5rem;
+
+            .reward-to-complete {
+                display: flex;
+                align-items: center;
+                margin-left: 5%;
+
+                .requirements-title {
+                    font-size: 2rem;
+                    padding-top: 3rem;
+                }
+            }
+
+            .reward-buttons {
+                margin-left: 5%;
+            }
+        } 
+    }
 }

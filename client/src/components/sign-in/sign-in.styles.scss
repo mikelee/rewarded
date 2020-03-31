@@ -6,6 +6,7 @@
     &-message {
         color: #707eff;
         font-size: 4rem;
+        text-align: center;
     }
 
     &-form {
@@ -45,5 +46,35 @@
 
              }
          }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .sign-in {
+
+        .sign-in-form {
+            width: 50%;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .sign-in {
+        
+        .sign-in-form {
+            width: 70%;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .sign-in {
+
+        .sign-in-message {
+            font-size: 3.6rem;
+        }
+        .sign-in-form {
+            width: 85%;
+        }
     }
 }

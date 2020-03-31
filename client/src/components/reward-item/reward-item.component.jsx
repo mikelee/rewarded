@@ -122,15 +122,17 @@ class RewardItem extends React.Component {
                             <Requirement key={requirement.to_do_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
                         ))
                         : null }
+                    </div>
+                    <div className='reward-buttons'>
                         <IconButton className='requirement-add-button' onClick={this.addOrDeleteRequirement}>
                             <Add className='requirement-add-icon' fontSize='large'/>
                         </IconButton>
+                        <form className='reward-delete-form' onSubmit={this.deleteReward}>
+                            <IconButton className='reward-delete-form-button' type='submit'>
+                                <Clear className='reward-clear-icon' fontSize='large' />
+                            </IconButton>
+                        </form>
                     </div>
-                    <form onSubmit={this.deleteReward}>
-                        <IconButton type='submit'>
-                            <Clear className='reward-delete-icon' fontSize='large' />
-                        </IconButton>
-                    </form>
                 </div>
             </div>
         );

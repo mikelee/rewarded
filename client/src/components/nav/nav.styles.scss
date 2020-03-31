@@ -41,3 +41,27 @@
         }
     } 
 }
+
+@media screen and (max-width: 480px) {
+    .nav {
+        
+        .nav-buttons {
+            width: 100%;
+            justify-content: center;
+            justify-content: space-between !important;
+    
+            .nav-username {
+                margin-right: 0;
+            }
+    
+            .nav-item {
+                margin-left: 0;
+                margin-right: 0;
+    
+                .nav-item:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
