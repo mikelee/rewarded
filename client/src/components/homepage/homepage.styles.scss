@@ -59,6 +59,9 @@
 
 @media screen and (max-width: 480px) {
     .homepage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         .homepage-text {
             font-size: 4rem;
@@ -70,8 +73,8 @@
 
         .homepage-graphic {
             height: 18rem;
-            // Center: 118.7655 = half width of graphic
-            left: calc(50% - 118.7655px);
+            position: static;
+            margin-top: 20%;
         }
     }
 }
