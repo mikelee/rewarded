@@ -75,7 +75,7 @@ router.post('/api/get-requirements-and-todos', (req, res) => {
             FROM to_dos t
             LEFT JOIN requirements q
             ON t.to_do_id = q.to_do_id
-            WHERE q.reward_id <> ? OR q.reward_id IS NULL AND t.owner_id = ?
+            (WHERE q.reward_id <> ? OR q.reward_id IS NULL) AND t.owner_id = ?
             GROUP BY to_do_id
         ) AS a
         GROUP BY to_do_id
