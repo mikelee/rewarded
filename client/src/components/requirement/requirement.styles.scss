@@ -29,9 +29,15 @@
             margin-left: 1rem;
 
             .requirement-delete-icon {
-                color: white;
-                background-color: #4254f7;
+                color: #4856D7;
+                background-color: white;
                 border-radius: 2rem;
+
+                &:hover {
+                    color: white;
+                    background-color: #4856D7;
+                    transition: all .3s;
+                }
             }
         }
     }
