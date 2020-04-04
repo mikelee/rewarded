@@ -45,16 +45,24 @@
     &-delete-form {
         width: 5%;
         padding-right: 1rem;
+        display: flex;
+        justify-content: center;
 
         .todo-icon-button {
-            margin-right: 1rem;
+            // margin-right: 1rem;
             justify-self: flex-end;
             padding: 0;
     
             .todo-clear-icon {
-                color: white;
-                background-color: #4254f7;
+                color: #4856D7;
+                background-color: white;
                 border-radius: 2rem;
+
+                &:hover {
+                    color: white;
+                    background-color: #4856D7;
+                    transition: all .3s;
+                }
             }
         }
     }
