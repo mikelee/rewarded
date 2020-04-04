@@ -62,6 +62,17 @@
                 align-self: flex-start;
                 max-width: 7rem;
                 padding: 0;
+                transition: all .3s;
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 1rem 1rem rgba(black, .2);
+                }
+                
+                &:active {
+                    transform: translateY(2px);
+                    box-shadow: none;
+                }
         
                 .requirement-add-icon {
                     background-color: #4856D7;

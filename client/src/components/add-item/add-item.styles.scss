@@ -10,6 +10,17 @@
     background-color: rgba(#707eff, .7);
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
     cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 1rem 2rem 3rem rgba(black, .2);
+    }
+    
+    &:active {
+        transform: translateY(2px);
+        box-shadow: 1rem 1rem 2rem rgba(black, .2);
+    }
 
     .plus-container {
         display: flex;
