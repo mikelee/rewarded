@@ -19,7 +19,7 @@ class SignIn extends React.Component {
         event.preventDefault();
 
         try {
-            const response = await fetch('/sign-in', {
+            const response = await fetch(`/${this.props.type}`, {
                 method:'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -49,12 +49,12 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const { alreadySignedUp } = this.props;
+        const { type } = this.props;
 
         return (
             <div className='sign-in'>
                 <h3 className='sign-in-message'>
-                    {alreadySignedUp
+                    {type === 'sign-in'
                     ? 'Welcome Back!'
                     : 'Sign Up And Start Achieving!'
                     }
@@ -62,7 +62,7 @@ class SignIn extends React.Component {
                 <form className='sign-in-form' onSubmit={this.handleSubmit} >
                     <input type='text' name='username' onChange={this.handleChange} placeholder='username'></input>
                     <input type='password' name='password' onChange={this.handleChange} placeholder='password'></input>
-                    { alreadySignedUp ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
+                    { type === 'sign-in' ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
                 </form>
             </div>
         );

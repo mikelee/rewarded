@@ -27,14 +27,14 @@ const App = ({ currentUser }) => (
                 path='/sign-up'
                 render={() => currentUser
                     ? <Redirect to='/' />
-                    : <SignIn alreadySignedUp={false} />
+                    : <SignIn type='sign-up' />
                 }
             />
             <Route
                 path='/sign-in'
                 render={() => currentUser
                     ? <Redirect to='/' />
-                    : <SignIn alreadySignedUp={true} />
+                    : <SignIn type='sign-in' />
                 }
             />
 		</Switch>

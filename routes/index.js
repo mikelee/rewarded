@@ -5,20 +5,19 @@ const connection = require('../db');
 
 // Authentication Routes
 
+// Sign-Up route
+router.post('/sign-up', 
+    passport.authenticate('local-sign-up', { failureRedirect: '/sign-in' }), (req, res) => {
+        return res.json({ user: req.user });
+    }
+);
+
 // Sign-In route
 router.post('/sign-in', 
-  passport.authenticate('local', { failureRedirect: '/sign-in' }), (req, res) => {
-    connection.query('SELECT * FROM to_dos WHERE owner_id = ?', [req.user.user_id], (err, results) => {
-        if (!err) {
-            return res.json({
-                user: req.user,
-                to_dos: results
-            });
-        } else {
-            console.log(err);
-        }
-    });
-  });
+    passport.authenticate('local-sign-in', { failureRedirect: '/sign-in' }), (req, res) => {
+        return res.json({ user: req.user });
+    }
+);
 
 // Logout route
 router.post('/logout', (req, res) => {

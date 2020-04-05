@@ -44,7 +44,37 @@ if (process.env.NODE_ENV === 'production') {
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy({
+
+passport.use('local-sign-up', new LocalStrategy({
+    passReqToCallback: true
+},
+    function(req, username1, password1, done) {
+        const { username, password } = req.body;
+
+        connection.query('SELECT * FROM users WHERE username = ?', [username], (err, foundUser) => {
+            if (!err) {
+                const user = foundUser[0];
+
+                if (user) {
+                    console.log('Username already exists');
+                } else {
+                    bcrypt.hash(password, 10, (err, hash) => {
+                        connection.query('INSERT INTO users (username, hash) VALUES (?, ?)', [username, hash], (err, newUser) => {
+                            if (!err) {
+                                const passportUser = {user_id: newUser.insertId, username: username}
+                                return done(null, passportUser)
+                            }
+                        });
+                    });
+                }
+            } else {
+                console.log(err);
+            }
+        });
+    }
+));
+
+passport.use('local-sign-in', new LocalStrategy({
     passReqToCallback: true
 },
     function(req, username1, password1, done) {
@@ -62,14 +92,7 @@ passport.use(new LocalStrategy({
                         }
                     });
                 } else {
-                    bcrypt.hash(password, 10, (err, hash) => {
-                        connection.query('INSERT INTO users (username, hash) VALUES (?, ?)', [username, hash], (err, newUser) => {
-                            if (!err) {
-                                const passportUser = {user_id: newUser.insertId, username: username}
-                                return done(null, passportUser)
-                            }
-                        });
-                    });
+                    console.log('User not found');
                 }
             } else {
                 console.log(err);
