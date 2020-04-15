@@ -6,18 +6,30 @@ const connection = require('../db');
 // Authentication Routes
 
 // Sign-Up route
-router.post('/sign-up', 
-    passport.authenticate('local-sign-up', { failureRedirect: '/sign-in' }), (req, res) => {
-        return res.json({ user: req.user });
-    }
-);
+router.post('/sign-up', (req, res, next) => {
+    passport.authenticate('local-sign-up', (err, user, info) => {
+        if (info) {
+            return res.json({ errorMessage: info.message })
+        } else if (user) {
+            return res.json({ user: user });
+        }
+    })(req, res, next);
+});
 
 // Sign-In route
-router.post('/sign-in', 
-    passport.authenticate('local-sign-in', { failureRedirect: '/sign-in' }), (req, res) => {
-        return res.json({ user: req.user });
-    }
-);
+router.post('/sign-in', (req, res, next) => {
+    passport.authenticate('local-sign-in', (err, user, info) => {
+        if (info) {
+            return res.json({ errorMessage: info.message })
+        } else if (user) {
+            req.logIn(user, (err) => {
+                if (!err) {
+                    return res.json({ user: user });
+                }
+            });
+        }
+    })(req, res, next);
+});
 
 // Logout route
 router.post('/logout', (req, res) => {

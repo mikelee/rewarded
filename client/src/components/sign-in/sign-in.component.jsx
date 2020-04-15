@@ -11,12 +11,18 @@ class SignIn extends React.Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         }
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
+
+        const data = {
+            username: this.state.username,
+            password: this.state.password
+        }
 
         try {
             const response = await fetch(`/${this.props.type}`, {
@@ -27,15 +33,27 @@ class SignIn extends React.Component {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials' : true
                 },
-                body: JSON.stringify(this.state)
+                body: JSON.stringify(data)
             });
 
             const responseData = await response.json();
-            this.setState({
-                email: '',
-                password: ''
-            });
-            this.props.setCurrentUser(responseData.user);
+            const user = responseData.user;
+            const errorMessage = responseData.errorMessage;
+            
+            if (errorMessage) {
+                this.setState({
+                    errorMessage
+                });
+                setTimeout(() => {
+                    this.setState({errorMessage: ''});
+                }, 3000);
+            } else {
+                this.setState({
+                    email: '',
+                    password: ''
+                });
+                this.props.setCurrentUser(user);
+            }
         } catch(err) {
             console.log(err);
         }
@@ -50,6 +68,7 @@ class SignIn extends React.Component {
 
     render() {
         const { type } = this.props;
+        const { errorMessage } = this.state;
 
         return (
             <div className='sign-in'>
@@ -64,6 +83,10 @@ class SignIn extends React.Component {
                     <input type='password' name='password' onChange={this.handleChange} placeholder='password'></input>
                     { type === 'sign-in' ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
                 </form>
+                {errorMessage === ''
+                ? null
+                : <p className='sign-in-error-message'>{errorMessage}</p>
+                }
             </div>
         );
     }

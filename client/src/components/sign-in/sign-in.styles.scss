@@ -47,6 +47,15 @@
              }
          }
     }
+
+    .sign-in-error-message {
+        margin-top: 2rem;
+        font-size: 2rem;
+        background-color: rgba(red, .2);
+        color: rgba(#a13838, .8);
+        padding: 1rem;
+        border-radius:.5rem;
+    }
 }
 
 @media screen and (max-width: 900px) {

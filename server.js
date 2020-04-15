@@ -56,7 +56,7 @@ passport.use('local-sign-up', new LocalStrategy({
                 const user = foundUser[0];
 
                 if (user) {
-                    console.log('Username already exists');
+                    return done(null, false, { message: 'This username already exists' });
                 } else {
                     bcrypt.hash(password, 10, (err, hash) => {
                         connection.query('INSERT INTO users (username, hash) VALUES (?, ?)', [username, hash], (err, newUser) => {
@@ -89,10 +89,12 @@ passport.use('local-sign-in', new LocalStrategy({
                         if (res === true) {
                             const passportUser = {user_id: user.user_id, username: user.username};
                             return done(null, passportUser);
+                        } else {
+                            return done(null, false, { message: 'Incorrect username or password' });
                         }
                     });
                 } else {
-                    console.log('User not found');
+                    return done(null, false, { message: 'Incorrect username or password' });
                 }
             } else {
                 console.log(err);
