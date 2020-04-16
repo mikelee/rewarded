@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const methodOverride = require('method-override');
 const path = require('path');
 const redis = require('redis');
 const session = require('express-session');
@@ -20,7 +19,6 @@ const port = process.env.PORT || 4444;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
 app.use(cors());
 
 let RedisStore = require('connect-redis')(session);
