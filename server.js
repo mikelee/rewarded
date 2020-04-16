@@ -9,7 +9,8 @@ const passport = require('passport');
 const passportSetUp = require('./auth');
 
 // Routes
-const indexRoutes = require('./routes/index');
+const authRoutes = require('./routes/auth');
+const miscRoutes = require('./routes/misc');
 const toDoRoutes = require('./routes/toDos');
 const rewardRoutes = require('./routes/rewards');
 const requirementRoutes = require('./routes/requirements');
@@ -43,7 +44,8 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.use('/', indexRoutes);
+app.use('/', authRoutes);
+app.use('/', miscRoutes);
 app.use('/api/todo', toDoRoutes);
 app.use('/api/reward', rewardRoutes);
 app.use('/api/requirement', requirementRoutes);
