@@ -9,7 +9,10 @@ const ToggleButton = ({ type, completed, selectedReward, associatedReward, toggl
         {type === 'forTodo'
         ?
             <button className={`toggle-button ${completed === 1 ? 'completed' : ''}`} onClick={toggleToDoCompleted}>
-                <CheckRounded className={`check-icon ${completed === 1 ? 'completed' : ''}`} fontSize='large'/>
+                {completed === 1
+                ? <CheckRounded className={`check-icon ${completed === 1 ? 'completed' : ''}`} fontSize='large'/>
+                : null
+                }
             </button>
         :
             <button className={`toggle-button ${selectedReward === associatedReward ? 'completed' : ''}`} onClick={toggleRequirement}>
