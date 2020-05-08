@@ -49,20 +49,23 @@
         justify-content: center;
 
         .todo-icon-button {
-            // margin-right: 1rem;
             justify-self: flex-end;
-            padding: 0;
+            padding: .5rem;
+
+            &:hover {
+                background-color: #4856D7;
+                transform: rotate(90deg);
+                transition: all .3s;
+
+                & .todo-clear-icon {
+                    color: white;
+                    transition: all .3s;
+                }
+            }
     
             .todo-clear-icon {
                 color: #4856D7;
-                background-color: white;
                 border-radius: 2rem;
-
-                &:hover {
-                    color: white;
-                    background-color: #4856D7;
-                    transition: all .3s;
-                }
             }
         }
     }

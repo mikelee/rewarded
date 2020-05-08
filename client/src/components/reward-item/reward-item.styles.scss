@@ -87,19 +87,24 @@
                 margin-bottom: -1rem;
 
                 &-button {
-                    padding: 0;
+                    padding: .5rem;
                     margin: 1.2rem;
+
+                    &:hover {
+                        background-color: #4856D7;
+                        transform: rotate(90deg);
+                        transition: all .3s;
+
+                        & .reward-clear-icon {
+                            color: white;
+                            transition: all .3s;
+                        }
+                    }
                 }
 
                 .reward-clear-icon {
                     color: #4856D7;
                     border-radius: 2rem;
-
-                    &:hover {
-                        color: white;
-                        background-color: #4856D7;
-                        transition: all .3s;
-                    }
                 }
             }
         }
