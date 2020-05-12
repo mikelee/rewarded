@@ -7,7 +7,7 @@ router.post('/api', (req, res) => {
     const { user_id } = req.body;
 
     connection.query(`
-        SELECT * FROM to_dos WHERE owner_id = ?;
+        SELECT * FROM to_dos WHERE owner_id = ? ORDER BY completed;
         SELECT * FROM rewards WHERE owner_id = ?;
         SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.text as text, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = ?;
     `, [user_id, user_id, user_id], (err, results) => {
@@ -53,7 +53,7 @@ router.post('/api/get-requirements-and-todos', (req, res) => {
             GROUP BY to_do_id
         ) AS a
         GROUP BY to_do_id
-        ORDER BY to_do_id;
+        ORDER BY completed;
     `, [reward_id, owner_id, reward_id, owner_id], (err, results) => {
         if (!err) {
             res.json(results);
