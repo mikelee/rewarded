@@ -1,7 +1,7 @@
 .toggle-button-container {
     height: 6rem;
     border-radius: .5rem 0 0 .5rem;
-    clip-path: polygon(0 -.5px, 85% -.5px, 100% calc(100%), 0 calc(100% + .5px));
+    clip-path: polygon(-.5px -.5px, 85% -.5px, 100% calc(100% + .5px), -.5px calc(100% + .5px));
     width: 10%;
 
     .toggle-button {
@@ -13,7 +13,7 @@
         border: none;
         border-radius: .5rem 0 0 .5rem;
         background-color: #707eff;
-        clip-path: polygon(0 -.5px, 85% -.5px, 100% calc(100%), 0 calc(100% + .5px));
+        clip-path: polygon(-.5px -.5px, 85% -.5px, 100% calc(100% + .5px), -.5px calc(100% + .5px));
         outline: none;
         cursor: pointer;
     
