@@ -6,19 +6,12 @@ import { CheckRounded } from '@material-ui/icons';
 
 const ToggleButton = ({ type, completed, selectedReward, associatedReward, toggleToDoCompleted, toggleRequirement }) => (
     <div className='toggle-button-container'>
-        {type === 'forTodo'
-        ?
-            <button className={`toggle-button ${completed === 1 ? 'completed' : ''}`} onClick={toggleToDoCompleted}>
-                {completed === 1
-                ? <CheckRounded className={`check-icon ${completed === 1 ? 'completed' : ''}`} fontSize='large'/>
-                : null
-                }
-            </button>
-        :
-            <button className={`toggle-button ${selectedReward === associatedReward ? 'completed' : ''}`} onClick={toggleRequirement}>
-                <CheckRounded className={`check-icon ${selectedReward === associatedReward ? 'completed' : ''}`} fontSize='large'/>
-            </button>
-        }
+        <button className={`toggle-button ${selectedReward === associatedReward && selectedReward !== null && type === 'forRequirement' ? 'selected' : ''}`} onClick={type === 'forTodo' ? toggleToDoCompleted : toggleRequirement}>
+            {completed === 1
+            ? <CheckRounded className={`check-icon ${selectedReward === associatedReward && selectedReward !== null && type === 'forRequirement' ? 'selected' : ''}`} fontSize='large'/>
+            : null
+            }
+        </button>
     </div>
 );
 

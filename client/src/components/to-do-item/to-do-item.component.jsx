@@ -117,7 +117,7 @@ class ToDoItem extends React.Component {
             <div className='todo'>
                 {!selectedReward
                 ? <ToggleButton type='forTodo' completed={completed} toggleToDoCompleted={this.toggleToDoCompleted} />
-                : <ToggleButton type='forRequirement' selectedReward={selectedReward} associatedReward={associatedReward} toggleRequirement={this.createOrDeleteRequirement} />
+                : <ToggleButton type='forRequirement' selectedReward={selectedReward} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
                 }
                 <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
                     <input name='text' className='todo-edit-form-textfield' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
