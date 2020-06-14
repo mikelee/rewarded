@@ -1,89 +1,175 @@
 .sign-in {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    height: calc(100vh - 6rem);
 
-    &-message {
-        color: #707eff;
-        font-size: 4rem;
-        text-align: center;
-    }
-
-    &-form {
+    .content {
         display: flex;
-        flex-direction: column;
-        width: 30%;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+        width: 80%;
+        background-color: white;
+        box-shadow: 1rem 1rem 2rem rgba(black, .2);
+        border-radius: .5rem;
 
-         & input {
-             border: 1px solid #707eff;
-             border-radius: .5rem;
-             padding: 1rem;
-             margin-bottom: 1rem;
+        .sign-in-left {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            width: 50%;
+            background-color: #707eff;
+            clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+            border-radius: .5rem 0 0 .5rem;
 
-             &:focus {
-                 outline: none;
-             }
-         }
+            .bench-graphic {
+                align-self: flex-end;
+                height: 30rem;
+                margin-bottom: 6rem;
+                margin-left: -7.5%;
+            }
+        }
+    
+        .sign-in-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%;
+            width: 50%;
 
-         & button {
-             color: white;
-             background-color: #707eff;
-             font-size: 2rem;
-             border: none;
-             border-radius: 2rem;
-             padding: 1rem;
-             outline: none;
-             transition: all .2s;
+            .sign-in-title {
+                text-align: center;
+                color: #707eff;
+                font-size: 4rem;
+                margin: 4rem 0 8rem 0;
+            }
+    
+            .sign-in-form {
+                display: flex;
+                flex-direction: column;
+                align-self: center;
+                width: 80%;
+        
+                 & input {
+                     border:none;
+                     background-color: rgba(#707eff, .1);
+                     color: #4856D7;
+                     border-radius: .5rem;
+                     padding: 1rem;
+                     margin-bottom: 1.6rem;
+                     font-size: 1.6rem;
 
-             &:hover {
-                 transform: translateY(-2px);
-                 box-shadow: 0 1rem 1rem rgba(black, .2);
-             }
-             
-             &:active {
-                 transform: translateY(2px);
-                 box-shadow: none;
+                     &::placeholder {
+                         color: rgba(#4856D7, .5);
+                     }
+        
+                     &:focus {
+                         outline: none;
+                     }
+                 }
+        
+                 & button {
+                     color: white;
+                     background-color: #707eff;
+                     font-size: 2rem;
+                     border: none;
+                     border-radius: 2rem;
+                     padding: 1rem;
+                     outline: none;
+                     transition: all .2s;
+                     margin: .5rem 0;
+        
+                     &:hover {
+                         transform: translateY(-2px);
+                         box-shadow: 0 1rem 1rem rgba(black, .2);
+                     }
+                     
+                     &:active {
+                         transform: translateY(2px);
+                         box-shadow: none;
+                     }
+                 }
+            }
 
-             }
-         }
-    }
-
-    .sign-in-error-message {
-        margin-top: 2rem;
-        font-size: 2rem;
-        background-color: rgba(red, .2);
-        color: rgba(#a13838, .8);
-        padding: 1rem;
-        border-radius:.5rem;
+            .sign-in-error-message {
+                margin-top: 2rem;
+                font-size: 2rem;
+                background-color: rgba(red, .2);
+                color: rgba(#a13838, .8);
+                padding: 1rem;
+                border-radius: .5rem;
+                width: 80%;
+                align-self: center;
+                text-align: center;
+            }
+        }
     }
 }
 
 @media screen and (max-width: 900px) {
     .sign-in {
 
-        .sign-in-form {
-            width: 50%;
+        .content {
+
+            .sign-in-left {
+
+                .bench-graphic {
+                    height: 25rem;
+                }
+            }
+
+            .sign-in-right {
+
+                .sign-in-form {
+                    width: 85%;
+                }
+            }
         }
     }
 }
 
 @media screen and (max-width: 600px) {
     .sign-in {
-        
-        .sign-in-form {
-            width: 70%;
-        }
-    }
-}
 
-@media screen and (max-width: 480px) {
-    .sign-in {
-
-        .sign-in-message {
-            font-size: 3.6rem;
-        }
-        .sign-in-form {
+        .content {
+            flex-direction: column-reverse;
+            height: 90%;
             width: 85%;
+
+            .sign-in-right {
+                height: 60%;
+                width: 100%;
+
+                .sign-in-title {
+                    font-size: 3.6rem;
+                }
+
+                .sign-in-form {
+
+                    & button {
+                        font-size: 1.6rem;
+                    }
+                }
+
+                .sign-in-error-message {
+                    margin-top: 1rem;
+                    font-size: 1.6rem;
+                }
+            }
+
+            .sign-in-left {
+                height: 40%;
+                width: 100%;
+                clip-path: polygon(calc(-.5px) 0, calc(100% + .5px) 15%, calc(100% + .5px) 100%, -.5px 100%);
+                border-radius: 0 0 .5rem .5rem;
+
+                .bench-graphic {
+                    height: 20rem;
+                    margin-bottom: 1rem;
+                    margin-left: 0;
+                }
+            }
         }
     }
 }

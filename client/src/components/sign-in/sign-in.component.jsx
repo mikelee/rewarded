@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './sign-in.styles.scss';
+import benchGraphic from '../../assets/bench_checklist.svg';
 
 import { setCurrentUser } from '../../redux/user/user.actions';
 
@@ -72,21 +73,28 @@ class SignIn extends React.Component {
 
         return (
             <div className='sign-in'>
-                <h3 className='sign-in-message'>
-                    {type === 'sign-in'
-                    ? 'Welcome Back!'
-                    : 'Sign Up And Start Achieving!'
-                    }
-                </h3>
-                <form className='sign-in-form' onSubmit={this.handleSubmit} >
-                    <input type='text' name='username' onChange={this.handleChange} placeholder='username'></input>
-                    <input type='password' name='password' onChange={this.handleChange} placeholder='password'></input>
-                    { type === 'sign-in' ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
-                </form>
-                {errorMessage === ''
-                ? null
-                : <p className='sign-in-error-message'>{errorMessage}</p>
-                }
+                <div className='content'>
+                    <div className='sign-in-left'>
+                        <img className='bench-graphic' src={benchGraphic} alt='To do list graphic' />
+                    </div>
+                    <div className='sign-in-right'>
+                        <h3 className='sign-in-title'>
+                            {type === 'sign-in'
+                            ? 'Welcome Back!'
+                            : 'Start Achieving!'
+                            }
+                        </h3>
+                        <form className='sign-in-form' onSubmit={this.handleSubmit} >
+                            <input type='text' name='username' onChange={this.handleChange} placeholder='username'></input>
+                            <input type='password' name='password' onChange={this.handleChange} placeholder='password'></input>
+                            { type === 'sign-in' ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
+                        </form>
+                        {errorMessage === ''
+                        ? null
+                        : <p className='sign-in-error-message'>{errorMessage}</p>
+                        }
+                    </div>
+                </div>
             </div>
         );
     }
