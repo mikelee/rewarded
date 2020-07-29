@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Toggle Button without CheckRoundedIcon 1`] = `
+<div
+  className="toggle-button-container"
+>
+  <button
+    className="toggle-button "
+    onClick={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`should render ToggleButton with CheckRoundedIcon 1`] = `
+<div
+  className="toggle-button-container"
+>
+  <button
+    className="toggle-button "
+    onClick={[MockFunction]}
+  >
+    <CheckRoundedIcon
+      className="check-icon "
+      fontSize="large"
+    />
+  </button>
+</div>
+`;
