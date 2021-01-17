@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .add-item {
     display: flex;
     align-items: center;
@@ -6,7 +8,7 @@
     height: 6rem;
     border-radius: .5rem;
     margin-top: 1rem;
-    background-color: rgba(#707eff, .7);
+    background-color: var(--color-primary-faded);
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
     cursor: pointer;
     transition: all .3s;

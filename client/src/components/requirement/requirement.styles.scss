@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .requirement {
     display: flex;
     align-items: center;
@@ -29,7 +31,7 @@
             margin-left: 1rem;
 
             &:hover {
-                background-color: #4856D7;
+                background-color: var(--color-primary-dark);
                 transform: rotate(90deg);
                 transition: all .3s;
 
@@ -40,7 +42,7 @@
             }
 
             .requirement-delete-icon {
-                color: #4856D7;
+                color: var(--color-primary-dark);
                 border-radius: 2rem;
             }
         }
