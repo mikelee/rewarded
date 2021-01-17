@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .to-do-container {
     display: flex;
     flex-direction: column;
@@ -13,7 +15,7 @@
         align-self: flex-end;
         margin-right: 15%;
         color: white;
-        background-color: #707eff;
+        background-color: var(--color-primary);
         font-size: 2rem;
         border: none;
         border-radius: 2rem;

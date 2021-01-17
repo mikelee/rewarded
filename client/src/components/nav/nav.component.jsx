@@ -20,6 +20,45 @@ class Nav extends React.Component {
         });
 
         this.props.setCurrentUser(null);
+
+        document.body.style.setProperty('--color-primary', '#707eff');
+        document.body.style.setProperty('--color-primary-faded', 'rgba(72, 86, 215, .7)');
+        document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
+
+    }
+
+    toggleColor = event => {
+        const colorName = event.target.name;
+        let color;
+        let colorRGB;
+        let colorDark;
+
+        switch (colorName) {
+            case 'red':
+                color = '#f0654f';
+                colorRGB = '240, 101, 79';
+                colorDark = '#c83c27';
+                break;
+            case 'blue':
+                color = '#4195f0';
+                colorRGB = '65, 149, 240';
+                colorDark = '#196ec8';
+                break;
+            case 'green':
+                color = '#2db92d';
+                colorRGB = '45, 185, 45';
+                colorDark = '#059105';
+                break;
+            case 'purple':
+                color = '#707eff';
+                colorRGB = '112, 126, 255';
+                colorDark = '#4856d7'
+                break;
+        }
+
+        document.body.style.setProperty('--color-primary', color);
+        document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
+        document.body.style.setProperty('--color-primary-dark', colorDark);
     }
 
     render() {
@@ -31,6 +70,10 @@ class Nav extends React.Component {
                     <div className='nav-buttons'>
                         <h3 className='nav-username'>Hi, {currentUser.username}</h3>
                         <button className='nav-item nav-logout-button' onClick={this.logout}>Logout</button>
+                        <button onClick={this.toggleColor} name='red'>red</button>
+                        <button onClick={this.toggleColor} name='blue'>blue</button>
+                        <button onClick={this.toggleColor} name='green'>green</button>
+                        <button onClick={this.toggleColor} name='purple'>purple</button>
                     </div>
                     :
                     <div className='nav-buttons'>

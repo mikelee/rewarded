@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .todo {
     display: flex;
     align-items: center;
@@ -9,7 +11,7 @@
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
 
     &-check {
-        background-color: #707eff;
+        background-color: var(--color-primary);
         padding: 1rem 0 1rem 1rem;
         border-radius: .5rem 0 0 .5rem;
         clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
@@ -53,7 +55,7 @@
             padding: .5rem;
 
             &:hover {
-                background-color: #4856D7;
+                background-color: var(--color-primary-dark);
                 transform: rotate(90deg);
                 transition: all .3s;
 
@@ -64,7 +66,7 @@
             }
     
             .todo-clear-icon {
-                color: #4856D7;
+                color: var(--color-primary-dark);
                 border-radius: 2rem;
             }
         }
