@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import './nav.styles.scss';
+import menuIcon from '../../assets/menu_icon.svg';
+import Menu from '../menu/menu.component';
 import { setCurrentUser } from '../../redux/user/user.actions';
+import { toggleMenuVisible } from '../../redux/menu/menu.actions';
+import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 
 class Nav extends React.Component {
 
@@ -23,6 +28,7 @@ class Nav extends React.Component {
 
         document.body.style.setProperty('--color-primary', '#707eff');
         document.body.style.setProperty('--color-primary-faded', 'rgba(72, 86, 215, .7)');
+        document.body.style.setProperty('--color-primary-superfaded', 'rgba(72, 86, 215, .1)');
         document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
 
     }
@@ -58,11 +64,12 @@ class Nav extends React.Component {
 
         document.body.style.setProperty('--color-primary', color);
         document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
+        document.body.style.setProperty('--color-primary-superfaded', `rgba(${colorRGB}, .1)`);
         document.body.style.setProperty('--color-primary-dark', colorDark);
     }
 
     render() {
-        const { currentUser } = this.props;
+        const { currentUser, visible, toggleMenuVisible } = this.props;
 
         return (
             <div className='nav'>
@@ -74,6 +81,7 @@ class Nav extends React.Component {
                         <button onClick={this.toggleColor} name='blue'>blue</button>
                         <button onClick={this.toggleColor} name='green'>green</button>
                         <button onClick={this.toggleColor} name='purple'>purple</button>
+                        <img className='menu-icon' src={menuIcon} onClick={toggleMenuVisible} />
                     </div>
                     :
                     <div className='nav-buttons'>
@@ -81,13 +89,23 @@ class Nav extends React.Component {
                         <Link to='/sign-in' className='nav-item'>Sign In</Link>
                     </div>
                 }
+                {visible ?
+                    <Menu />
+                :
+                    null
+                }
             </div>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapStateToProps = createStructuredSelector({
+    visible: selectMenuVisible
 });
 
-export default connect(null, mapDispatchToProps)(Nav);
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    toggleMenuVisible: () => dispatch(toggleMenuVisible())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

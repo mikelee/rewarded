@@ -16,7 +16,7 @@
 
         .nav-username {
             color: white;
-            margin-right: 2rem;
+            margin-right: 6rem;
         }
 
         .nav-item {
@@ -40,6 +40,12 @@
             height: 50%;
             outline: none;
         }
+
+        .menu-icon {
+            height: 2.2rem;
+            padding: 2rem;
+            cursor: pointer;
+        }
     } 
 }
 
@@ -53,6 +59,7 @@
     
             .nav-username {
                 margin-right: 0;
+                padding-left: 2rem;
             }
     
             .nav-item {
