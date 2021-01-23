@@ -6,32 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import './nav.styles.scss';
 import menuIcon from '../../assets/menu_icon.svg';
 import Menu from '../menu/menu.component';
-import { setCurrentUser } from '../../redux/user/user.actions';
 import { toggleMenuVisible } from '../../redux/menu/menu.actions';
 import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 
 class Nav extends React.Component {
-
-    logout = () => {
-        fetch('/logout', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials' : true
-            },
-            credentials: 'same-origin'
-        });
-
-        this.props.setCurrentUser(null);
-
-        document.body.style.setProperty('--color-primary', '#707eff');
-        document.body.style.setProperty('--color-primary-faded', 'rgba(72, 86, 215, .7)');
-        document.body.style.setProperty('--color-primary-superfaded', 'rgba(72, 86, 215, .1)');
-        document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
-
-    }
 
     toggleColor = event => {
         const colorName = event.target.name;
@@ -76,7 +54,6 @@ class Nav extends React.Component {
                 {currentUser ?
                     <div className='nav-buttons'>
                         <h3 className='nav-username'>Hi, {currentUser.username}</h3>
-                        <button className='nav-item nav-logout-button' onClick={this.logout}>Logout</button>
                         <button onClick={this.toggleColor} name='red'>red</button>
                         <button onClick={this.toggleColor} name='blue'>blue</button>
                         <button onClick={this.toggleColor} name='green'>green</button>
@@ -104,7 +81,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user)),
     toggleMenuVisible: () => dispatch(toggleMenuVisible())
 });
 
