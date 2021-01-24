@@ -29,4 +29,9 @@
             border-bottom: 1px solid var(--color-primary-superfaded);
         }
     }
+
+    &-logout-button:hover {
+        background-color: var(--color-primary-faded);
+        color: white;
+    }
 }
