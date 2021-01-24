@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import './nav.styles.scss';
-import menuIcon from '../../assets/menu_icon.svg';
 import Menu from '../menu/menu.component';
 import { toggleMenuVisible } from '../../redux/menu/menu.actions';
 import { selectMenuVisible } from '../../redux/menu/menu.selectors';
@@ -58,7 +57,14 @@ class Nav extends React.Component {
                         <button onClick={this.toggleColor} name='blue'>blue</button>
                         <button onClick={this.toggleColor} name='green'>green</button>
                         <button onClick={this.toggleColor} name='purple'>purple</button>
-                        <img className='menu-icon' src={menuIcon} onClick={toggleMenuVisible} />
+                        <svg className='menu-icon' onClick={toggleMenuVisible} viewBox="0 0 150 65" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <title>menu_icon</title>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="top" fill="#FFFFFF" x="0" y="0" width="150" height="5" rx="2.5"></rect>
+                                <rect id="middle" fill="#FFFFFF" x="25" y="30" width="125" height="5" rx="2.5"></rect>
+                                <rect id="bottom" fill="#FFFFFF" x="0" y="60" width="150" height="5" rx="2.5"></rect>
+                            </g>
+                        </svg>
                     </div>
                     :
                     <div className='nav-buttons'>

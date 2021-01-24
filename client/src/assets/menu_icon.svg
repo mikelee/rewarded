@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="602px" height="262px" viewBox="0 0 602 262" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>menu_icon</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect id="Bottom" stroke="#979797" fill="#FFFFFF" x="1" y="241" width="600" height="20" rx="10"></rect>
-        <rect id="Middle" stroke="#979797" fill="#FFFFFF" x="101" y="121" width="500" height="20" rx="10"></rect>
-        <rect id="Top" stroke="#979797" fill="#FFFFFF" x="1" y="1" width="600" height="20" rx="10"></rect>
-    </g>
-</svg>

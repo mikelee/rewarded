@@ -33,9 +33,22 @@
         }
 
         .menu-icon {
-            height: 2.2rem;
+            height: 2rem;
             padding: 2rem;
+            overflow: visible;
             cursor: pointer;
+
+            &:hover #top {
+                animation: moveLeft .2s ease-out;
+            }
+
+            &:hover #middle {
+                animation: moveLeft .2s .1s ease-out;
+            }
+
+            &:hover #bottom {
+                animation: moveLeft .2s .2s ease-out;
+            }
         }
     } 
 }
@@ -62,5 +75,19 @@
                 }
             }
         }
+    }
+}
+
+@keyframes moveLeft {
+    0% {
+        transform: translateX(0rem);
+    }
+
+    50% {
+        transform: translateX(-3rem);
+    }
+
+    100% {
+        transform: translateX(0rem);
     }
 }
