@@ -24,7 +24,7 @@ class Menu extends React.Component {
         this.props.toggleMenuVisible();
 
         document.body.style.setProperty('--color-primary', '#707eff');
-        document.body.style.setProperty('--color-primary-faded', 'rgba(72, 86, 215, .7)');
+        document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
         document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
     }
 
