@@ -53,6 +53,28 @@
     } 
 }
 
+// For CSS Transition Group animation
+.menu-slide-in {
+
+    &-enter {
+        transform: translateX(100%);
+    }
+
+    &-enter.menu-slide-in-enter-active {
+        transform: translateX(0rem);
+        transition: all .5s ease-in-out;
+    }
+
+    &-leave {
+        transform: translateX(0rem);
+    }
+
+    &-leave.menu-slide-in-leave-active {
+        transform: translateX(100%);
+        transition: all .5s ease-in-out;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .nav {
         

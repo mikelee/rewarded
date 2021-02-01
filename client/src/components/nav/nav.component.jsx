@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import './nav.styles.scss';
 import Menu from '../menu/menu.component';
@@ -72,11 +73,17 @@ class Nav extends React.Component {
                         <Link to='/sign-in' className='nav-item'>Sign In</Link>
                     </div>
                 }
-                {visible ?
-                    <Menu />
-                :
-                    null
-                }
+                    <CSSTransitionGroup
+                        transitionName='menu-slide-in'
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}
+                    >
+                        {visible ?
+                            <Menu key={1}/>
+                        :
+                            null
+                        }
+                    </CSSTransitionGroup>
             </div>
         );
     }
