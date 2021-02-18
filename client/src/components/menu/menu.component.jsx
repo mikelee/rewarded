@@ -1,8 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import './menu.styles.scss';
+
+import Submenu from '../submenu/submenu.component'
+
 import { toggleMenuVisible } from '../../redux/menu/menu.actions';
+import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
+import { setSubmenuCategory } from '../../redux/menu/menu.actions'
 import { setCurrentUser } from '../../redux/user/user.actions';
 
 class Menu extends React.Component {
@@ -28,19 +34,38 @@ class Menu extends React.Component {
         document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
     }
 
+    clickMenuItem = event => {
+        let category = event.target.getAttribute('name');
+        this.props.setSubmenuCategory(category);
+    }
+
     render() {
+        const { submenuCategory } = this.props; 
+        
         return (
             <div className='menu'>
-                <p className='menu-item menu-colors' name='colors'>Color Theme</p>
-                <p className='menu-item menu-logout-button' onClick={this.logout}>Logout</p>
+                {
+                !submenuCategory ? 
+                    <div className='menu-items' onClick={this.clickMenuItem}>
+                        <p className='menu-item menu-colors' name='Color Theme'>Color Theme</p>
+                        <p className='menu-item menu-logout-button' onClick={this.logout}>Logout</p>
+                    </div>
+                :
+                    <Submenu />
+                }
             </div>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user)),
-    toggleMenuVisible: () => dispatch(toggleMenuVisible())
+const mapStateToProps = createStructuredSelector({
+   submenuCategory: getSubmenuCategory
 });
 
-export default connect(null, mapDispatchToProps)(Menu);
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    toggleMenuVisible: () => dispatch(toggleMenuVisible()),
+    setSubmenuCategory: category => dispatch(setSubmenuCategory(category))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
