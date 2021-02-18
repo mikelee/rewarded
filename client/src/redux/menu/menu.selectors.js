@@ -6,3 +6,8 @@ export const selectMenuVisible = createSelector(
     [selectMenu],
     menu => menu.visible
 );
+
+export const getSubmenuCategory = createSelector(
+    [selectMenu],
+    menu => menu.submenuCategory
+);
