@@ -1,0 +1,49 @@
+.submenu {
+
+    &-top {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+
+        .back-button {
+            position: absolute;
+            left: 0;
+            height: 2.4rem;
+            width: 2.4rem;
+            padding: 1rem;
+            cursor: pointer;
+        }
+    }
+    
+    .color-buttons {
+        display: flex;
+        justify-content: space-around;  
+
+        .color-button {
+            height: 3rem;
+            width: 3rem;
+            margin: 1rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .red {
+            background-color: #f0654f;
+        }
+    
+        .blue {
+            background-color: #4195f0;
+        }
+    
+        .green {
+            background-color: #2db92d;
+        }
+    
+        .purple {
+            background-color: #707eff;
+        }
+    }
+}
