@@ -12,6 +12,7 @@
     flex-direction: column;
     width: 24rem;
     background-color: white;
+    z-index: 10;
 
     &-item {
         color: var(--color-primary);
