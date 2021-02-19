@@ -10,7 +10,8 @@ router.post('/api', (req, res) => {
         SELECT * FROM to_dos WHERE owner_id = ? ORDER BY completed;
         SELECT * FROM rewards WHERE owner_id = ?;
         SELECT q.reward_id AS reward_id, q.to_do_id AS to_do_id, t.text as text, t.completed AS completed FROM requirements q LEFT JOIN to_dos t ON q.to_do_id = t.to_do_id WHERE t.owner_id = ?;
-    `, [user_id, user_id, user_id], (err, results) => {
+        SELECT color_theme FROM SETTINGS WHERE user_id = ?;
+    `, [user_id, user_id, user_id, user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
