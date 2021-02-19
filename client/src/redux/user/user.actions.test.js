@@ -1,5 +1,5 @@
 import { setCurrentUser } from './user.actions';
-import { UserActionTypes } from './user.types'
+import { userActionTypes } from './user.types'
 
 it('should create an action to set the current user', () => {
     const user = {
@@ -8,7 +8,7 @@ it('should create an action to set the current user', () => {
     };
 
     const expectedAction = {
-        type: UserActionTypes.SET_CURRENT_USER,
+        type: userActionTypes.SET_CURRENT_USER,
         payload: user
     };
 
