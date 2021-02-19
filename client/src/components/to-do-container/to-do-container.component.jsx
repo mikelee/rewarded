@@ -14,6 +14,8 @@ import { getRewards, getSelectedReward } from '../../redux/rewards/rewards.selec
 import { setRewards, setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
+import { getColorTheme } from '../../redux/user/user.selectors';
+import { setColorTheme } from '../../redux/user/user.actions';
 
 class ToDoContainer extends React.Component {
     constructor(props) {
@@ -73,10 +75,52 @@ class ToDoContainer extends React.Component {
             .then(json => {
                 this.props.setToDos(json[0]);
                 this.props.setRequirements(json[2]);
-                this.props.setRewards(json[1])
+                this.props.setRewards(json[1]);
                 this.assignUnlock(json[1]);
+
+                const colorTheme = json[3][0].color_theme;
+                this.props.setColorTheme(colorTheme);
+            })
+            .then(() => {
+                this.updateColorTheme()
             });
         }
+    }
+
+    updateColorTheme = () => {
+        const colorName = this.props.colorTheme;
+
+        let color;
+        let colorRGB;
+        let colorDark;
+
+        switch (colorName) {
+            case 'red':
+                color = '#f0654f';
+                colorRGB = '240, 101, 79';
+                colorDark = '#c83c27';
+                break;
+            case 'blue':
+                color = '#4195f0';
+                colorRGB = '65, 149, 240';
+                colorDark = '#196ec8';
+                break;
+            case 'green':
+                color = '#2db92d';
+                colorRGB = '45, 185, 45';
+                colorDark = '#059105';
+                break;
+            case 'purple':
+                color = '#707eff';
+                colorRGB = '112, 126, 255';
+                colorDark = '#4856d7'
+                break;
+        }
+
+        document.body.style.setProperty('--color-primary', color);
+        document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
+        document.body.style.setProperty('--color-primary-superfaded', `rgba(${colorRGB}, .1)`);
+        document.body.style.setProperty('--color-primary-dark', colorDark);
     }
 
     fetchToDos = () => {
@@ -187,7 +231,8 @@ const mapStateToProps = createStructuredSelector({
     toDos: getToDos,
     rewards: getRewards,
     selectedReward: getSelectedReward,
-    requirements: getRequirements
+    requirements: getRequirements,
+    colorTheme: getColorTheme
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -195,7 +240,8 @@ const mapDispatchToProps = dispatch => ({
     setRewards: rewards => dispatch(setRewards(rewards)),
     setSelectedReward: reward => dispatch(setSelectedReward(reward)),
     setIsUnlocked: requirements => dispatch(setIsUnlocked(requirements)),
-    setRequirements: requirements => dispatch(setRequirements(requirements))
+    setRequirements: requirements => dispatch(setRequirements(requirements)),
+    setColorTheme: color => dispatch(setColorTheme(color))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoContainer);
