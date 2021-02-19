@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import './submenu.styles.scss';
+
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions';
-import './submenu.styles.scss';
+import { setColorTheme } from '../../redux/user/user.actions';
+import { getCurrentUser } from '../../redux/user/user.selectors';
+
 
 class Submenu extends React.Component {
 
@@ -30,6 +34,27 @@ class Submenu extends React.Component {
 
     toggleColor = event => {
         const colorName = event.target.name;
+
+        const data = {
+            color: colorName,
+            user_id: this.props.currentUser.user_id
+        }
+
+        fetch('api/settings/color-theme/update', {
+            method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials' : true
+                },
+                body: JSON.stringify(data)
+        })
+        .then(() => {
+            this.props.setColorTheme(colorName);
+        });
+
+        
         let color;
         let colorRGB;
         let colorDark;
@@ -88,11 +113,13 @@ class Submenu extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-    submenuCategory: getSubmenuCategory
+    submenuCategory: getSubmenuCategory,
+    currentUser: getCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-    setSubmenuCategory: category => dispatch(setSubmenuCategory(category))
+    setSubmenuCategory: category => dispatch(setSubmenuCategory(category)),
+    setColorTheme: color => dispatch(setColorTheme(color))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Submenu);
