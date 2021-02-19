@@ -1,7 +1,10 @@
 import { userActionTypes } from './user.types';
 
 const INITIAL_STATE = {
-  currentUser: null
+  currentUser: null,
+  settings: {
+    colorTheme: null
+  }
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +14,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
           ...state,
           currentUser: action.payload
         };
+      case userActionTypes.SET_COLOR_THEME:
+        return {
+          ...state,
+          settings: {
+            ...state.settings,
+            colorTheme: action.payload
+          }
+        }
       default:
         return state;
     }
