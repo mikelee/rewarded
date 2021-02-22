@@ -12,6 +12,10 @@ import { getCurrentUser } from '../../redux/user/user.selectors';
 
 class Submenu extends React.Component {
 
+    componentWillUnmount() {
+        this.props.setSubmenuCategory(null);
+    }
+
     getComponent() {
         const { submenuCategory } = this.props;
 
