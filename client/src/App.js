@@ -7,8 +7,8 @@ import './App.scss';
 
 import Nav from './components/nav/nav.component';
 import HomePage from './components/homepage/homepage.component';
-import ToDoContainer from './components/to-do-container/to-do-container.component';
 import SignIn from './components/sign-in/sign-in.component';
+import DataLoader from './components/data-loader/data-loader.component';
 
 import { getCurrentUser } from './redux/user/user.selectors';
 
@@ -19,7 +19,7 @@ const App = ({ currentUser }) => (
             <Route
                 exact path='/'
                 render={() => currentUser
-                    ? <ToDoContainer currentUser={currentUser} />
+                    ? <DataLoader currentUser={currentUser} />
                     : <HomePage />
                 }
             />

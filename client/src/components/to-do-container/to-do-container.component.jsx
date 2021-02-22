@@ -24,11 +24,6 @@ class ToDoContainer extends React.Component {
         this.selectionTitle = React.createRef();
     }
 
-    componentDidMount() {
-        this.fetchToDosRewardsAndRequirements();
-        this.props.setSelectedReward(null);
-    }
-
     assignUnlock = (rewards) => {
         if (rewards) {
             const { requirements } = this.props;
@@ -57,70 +52,6 @@ class ToDoContainer extends React.Component {
                 this.props.setIsUnlocked(data);
             });
         }
-    }
-
-    fetchToDosRewardsAndRequirements = () => {
-        if (this.props.currentUser) {
-            fetch('/api', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials' : true
-                },
-                body: JSON.stringify(this.props.currentUser)
-            })
-            .then(response => response.json())
-            .then(json => {
-                this.props.setToDos(json[0]);
-                this.props.setRequirements(json[2]);
-                this.props.setRewards(json[1]);
-                this.assignUnlock(json[1]);
-
-                const colorTheme = json[3][0].color_theme;
-                this.props.setColorTheme(colorTheme);
-            })
-            .then(() => {
-                this.updateColorTheme()
-            });
-        }
-    }
-
-    updateColorTheme = () => {
-        const colorName = this.props.colorTheme;
-
-        let color;
-        let colorRGB;
-        let colorDark;
-
-        switch (colorName) {
-            case 'red':
-                color = '#f0654f';
-                colorRGB = '240, 101, 79';
-                colorDark = '#c83c27';
-                break;
-            case 'blue':
-                color = '#4195f0';
-                colorRGB = '65, 149, 240';
-                colorDark = '#196ec8';
-                break;
-            case 'green':
-                color = '#2db92d';
-                colorRGB = '45, 185, 45';
-                colorDark = '#059105';
-                break;
-            case 'purple':
-                color = '#707eff';
-                colorRGB = '112, 126, 255';
-                colorDark = '#4856d7'
-                break;
-        }
-
-        document.body.style.setProperty('--color-primary', color);
-        document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
-        document.body.style.setProperty('--color-primary-superfaded', `rgba(${colorRGB}, .1)`);
-        document.body.style.setProperty('--color-primary-dark', colorDark);
     }
 
     fetchToDos = () => {
