@@ -101,10 +101,10 @@ class Submenu extends React.Component {
                     <svg className='back-button' onClick={() => setSubmenuCategory(null)} width="406px" height="238px" viewBox="0 0 406 238" version="1.1">
                         <title>Back Button</title>
                         <g id="back-button" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="Arrow" fill="#000000">
-                                <rect id="Rectangle" x="6" y="104" width="400" height="30" rx="15"></rect>
-                                <rect id="Rectangle-Copy" transform="translate(91.000000, 70.000000) rotate(-35.000000) translate(-91.000000, -70.000000) " x="-9" y="55" width="200" height="30" rx="15"></rect>
-                                <rect id="Rectangle-Copy-2" transform="translate(91.000000, 168.000000) rotate(35.000000) translate(-91.000000, -168.000000) " x="-9" y="153" width="200" height="30" rx="15"></rect>
+                            <g id="back-arrow" fill="#000000">
+                                <rect id="top-line" transform="translate(91.000000, 70.000000) rotate(-35.000000) translate(-91.000000, -70.000000) " x="-9" y="55" width="200" height="30" rx="15"></rect>
+                                <rect id="middle-line" x="6" y="104" width="400" height="30" rx="15"></rect>
+                                <rect id="bottom-line" transform="translate(91.000000, 168.000000) rotate(35.000000) translate(-91.000000, -168.000000) " x="-9" y="153" width="200" height="30" rx="15"></rect>
                             </g>
                         </g>
                     </svg>

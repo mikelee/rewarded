@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .submenu {
 
     &-top {
@@ -13,6 +15,14 @@
             width: 2.4rem;
             padding: 1rem;
             cursor: pointer;
+
+            #back-arrow {
+                fill: var(--color-primary);
+            }
+        }
+
+        .category {
+            color: var(--color-primary);
         }
     }
     
