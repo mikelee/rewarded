@@ -2,7 +2,7 @@ import menuTypes from './menu.types';
 
 const initialState = {
     visible: false,
-    submenuCatergory: null
+    submenuCategory: null
 }
 
 const menuReducer = (state = initialState, action) => {
