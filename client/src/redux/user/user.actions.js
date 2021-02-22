@@ -9,3 +9,7 @@ export const setColorTheme = color => ({
   type: userActionTypes.SET_COLOR_THEME,
   payload: color
 });
+
+export const clearAll = () => ({
+  type: userActionTypes.CLEAR_ALL
+});

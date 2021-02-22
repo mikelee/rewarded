@@ -6,10 +6,9 @@ import './menu.styles.scss';
 
 import Submenu from '../submenu/submenu.component'
 
-import { toggleMenuVisible } from '../../redux/menu/menu.actions';
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions'
-import { setCurrentUser } from '../../redux/user/user.actions';
+import { clearAll } from '../../redux/user/user.actions';
 
 class Menu extends React.Component {
 
@@ -25,9 +24,8 @@ class Menu extends React.Component {
             credentials: 'same-origin'
         });
 
-        this.props.setCurrentUser(null);
-
-        this.props.toggleMenuVisible();
+        // Clear all redux data
+        this.props.clearAll();
 
         document.body.style.setProperty('--color-primary', '#707eff');
         document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
@@ -63,9 +61,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user)),
-    toggleMenuVisible: () => dispatch(toggleMenuVisible()),
-    setSubmenuCategory: category => dispatch(setSubmenuCategory(category))
+    setSubmenuCategory: category => dispatch(setSubmenuCategory(category)),
+    clearAll: () => dispatch(clearAll())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
