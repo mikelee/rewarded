@@ -29,6 +29,8 @@ class Submenu extends React.Component {
                         <button className='color-button purple' onClick={this.toggleColor} name='purple'/>                   
                     </div>
                 );
+            default:
+                return null;
         }
     }
 
@@ -84,6 +86,8 @@ class Submenu extends React.Component {
                 colorRGB = '112, 126, 255';
                 colorDark = '#4856d7'
                 break;
+            default:
+                return null;
         }
 
         document.body.style.setProperty('--color-primary', color);

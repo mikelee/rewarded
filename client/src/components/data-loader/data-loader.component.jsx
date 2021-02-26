@@ -114,6 +114,9 @@ class DataLoader extends React.Component {
             switch (key) {
                 case 'color_theme':
                     this.applyColorTheme(value);
+                    break;
+                default:
+                    return null;
             }
         });
     }
@@ -144,6 +147,8 @@ class DataLoader extends React.Component {
                 colorRGB = '112, 126, 255';
                 colorDark = '#4856d7'
                 break;
+            default:
+                return null;
         }
 
         document.body.style.setProperty('--color-primary', color);
