@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Preloader from '../preloader/preloader.component';
 import ToDoContainer from '../to-do-container/to-do-container.component';
 
 import { setToDos } from '../../redux/to-dos/to-dos.actions';
@@ -164,7 +165,7 @@ class DataLoader extends React.Component {
             dataLoaded ?
                 <ToDoContainer currentUser={this.props.currentUser} />
             :
-                <h1>Loading Spinner</h1>
+                <Preloader />
         );
     }
 }
