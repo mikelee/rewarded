@@ -20,6 +20,7 @@ module.exports = passportSetUp = () => {
                         bcrypt.hash(password, 10, (err, hash) => {
                             connection.query('INSERT INTO users (username, hash) VALUES (?, ?)', [username, hash], (err, newUser) => {
                                 if (!err) {
+                                    connection.query('INSERT INTO settings (user_id) VALUES (?)', [newUser.insertId]);
                                     const passportUser = {user_id: newUser.insertId, username: username}
                                     return done(null, passportUser)
                                 }
