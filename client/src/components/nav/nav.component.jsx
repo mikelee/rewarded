@@ -12,10 +12,10 @@ import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 class Nav extends React.Component {
 
     render() {
-        const { currentUser, visible, toggleMenuVisible } = this.props;
+        const { currentUser, visible, toggleMenuVisible, isTransparent } = this.props;
 
         return (
-            <div className='nav'>
+            <div className={`nav ${isTransparent ? 'nav-transparent' : ''}`}>
                 {currentUser ?
                     <div className='nav-buttons'>
                         <h3 className='nav-username'>Hi, {currentUser.username}</h3>
@@ -29,9 +29,9 @@ class Nav extends React.Component {
                         </svg>
                     </div>
                     :
-                    <div className='nav-buttons'>
-                        <Link to='/sign-up' className='nav-item'>Sign Up</Link>
-                        <Link to='/sign-in' className='nav-item'>Sign In</Link>
+                    <div className={`nav-buttons ${isTransparent ? 'nav-transparent' : ''}`}>
+                        <Link to='/sign-up' className={`nav-item ${isTransparent ? 'nav-transparent' : ''}`}>Sign Up</Link>
+                        <Link to='/sign-in' className={`nav-item ${isTransparent ? 'nav-transparent' : ''}`}>Sign In</Link>
                     </div>
                 }
                     <CSSTransitionGroup

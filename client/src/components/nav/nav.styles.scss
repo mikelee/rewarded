@@ -10,6 +10,10 @@
     background-color: var(--color-primary);
     padding: 2rem;
 
+    &-transparent {
+        background-color: transparent;
+    }
+
     &-buttons {
         display: flex;
         align-items: center;
@@ -26,6 +30,11 @@
             margin-left: 1rem;
             margin-right: 1rem;
             cursor: pointer;
+
+            &.nav-transparent {
+                color: var(--color-primary);
+            }
+
     
             &:last-child {
                 margin-right: 3rem;
@@ -50,7 +59,7 @@
                 animation: moveLeft .2s .2s ease-out;
             }
         }
-    } 
+    }
 }
 
 // For CSS Transition Group animation
