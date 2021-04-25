@@ -1,37 +1,73 @@
+@import '../../variables.scss';
+
 .homepage {
-    height: calc(100vh - 6rem);
-    background-image: url(../../assets/dailyBackground.svg);
-    background-size: cover;
-    position: relative;
-    top: -.1rem;
-    overflow: hidden;
+    height: 100vh;
+
+    &-container {
+        display: flex;
+        height: calc(100vh - 6rem);
+    }
+
+    &::after {
+        content: '';
+        position:absolute;
+        z-index: -1;
+        top:0;
+        left:0;
+        height: 100vh;
+        width: 100vw;
+        clip-path: polygon(0rem 0rem, 45% 0rem, 60% 100%, 0rem 100%);
+        background-color: var(--color-primary);
+      }
 
     &-text-container {
         text-align: center;
-        color: #707eff;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        margin-bottom: 3rem;
 
         .homepage-text {
-            text-align: center;
-            font-size: 8rem;
+            font-size: 6rem;
             letter-spacing: .5rem;
-            margin-top: 7rem;
+            width: 95%;
+            margin: 0 auto 6rem auto;
         }
 
         .homepage-subtext {
-            font-size: 2.5rem;
+            font-size: 3rem;
+            align-self: center;
         }
     }
 
+    .graphic-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        margin-bottom: 3rem;
+    }
+
     &-graphic {
-        height: 22rem;
-        position: absolute;
-        bottom: 3rem;
-        left: 5%;
+        height: 28rem;
+        padding-left: 7rem;
+        z-index: -20;
     }
 }
 
 @media screen and (max-width: 900px) {
     .homepage {
+
+        .homepage-text {
+            font-size: 4rem;
+        }
+
+        .homepage-subtext {
+            font-size: 2rem;
+        }
 
     .homepage-graphic {
             height: 20rem;
@@ -42,25 +78,29 @@
 @media screen and (max-width: 600px) {
     .homepage {
 
-        .homepage-text {
-            font-size: 6rem;
+        &::after {
+            clip-path: polygon(0 6rem, 100% calc(10% + 6rem), 100% 100%, 0 100%);
+          }
+
+        &-container {
+            flex-direction: column;
         }
 
-        .homepage-subtext {
-            font-size: 2rem;
+
+        .homepage-text {
+            padding-top: 6rem;
         }
 
         .homepage-graphic {
             height: 20rem;
+            z-index: 10;
+            padding: 0;
         }
     }
 }
 
 @media screen and (max-width: 480px) {
     .homepage {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
 
         .homepage-text {
             font-size: 4rem;
@@ -69,11 +109,22 @@
         .homepage-subtext {
             font-size: 1.8rem;
         }
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .homepage {
+
+        .homepage-text {
+            font-size: 2.4rem;
+        }
+
+        .homepage-subtext {
+            font-size: 1.6rem;
+        }
 
         .homepage-graphic {
-            height: 18rem;
-            position: static;
-            margin-top: 35%;
+            height: 15rem;
         }
     }
 }
