@@ -7,11 +7,13 @@ import toDosReducer from './to-dos/to-dos.reducer';
 import rewardReducer from './rewards/rewards.reducer';
 import requirementReducer from './requirements/requirements.reducer';
 import menuReducer from './menu/menu.reducer';
+import temporaryReducer from './temporary/temporary.reducer';
 
 import { userActionTypes } from './user/user.types';
 
 const persistConfig = {
     key: 'root',
+    blacklist: ['temporary'],
     storage
 };
 
@@ -20,7 +22,8 @@ const appReducer = combineReducers({
     toDos: toDosReducer,
     rewards: rewardReducer,
     requirements: requirementReducer,
-    menu: menuReducer
+    menu: menuReducer,
+    temporary: temporaryReducer
 });
 
 const rootReducer = (state, action) => {
