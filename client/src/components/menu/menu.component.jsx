@@ -9,6 +9,7 @@ import Submenu from '../submenu/submenu.component'
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions'
 import { clearAll } from '../../redux/user/user.actions';
+import { setLoggedOutMessage } from '../../redux/temporary/temporary.actions';
 
 class Menu extends React.Component {
 
@@ -30,6 +31,8 @@ class Menu extends React.Component {
         document.body.style.setProperty('--color-primary', '#707eff');
         document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
         document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
+
+        this.props.setLoggedOutMessage();
     }
 
     clickMenuItem = event => {
@@ -62,7 +65,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     setSubmenuCategory: category => dispatch(setSubmenuCategory(category)),
-    clearAll: () => dispatch(clearAll())
+    clearAll: () => dispatch(clearAll()),
+    setLoggedOutMessage: () => dispatch(setLoggedOutMessage())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
