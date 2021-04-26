@@ -17,8 +17,9 @@
             color: black;
             font-family: 'Noir';
             font-size: 2.4rem;
-            width: 100%;
-            margin-left: 2rem;
+            width: calc(100% - 1.5rem);
+            margin-left: 1.5rem;
+            padding: 0;
             border: none;
             line-height: 4rem;
 
@@ -30,7 +31,7 @@
 
     &-delete-form {
         width: 5%;
-        padding-right: 1rem;
+        padding: 0 1rem;
         display: flex;
         justify-content: center;
 
