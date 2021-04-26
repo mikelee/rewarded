@@ -24,6 +24,8 @@
         &-text {
             margin: 0;
             padding: 1rem 0;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
 
         .requirement-delete-button {
