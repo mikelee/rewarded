@@ -39,7 +39,7 @@
         flex-direction: column;
         width: 100%;
         background-color: var(--color-primary);
-        padding-left: 6rem;
+        padding-left: 8%;
         clip-path: polygon(0 0, 100% 0, 100% calc(100% + .5px), 15% calc(100% + .5px));
         border-radius: 0 .5rem .5rem 0;
 
@@ -47,7 +47,7 @@
             display: flex;
             flex-direction: column;
             width: 90%;
-            padding-left: 1rem;
+            margin: auto;
     
             .requirements-title {
                 text-align: center;
@@ -158,13 +158,14 @@
         .reward-right-side {
             clip-path: polygon(0 4rem, 100% 0, 100% calc(100% + .5px), 0 calc(100% + .5px));
             width: 100%;
+            align-items: center;
             padding-left: 0;
             border-radius: 0 0 .5rem .5rem;
 
             .reward-to-complete {
                 display: flex;
                 align-items: center;
-                margin-left: 5%;
+                padding-left: 0;
 
                 .requirements-title {
                     font-size: 2rem;
@@ -173,7 +174,14 @@
             }
 
             .reward-buttons {
-                margin-left: 5%;
+                width: 90%;
+                padding-left: 0;
+                padding-right: 0;
+                margin-bottom: 1rem;
+
+                .reward-delete-form-button {
+                    margin: 0;
+                }
             }
         } 
     }
