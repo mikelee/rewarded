@@ -38,6 +38,7 @@
         .todo-icon-button {
             justify-self: flex-end;
             padding: .5rem;
+            visibility: hidden;
 
             &:hover {
                 background-color: var(--color-primary-dark);
@@ -55,6 +56,10 @@
                 border-radius: 2rem;
             }
         }
+    }
+
+    &:hover &-icon-button {
+        visibility: visible;
     }
 }
 

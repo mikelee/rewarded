@@ -12,7 +12,6 @@
     margin-bottom: 1rem;
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
 
-
     &-form {
         align-self: center;
         width: 100%;
@@ -91,6 +90,7 @@
                 &-button {
                     padding: .5rem;
                     margin: 1.2rem;
+                    visibility: hidden;
 
                     &:hover {
                         background-color: var(--color-primary-dark);
@@ -110,7 +110,11 @@
                 }
             }
         }
-    } 
+    }
+
+    &:hover &-delete-form-button {
+        visibility: visible;
+    }
 }
 
 .unlocked {
