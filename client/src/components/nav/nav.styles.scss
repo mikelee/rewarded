@@ -92,11 +92,11 @@
         transition: all .5s ease-in-out;
     }
 
-    &-leave {
+    &-exit {
         transform: translateX(0rem);
     }
 
-    &-leave.menu-slide-in-leave-active {
+    &-exit.menu-slide-in-exit-active {
         transform: translateX(100%);
         transition: all .5s ease-in-out;
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import './nav.styles.scss';
 import Menu from '../menu/menu.component';
@@ -29,17 +29,18 @@ const Nav = ({ currentUser, visible, toggleMenuVisible, isTransparent }) => (
                 <Link to='/sign-in' className={`nav-item ${isTransparent ? 'nav-transparent' : ''}`}>Sign In</Link>
             </div>
         }
-            <CSSTransitionGroup
-                transitionName='menu-slide-in'
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500}
-            >
-                {visible ?
+        <TransitionGroup className='menu-slide-in'>
+            {visible ?
+                <CSSTransition
+                    classNames='menu-slide-in'
+                    timeout={500}
+                >
                     <Menu key={1}/>
-                :
-                    null
-                }
-            </CSSTransitionGroup>
+                </CSSTransition>
+            :
+                null
+            }
+        </TransitionGroup>
     </div>
 );
 
