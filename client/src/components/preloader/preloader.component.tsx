@@ -2,7 +2,7 @@ import React from 'react';
 
 import './preloader.styles.scss';
 
-const Preloader = () => (
+const Preloader: React.FC = () => (
     <div className='preloader'>
         <div className='ripple'>
             <div></div>
