@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import './App.scss';
 
+import { User } from '../types';
+
 import Nav from './components/nav/nav.component';
 import HomePage from './components/homepage/homepage.component';
 import SignIn from './components/sign-in/sign-in.component';
@@ -12,7 +14,11 @@ import DataLoader from './components/data-loader/data-loader.component';
 
 import { getCurrentUser } from './redux/user/user.selectors';
 
-const App = ({ currentUser }) => (
+interface AppProps {
+    currentUser: User
+}
+
+const App: React.FC<AppProps> = ({ currentUser }) => (
     <Switch>
         <Route
             exact path='/'
