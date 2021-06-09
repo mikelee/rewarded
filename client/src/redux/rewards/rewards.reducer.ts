@@ -1,11 +1,20 @@
 import { rewardsActionTypes } from './rewards.types';
+import { Reducer } from 'redux';
+import { Action } from '../../../types';
+
+import { Reward } from '../../../types';
+
+interface State {
+    rewards: Reward[] | null,
+    selectedReward: Reward | null
+}
 
 const initalState = {
     rewards: null,
     selectedReward: null
 }
 
-const rewardReducer = (state = initalState, action) => {
+const rewardReducer: Reducer<State, Action> = (state = initalState, action) => {
     switch(action.type) {
         case rewardsActionTypes.SET_REWARDS:
             return {
@@ -20,7 +29,7 @@ const rewardReducer = (state = initalState, action) => {
         case rewardsActionTypes.SET_UNLOCKED:
             return {
                 ...state,
-                rewards: state.rewards.map(reward => reward.reward_id === action.payload.rewardId
+                rewards: state.rewards?.map(reward => reward.reward_id === action.payload.rewardId
                     ? {...reward, isUnlocked: action.payload.isUnlocked}
                     : {...reward}
                 )
