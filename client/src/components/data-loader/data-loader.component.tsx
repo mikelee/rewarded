@@ -50,8 +50,7 @@ class DataLoader extends React.Component<Props, State> {
     async componentDidMount() {
         const userData: any = await this.fetchUserData();
 
-        await this.applyUserData(userData);
-
+        this.applyUserData(userData);
         this.applySettings(userData.settings);
 
         this.setState({
@@ -85,7 +84,7 @@ class DataLoader extends React.Component<Props, State> {
         }
     }
 
-    applyUserData = async (userData: any) => {
+    applyUserData = (userData: any) => {
         const {
             setToDos,
             setRewards,
@@ -93,11 +92,9 @@ class DataLoader extends React.Component<Props, State> {
         } = this.props;
 
         if (setToDos && setRequirements && setRewards) {
-
             setToDos(userData.toDos);
-    
-            await setRequirements(userData.requirements);
-            await setRewards(userData.rewards);
+            setRequirements(userData.requirements);
+            setRewards(userData.rewards);
 
             this.assignUnlock(userData.rewards, userData.requirements);
             this.applySettings(userData.settings);
