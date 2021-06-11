@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import './nav.styles.scss';
+
+import { User } from '../../../types';
+
 import Menu from '../menu/menu.component';
 import { toggleMenuVisible } from '../../redux/menu/menu.actions';
 import { selectMenuVisible } from '../../redux/menu/menu.selectors';
+import { Action } from 'redux';
 
-const Nav = ({ currentUser, visible, toggleMenuVisible, isTransparent }) => (
+interface NavProps extends StateProps, DispatchProps {
+    currentUser: User,
+    isTransparent?: boolean
+}
+
+interface StateProps {
+    visible: boolean
+}
+
+interface DispatchProps {
+    toggleMenuVisible: () => void
+}
+
+const Nav: React.FC<NavProps> = ({ currentUser, visible, toggleMenuVisible, isTransparent }) => (
     <div className={`nav ${isTransparent ? 'nav-transparent' : ''}`}>
         {currentUser ?
             <div className='nav-buttons'>
@@ -48,8 +65,8 @@ const mapStateToProps = createStructuredSelector({
     visible: selectMenuVisible
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     toggleMenuVisible: () => dispatch(toggleMenuVisible())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(Nav);
