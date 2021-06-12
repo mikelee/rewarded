@@ -37,7 +37,7 @@ export interface setIsUnlockedData {
 
 export interface ReduxState {
     user: UserReducer,
-    toDos: TodoReducer,
+    todos: TodoReducer,
     rewards: RewardReducer,
     requirements: RequirementReducer,
     menu: MenuReducer,
@@ -52,7 +52,7 @@ export interface UserReducer {
 }
 
 export interface TodoReducer {
-    toDos: Todo[] | null
+    todos: Todo[] | null
 }
 
 export interface RewardReducer {

@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Todo, Reward, Requirement, User, setIsUnlockedData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
-import ToDoContainer from '../to-do-container/to-do-container.component';
+import TodoContainer from '../todo-container/todo-container.component';
 
-import { setToDos } from '../../redux/to-dos/to-dos.actions';
+import { setTodos } from '../../redux/todos/todos.actions';
 import { setRewards, setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
@@ -26,7 +26,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    setToDos?: (todos: Todo[]) => void,
+    setTodos?: (todos: Todo[]) => void,
     setRewards?: (rewards: Reward[]) => void,
     setSelectedReward?: (reward: Reward) => void,
     setIsUnlocked?: (data: setIsUnlockedData) => void,
@@ -74,7 +74,7 @@ class DataLoader extends React.Component<Props, State> {
             const data = await response.json();
 
             const userData = {
-                toDos: data[0],
+                todos: data[0],
                 rewards: data[1],
                 requirements: data[2],
                 settings: data[3]
@@ -86,13 +86,13 @@ class DataLoader extends React.Component<Props, State> {
 
     applyUserData = (userData: any) => {
         const {
-            setToDos,
+            setTodos,
             setRewards,
             setRequirements,
         } = this.props;
 
-        if (setToDos && setRequirements && setRewards) {
-            setToDos(userData.toDos);
+        if (setTodos && setRequirements && setRewards) {
+            setTodos(userData.todos);
             setRequirements(userData.requirements);
             setRewards(userData.rewards);
 
@@ -198,7 +198,7 @@ class DataLoader extends React.Component<Props, State> {
 
         return (
             dataLoaded ?
-                <ToDoContainer currentUser={this.props.currentUser} />
+                <TodoContainer currentUser={this.props.currentUser} />
             :
                 <Preloader />
         );
@@ -206,7 +206,7 @@ class DataLoader extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    setToDos: (toDos: Todo[]) => dispatch(setToDos(toDos)),
+    setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
     setSelectedReward: (reward: Reward) => dispatch(setSelectedReward(reward)),
     setIsUnlocked: (data: setIsUnlockedData) => dispatch(setIsUnlocked(data)),

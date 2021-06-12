@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.to-do-container {
+.todo-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@
 }
 
 @media screen and (max-width: 900px) {
-    .to-do-container {
+    .todo-container {
 
         .title {
             font-size: 3.2rem;
@@ -54,7 +54,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    .to-do-container {
+    .todo-container {
 
         .title {
             font-size: 3rem;
@@ -70,7 +70,7 @@
 }
 
 @media screen and (max-width: 480px) {
-    .to-do-container {
+    .todo-container {
         
         .title {
             font-size: 2.4rem;

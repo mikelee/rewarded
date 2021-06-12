@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../db');
 
-// Get to_dos
+// Get todos
 router.post('/get', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query('SELECT * FROM to_dos WHERE owner_id = ? ORDER BY completed', [user_id], (err, results) => {
+    connection.query('SELECT * FROM todos WHERE owner_id = ? ORDER BY completed', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -15,38 +15,38 @@ router.post('/get', (req, res) => {
     });
 });
 
-// Create to-do
+// Create todo
 router.post('/create', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query('INSERT INTO to_dos (owner_id) VALUES (?)', [user_id], (err, result) => {
+    connection.query('INSERT INTO todos (owner_id) VALUES (?)', [user_id], (err, result) => {
         res.json(result);
     });
 });
 
-// Update to-do
+// Update todo
 router.put('/update', (req, res) => {
     const { id, text } = req.body;
 
-    connection.query('UPDATE to_dos SET text = ? WHERE to_do_id = ?', [text, id], (err, result) => {
+    connection.query('UPDATE todos SET text = ? WHERE todo_id = ?', [text, id], (err, result) => {
         res.json(result);
     });
 });
 
-// Toggle to-do Completed
+// Toggle todo Completed
 router.post('/complete', (req, res) => {
     const { id } = req.body;
 
-    connection.query('UPDATE to_dos SET completed = NOT completed WHERE to_do_id = ?', [id], (err, result) => {
+    connection.query('UPDATE todos SET completed = NOT completed WHERE todo_id = ?', [id], (err, result) => {
         res.json(result);
     });
 });
 
-// Delete to-do
+// Delete todo
 router.delete('/delete', (req, res) => {
     const { id } = req.body;
 
-    connection.query('DELETE FROM to_dos WHERE to_do_id = ?; DELETE FROM requirements WHERE to_do_id = ?', [id ,id], (err, result) => {
+    connection.query('DELETE FROM todos WHERE todo_id = ?; DELETE FROM requirements WHERE todo_id = ?', [id ,id], (err, result) => {
         res.json(result);
     });
 });

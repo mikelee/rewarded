@@ -1,12 +1,12 @@
 import React from 'react';
 
-import './to-do-item.styles.scss';
+import './todo-item.styles.scss';
 
 import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-class ToDoItem extends React.Component {
+class TodoItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,11 +43,11 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchToDos())
+        .then(() => this.props.fetchTodos())
         .then(() => this.props.fetchRequirements());
     }
 
-    deleteToDo = event => {
+    deleteTodo = event => {
         event.preventDefault();
 
         const data = {
@@ -64,11 +64,11 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchToDos())
+        .then(() => this.props.fetchTodos())
         .then(() => this.props.fetchRequirements());
     }
 
-    toggleToDoCompleted = () => {
+    toggleTodoCompleted = () => {
         const data = {
             id: this.props.id
         }
@@ -83,7 +83,7 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchToDos())
+        .then(() => this.props.fetchTodos())
         .then(() => this.props.fetchRequirements())
     }
 
@@ -91,7 +91,7 @@ class ToDoItem extends React.Component {
         let selected = this.props.selectedReward === this.props.associatedReward;
         
         const data = {
-            toDoId: this.props.id,
+            todoId: this.props.id,
             rewardId: this.props.selectedReward,
             selected
         }
@@ -106,7 +106,7 @@ class ToDoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(this.props.fetchToDosForSelection())
+        .then(this.props.fetchTodosForSelection())
         .then(this.props.fetchRequirements());
     }
 
@@ -116,7 +116,7 @@ class ToDoItem extends React.Component {
         return (
             <div className='todo'>
                 {!selectedReward
-                ? <ToggleButton type='forTodo' completed={completed} toggleToDoCompleted={this.toggleToDoCompleted} />
+                ? <ToggleButton type='forTodo' completed={completed} toggleTodoCompleted={this.toggleTodoCompleted} />
                 : <ToggleButton type='forRequirement' selectedReward={selectedReward} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
                 }
                 <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
@@ -124,7 +124,7 @@ class ToDoItem extends React.Component {
                 </form>
                 {!selectedReward
                 ?
-                    <form className='todo-delete-form' onSubmit={this.deleteToDo}>
+                    <form className='todo-delete-form' onSubmit={this.deleteTodo}>
                         <IconButton className='todo-icon-button' type='submit'>
                             <Clear className='todo-clear-icon' fontSize='large'/>
                         </IconButton>
@@ -136,4 +136,4 @@ class ToDoItem extends React.Component {
     }
 }
 
-export default ToDoItem;
+export default TodoItem;

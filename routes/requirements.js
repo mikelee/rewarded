@@ -6,7 +6,7 @@ const connection = require('../db');
 router.post('/get', (req, res) => {
     const { userId } = req.body;
 
-    connection.query('SELECT * FROM to_dos t INNER JOIN requirements q ON t.to_do_id = q.to_do_id WHERE t.owner_id = ? ORDER BY t.completed', [userId], (err, results) => {
+    connection.query('SELECT * FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.owner_id = ? ORDER BY t.completed', [userId], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -17,10 +17,10 @@ router.post('/get', (req, res) => {
 
 // Create or Delete requirement
 router.post('/toggle', (req, res) => {
-    const { toDoId, rewardId, selected } = req.body;
+    const { todoId, rewardId, selected } = req.body;
 
     if (selected) {
-        connection.query('DELETE FROM requirements WHERE reward_id = ? AND to_do_id = ?', [rewardId, toDoId], (err, results) => {
+        connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [rewardId, todoId], (err, results) => {
             if (!err) {
                 res.json(results);
             } else {
@@ -28,7 +28,7 @@ router.post('/toggle', (req, res) => {
             }
         });
     } else {
-        connection.query('INSERT INTO requirements (reward_id, to_do_id) VALUES (?, ?)', [rewardId, toDoId], (err, results) => {
+        connection.query('INSERT INTO requirements (reward_id, todo_id) VALUES (?, ?)', [rewardId, todoId], (err, results) => {
             if (!err) {
                 res.json(results);
             } else {
@@ -40,9 +40,9 @@ router.post('/toggle', (req, res) => {
 
 // Delete requirement
 router.delete('/delete', (req, res) => {
-    const { reward_id, to_do_id } = req.body;
+    const { reward_id, todo_id } = req.body;
 
-    connection.query('DELETE FROM requirements WHERE reward_id = ? AND to_do_id = ?', [reward_id, to_do_id], (err, results) => {
+    connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {

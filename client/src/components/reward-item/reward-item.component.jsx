@@ -79,7 +79,7 @@ class RewardItem extends React.Component {
 
     addOrDeleteRequirement = async () => {
         await this.props.setSelectedReward(this.props.id);
-        await this.props.fetchToDosForSelection();
+        await this.props.fetchTodosForSelection();
         this.props.scroll();
     }
 
@@ -89,7 +89,7 @@ class RewardItem extends React.Component {
 
             const data = {
                 reward_id: this.props.id,
-                to_do_id: id
+                todo_id: id
             }
 
             fetch('/api/requirement/delete', {
@@ -119,7 +119,7 @@ class RewardItem extends React.Component {
                         <h3 className='requirements-title'>Requirements</h3>
                         {requirements !== null
                         ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
-                            <Requirement key={requirement.to_do_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
+                            <Requirement key={requirement.todo_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
                         ))
                         : null }
                     </div>

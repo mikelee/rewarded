@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render ToDoItem 1`] = `
+exports[`should render TodoItem 1`] = `
 <div
   className="todo"
 >
   <ToggleButton
     completed={1}
-    toggleToDoCompleted={[Function]}
+    toggleTodoCompleted={[Function]}
     type="forTodo"
   />
   <form

@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import userReducer from './user/user.reducer';
-import toDosReducer from './to-dos/to-dos.reducer';
+import todosReducer from './todos/todos.reducer';
 import rewardReducer from './rewards/rewards.reducer';
 import requirementReducer from './requirements/requirements.reducer';
 import menuReducer from './menu/menu.reducer';
@@ -19,7 +19,7 @@ const persistConfig = {
 
 const appReducer = combineReducers({
     user: userReducer,
-    toDos: toDosReducer,
+    todos: todosReducer,
     rewards: rewardReducer,
     requirements: requirementReducer,
     menu: menuReducer,

@@ -5,7 +5,7 @@ import './requirement.styles.scss';
 import { CheckRounded, Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-const Requirement = ({ to_do_id, text, completed, deleteRequirement }) => (
+const Requirement = ({ todo_id, text, completed, deleteRequirement }) => (
     <div className='requirement'>
         <div className='requirement-check-space'>
             {completed
@@ -13,7 +13,7 @@ const Requirement = ({ to_do_id, text, completed, deleteRequirement }) => (
                 : null
             }
         </div>
-        <form className='requirement-form' key={to_do_id} onSubmit={deleteRequirement(to_do_id)}>
+        <form className='requirement-form' key={todo_id} onSubmit={deleteRequirement(todo_id)}>
             <p className='requirement-form-text'>{text}</p>
             <IconButton className='requirement-delete-button' type='submit'>
                 <Clear className='requirement-delete-icon' />

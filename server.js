@@ -10,7 +10,7 @@ const passportSetUp = require('./auth');
 // Routes
 const authRoutes = require('./routes/auth');
 const miscRoutes = require('./routes/misc');
-const toDoRoutes = require('./routes/toDos');
+const todoRoutes = require('./routes/todos');
 const rewardRoutes = require('./routes/rewards');
 const requirementRoutes = require('./routes/requirements');
 const settingsRoutes = require('./routes/settings');
@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/', authRoutes);
 app.use('/', miscRoutes);
-app.use('/api/todo', toDoRoutes);
+app.use('/api/todo', todoRoutes);
 app.use('/api/reward', rewardRoutes);
 app.use('/api/requirement', requirementRoutes);
 app.use('/api/settings', settingsRoutes);
