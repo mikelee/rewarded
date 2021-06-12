@@ -3,10 +3,10 @@ import { ReduxState, Reward } from '../../../types';
 
 const selectRewards = (state: ReduxState) => state.rewards;
 
-const selectSpecificReward = (reduxState: ReduxState, prop: Reward) => {
-    const rewards = reduxState.rewards.rewards;
+const selectSpecificReward = (state: ReduxState, props: any) => {
+    const rewards = state.rewards.rewards;
     
-    return rewards?.find((reward: Reward) => reward.reward_id === prop.reward_id);
+    return rewards?.find((reward: Reward) => reward.reward_id === props.id);
 };
 
 export const getRewards = createSelector(
