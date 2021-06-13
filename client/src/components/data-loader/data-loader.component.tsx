@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 
-import { Todo, Reward, Requirement, User, setIsUnlockedData } from '../../../types';
+import { Todo, Reward, Requirement, User, Setting, UserData, SetIsUnlockedData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
 import UserPage from '../user-page/user-page.component';
@@ -29,7 +29,7 @@ interface DispatchProps {
     setTodos?: (todos: Todo[]) => void,
     setRewards?: (rewards: Reward[]) => void,
     setSelectedReward?: (reward: Reward) => void,
-    setIsUnlocked?: (data: setIsUnlockedData) => void,
+    setIsUnlocked?: (data: SetIsUnlockedData) => void,
     setRequirements?: (requirements: Requirement[]) => void,
     setColorTheme?: (color: string) => void
 }
@@ -48,14 +48,16 @@ class DataLoader extends React.Component<Props, State> {
     }
 
     async componentDidMount() {
-        const userData: any = await this.fetchUserData();
+        const userData = await this.fetchUserData();
 
-        this.applyUserData(userData);
-        this.applySettings(userData.settings);
-
-        this.setState({
-            dataLoaded: true
-        });
+        if (userData) {
+            this.applyUserData(userData);
+            this.applySettings(userData.settings);
+    
+            this.setState({
+                dataLoaded: true
+            });
+        }
     }
 
     fetchUserData = async () => {
@@ -84,7 +86,7 @@ class DataLoader extends React.Component<Props, State> {
         }
     }
 
-    applyUserData = (userData: any) => {
+    applyUserData = (userData: UserData) => {
         const {
             setTodos,
             setRewards,
@@ -136,14 +138,14 @@ class DataLoader extends React.Component<Props, State> {
         }
     }
 
-    applySettings = (settings: any) => {
+    applySettings = (settings: Setting[]) => {
         const settingsActions = new Map();
         settingsActions.set('color_theme', this.props.setColorTheme);
 
-        settings.forEach((setting: any) => {
+        settings.forEach(setting => {
             const key: string = Object.keys(setting)[0];
             const value = setting[key];
-            const settingAction: any = settingsActions.get(key);
+            const settingAction = settingsActions.get(key);
 
             settingAction(value);
 
@@ -209,7 +211,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
     setSelectedReward: (reward: Reward) => dispatch(setSelectedReward(reward)),
-    setIsUnlocked: (data: setIsUnlockedData) => dispatch(setIsUnlocked(data)),
+    setIsUnlocked: (data: SetIsUnlockedData) => dispatch(setIsUnlocked(data)),
     setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
     setColorTheme: (color: string) => dispatch(setColorTheme(color))
 });

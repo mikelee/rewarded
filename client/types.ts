@@ -26,9 +26,8 @@ export interface User {
     username: string
 }
 
-export interface setIsUnlockedData {
-    rewardId: number,
-    isUnlocked: boolean
+export interface Setting {
+    [key: string]: any
 }
 
 export interface UserData {
@@ -38,8 +37,9 @@ export interface UserData {
     settings: Setting[]
 }
 
-export interface Setting {
-    [key: string]: any
+export interface SetIsUnlockedData {
+    rewardId: number,
+    isUnlocked: boolean
 }
 
 

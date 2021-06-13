@@ -1,6 +1,6 @@
 import { rewardsActionTypes } from './rewards.types';
 
-import { Reward, setIsUnlockedData } from '../../../types';
+import { Reward, SetIsUnlockedData } from '../../../types';
 
 export const setRewards = (rewards: Reward[]) => ({
     type: rewardsActionTypes.SET_REWARDS,
@@ -12,7 +12,7 @@ export const setSelectedReward = (reward: Reward) => ({
     payload: reward
 });
 
-export const setIsUnlocked = (data: setIsUnlockedData) => ({
+export const setIsUnlocked = (data: SetIsUnlockedData) => ({
     type: rewardsActionTypes.SET_UNLOCKED,
     payload: data
 });
