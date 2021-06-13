@@ -31,6 +31,17 @@ export interface setIsUnlockedData {
     isUnlocked: boolean
 }
 
+export interface UserData {
+    todos: Todo[],
+    rewards: Reward[],
+    requirements: Requirement[],
+    settings: Setting[]
+}
+
+export interface Setting {
+    [key: string]: any
+}
+
 
 
 // Redux

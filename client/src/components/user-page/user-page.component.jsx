@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import './todo-container.styles.scss';
+import './user-page.styles.scss';
 
 import TodoItem from '../todo-item/todo-item.component';
 import AddItem from '../add-item/add-item.component';
@@ -17,7 +17,7 @@ import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
 
-class TodoContainer extends React.Component {
+class UserPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -141,7 +141,7 @@ class TodoContainer extends React.Component {
         const { todos, rewards, selectedReward } = this.props;
 
         return (
-            <div className='todo-container'>
+            <div className='user-page'>
                 {selectedReward
                     ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
                     : <h2 className='title'>To Do</h2>
@@ -175,4 +175,4 @@ const mapDispatchToProps = dispatch => ({
     setColorTheme: color => dispatch(setColorTheme(color))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

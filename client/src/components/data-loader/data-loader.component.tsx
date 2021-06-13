@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Todo, Reward, Requirement, User, setIsUnlockedData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
-import TodoContainer from '../todo-container/todo-container.component';
+import UserPage from '../user-page/user-page.component';
 
 import { setTodos } from '../../redux/todos/todos.actions';
 import { setRewards, setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
@@ -138,7 +138,7 @@ class DataLoader extends React.Component<Props, State> {
 
     applySettings = (settings: any) => {
         const settingsActions = new Map();
-        settingsActions.set('color_theme', this.props.setColorTheme)
+        settingsActions.set('color_theme', this.props.setColorTheme);
 
         settings.forEach((setting: any) => {
             const key: string = Object.keys(setting)[0];
@@ -198,7 +198,7 @@ class DataLoader extends React.Component<Props, State> {
 
         return (
             dataLoaded ?
-                <TodoContainer currentUser={this.props.currentUser} />
+                <UserPage currentUser={this.props.currentUser} />
             :
                 <Preloader />
         );
