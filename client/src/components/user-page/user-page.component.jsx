@@ -111,7 +111,7 @@ class UserPage extends React.Component {
     fetchTodosForSelection = () => {
         const data = {
             reward_id: this.props.selectedReward,
-            owner_id: this.props.currentUser.user_id
+            user_id: this.props.currentUser.user_id
         }
 
         fetch('/api/get-requirements-and-todos', {

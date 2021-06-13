@@ -6,7 +6,7 @@ const connection = require('../db');
 router.post('/get', (req, res) => {
     const { userId } = req.body;
 
-    connection.query('SELECT * FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.owner_id = ? ORDER BY t.completed', [userId], (err, results) => {
+    connection.query('SELECT * FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.user_id = ? ORDER BY t.completed', [userId], (err, results) => {
         if (!err) {
             res.json(results);
         } else {

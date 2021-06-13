@@ -6,7 +6,7 @@ const connection = require('../db');
 router.post('/get', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query('SELECT * FROM rewards WHERE owner_id = ?', [user_id], (err, results) => {
+    connection.query('SELECT * FROM rewards WHERE user_id = ?', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -19,7 +19,7 @@ router.post('/get', (req, res) => {
 router.post('/create', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query('INSERT INTO rewards (owner_id) VALUES (?)', [user_id], (err, result) => {
+    connection.query('INSERT INTO rewards (user_id) VALUES (?)', [user_id], (err, result) => {
         res.json(result);
     });
 });
