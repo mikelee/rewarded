@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { ReduxState } from '../../../types';
 
-const selectTodos = state => state.todos;
+const selectTodos = (state: ReduxState) => state.todos;
 
 export const getTodos = createSelector(
     [selectTodos],

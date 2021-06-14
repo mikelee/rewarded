@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { ReduxState } from '../../../types';
 
-const selectMenu = state => state.menu;
+const selectMenu = (state: ReduxState) => state.menu;
 
 export const selectMenuVisible = createSelector(
     [selectMenu],

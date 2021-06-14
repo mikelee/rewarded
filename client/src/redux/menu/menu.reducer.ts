@@ -1,11 +1,13 @@
 import menuTypes from './menu.types';
+import { Reducer } from 'redux';
+import { MenuReducer, Action } from '../../../types';
 
 const initialState = {
     visible: false,
     submenuCategory: null
 }
 
-const menuReducer = (state = initialState, action) => {
+const menuReducer: Reducer<MenuReducer, Action> = (state = initialState, action) => {
     switch(action.type) {
         case menuTypes.toggleMenuVisible:
             return {

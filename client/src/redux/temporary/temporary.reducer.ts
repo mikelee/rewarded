@@ -1,10 +1,12 @@
 import { temporaryTypes } from './temporary.types';
+import { Reducer } from 'redux';
+import { TemporaryReducer, Action } from '../../../types';
 
 const initialState = {
     loggedOutMessage: false
 }
 
-const temporaryReducer = (state = initialState, action) => {
+const temporaryReducer: Reducer<TemporaryReducer, Action> = (state = initialState, action) => {
     switch (action.type) {
         case (temporaryTypes.setLoggedOutMessage):
             return {

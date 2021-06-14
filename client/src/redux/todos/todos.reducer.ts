@@ -1,10 +1,12 @@
 import { todosActionTypes } from './todos.types';
+import { Reducer } from 'redux';
+import { TodoReducer, Action } from '../../../types';
 
 const initialState = {
     todos: null
 }
 
-const todosReducer = (state = initialState, action) => {
+const todosReducer: Reducer<TodoReducer, Action> = (state = initialState, action) => {
     switch(action.type) {
         case todosActionTypes.SET_TODOS:
             return {
