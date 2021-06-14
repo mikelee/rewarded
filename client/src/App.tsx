@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './App.scss';
 
-import { User } from '../types';
+import { User, ReduxState } from '../types';
 
 import Nav from './components/nav/nav.component';
 import HomePage from './components/homepage/homepage.component';
@@ -15,7 +15,7 @@ import DataLoader from './components/data-loader/data-loader.component';
 import { getCurrentUser } from './redux/user/user.selectors';
 
 interface AppProps {
-    currentUser: User
+    currentUser: User | null
 }
 
 const App: React.FC<AppProps> = ({ currentUser }) => (
@@ -59,7 +59,7 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
     </Switch>
 );
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<ReduxState, {currentUser: User | null}>({
 	currentUser: getCurrentUser
 });
 
