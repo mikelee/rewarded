@@ -8,7 +8,7 @@ import Requirement from '../requirement/requirement.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
-import { getRewards, getIsUnlocked } from '../../redux/rewards/rewards.selectors';
+import { getRewards, getIsUnlocked, getSelectedReward } from '../../redux/rewards/rewards.selectors';
 import { setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 
@@ -102,7 +102,13 @@ class RewardItem extends React.Component {
                 },
                 body: JSON.stringify(data)
             })
-            .then(() => this.props.fetchRequirements());
+            .then(() => {
+                this.props.fetchRequirements();
+                
+                if (this.props.selectedReward) {
+                    this.props.fetchTodosForSelection();
+                }
+            });
         }
     }
 
@@ -142,7 +148,8 @@ class RewardItem extends React.Component {
 const mapStateToProps = createStructuredSelector({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
-    requirements: getRequirements
+    requirements: getRequirements,
+    selectedReward: getSelectedReward
 });
 
 const mapDispatchToProps = dispatch => ({
