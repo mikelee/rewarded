@@ -106,8 +106,10 @@ class TodoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(this.props.fetchTodosForSelection())
-        .then(this.props.fetchRequirements());
+        .then(() => {
+            this.props.fetchTodosForSelection();
+            this.props.fetchRequirements();
+        });
     }
 
     render() {
