@@ -14,7 +14,7 @@ const initalState = {
     selectedReward: null
 }
 
-const rewardReducer: Reducer<State, Action> = (state = initalState, action) => {
+const rewardsReducer: Reducer<State, Action> = (state = initalState, action) => {
     switch(action.type) {
         case rewardsActionTypes.SET_REWARDS:
             return {
@@ -39,4 +39,4 @@ const rewardReducer: Reducer<State, Action> = (state = initalState, action) => {
     }
 }
 
-export default rewardReducer;
+export default rewardsReducer;

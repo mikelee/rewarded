@@ -1,4 +1,4 @@
-import requirementReducer from './requirements.reducer';
+import requirementsReducer from './requirements.reducer';
 import { setRequirements } from './requirements.actions';
 
 const requirements = [
@@ -8,7 +8,7 @@ const requirements = [
 ];
 
 it('should not set the requirements', () => {
-    expect(requirementReducer(undefined, {})).toEqual({ requirements: null});
+    expect(requirementsReducer(undefined, {})).toEqual({ requirements: null});
 });
 
 it('should set the requirements', () => {
@@ -16,5 +16,5 @@ it('should set the requirements', () => {
         requirements: null
     };
 
-    expect(requirementReducer(initialState, setRequirements(requirements))).toEqual({ requirements: requirements});
+    expect(requirementsReducer(initialState, setRequirements(requirements))).toEqual({ requirements: requirements});
 });

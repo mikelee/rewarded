@@ -48,9 +48,9 @@ export interface SetIsUnlockedData {
 
 export interface ReduxState {
     user: UserReducer,
-    todos: TodoReducer,
-    rewards: RewardReducer,
-    requirements: RequirementReducer,
+    todos: TodosReducer,
+    rewards: RewardsReducer,
+    requirements: RequirementsReducer,
     menu: MenuReducer,
     temporary: TemporaryReducer
 }
@@ -62,16 +62,16 @@ export interface UserReducer {
     }
 }
 
-export interface TodoReducer {
+export interface TodosReducer {
     todos: Todo[] | null
 }
 
-export interface RewardReducer {
+export interface RewardsReducer {
     rewards: Reward[] | null,
     selectedReward: Reward | null
 }
 
-export interface RequirementReducer {
+export interface RequirementsReducer {
     requirements: Requirement[] | null
 }
 
