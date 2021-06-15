@@ -73,8 +73,10 @@ class RewardItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchRewards())
-        .then(() => this.props.fetchRequirements())
+        .then(() => {
+            this.props.fetchRewards();
+            this.props.fetchRequirements();
+        });
     }
 
     addOrDeleteRequirement = async () => {

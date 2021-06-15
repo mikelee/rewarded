@@ -104,8 +104,10 @@ class UserPage extends React.Component {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(json => this.props.setRequirements(json))
-        .then(() => this.assignUnlock());
+        .then(json => {
+            this.props.setRequirements(json);
+            this.assignUnlock();
+        });
     }
 
     fetchTodosForSelection = () => {

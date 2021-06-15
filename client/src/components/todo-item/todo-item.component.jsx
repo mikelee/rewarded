@@ -43,8 +43,10 @@ class TodoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchTodos())
-        .then(() => this.props.fetchRequirements());
+        .then(() => {
+            this.props.fetchTodos();
+            this.props.fetchRequirements();
+        });
     }
 
     deleteTodo = event => {
@@ -64,8 +66,10 @@ class TodoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchTodos())
-        .then(() => this.props.fetchRequirements());
+        .then(() => {
+            this.props.fetchTodos();
+            this.props.fetchRequirements();
+        });
     }
 
     toggleTodoCompleted = () => {
@@ -83,8 +87,10 @@ class TodoItem extends React.Component {
             },
             body: JSON.stringify(data)
         })
-        .then(() => this.props.fetchTodos())
-        .then(() => this.props.fetchRequirements())
+        .then(() => {
+            this.props.fetchTodos();
+            this.props.fetchRequirements();
+        });
     }
 
     createOrDeleteRequirement = () => {
