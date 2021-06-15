@@ -1,4 +1,4 @@
-import { rewardsActionTypes } from './rewards.types';
+import rewardsActionTypes from './rewards.types';
 import { Reducer } from 'redux';
 import { Action } from '../../../types';
 

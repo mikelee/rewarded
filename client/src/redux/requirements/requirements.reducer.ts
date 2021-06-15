@@ -1,4 +1,4 @@
-import { requirementsActionTypes } from './requirements.types';
+import requirementsActionTypes from './requirements.types';
 import { Reducer } from 'redux';
 import { RequirementsReducer, Action } from '../../../types';
 

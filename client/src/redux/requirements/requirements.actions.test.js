@@ -1,5 +1,5 @@
 import { setRequirements } from './requirements.actions';
-import { requirementsActionTypes } from './requirements.types'
+import requirementsActionTypes from './requirements.types'
 
 it('should create an action to set the requirements', () => {
     const requirements = [

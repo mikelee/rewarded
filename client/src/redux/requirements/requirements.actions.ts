@@ -1,4 +1,4 @@
-import { requirementsActionTypes } from './requirements.types';
+import requirementsActionTypes from './requirements.types';
 import { Requirement } from '../../../types';
 
 export const setRequirements = (requirements: Requirement[]) => ({

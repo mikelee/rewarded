@@ -1,4 +1,4 @@
-import { todosActionTypes } from './todos.types';
+import todosActionTypes from './todos.types';
 import { Reducer } from 'redux';
 import { TodosReducer, Action } from '../../../types';
 

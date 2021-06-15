@@ -1,4 +1,4 @@
-import { rewardsActionTypes } from './rewards.types';
+import rewardsActionTypes from './rewards.types';
 
 import { Reward, SetIsUnlockedData } from '../../../types';
 

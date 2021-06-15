@@ -1,5 +1,5 @@
-import { temporaryTypes } from './temporary.types';
+import temporaryActionTypes from './temporary.types';
 
 export const setLoggedOutMessage = () => ({
-    type: temporaryTypes.setLoggedOutMessage
+    type: temporaryActionTypes.setLoggedOutMessage
 });

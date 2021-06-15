@@ -1,4 +1,4 @@
-import { todosActionTypes } from './todos.types';
+import todosActionTypes from './todos.types';
 import { Todo } from '../../../types';
 
 export const setTodos = (todos: Todo[]) => ({

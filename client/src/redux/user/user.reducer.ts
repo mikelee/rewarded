@@ -1,4 +1,4 @@
-import { userActionTypes } from './user.types';
+import userActionTypes from './user.types';
 import { Reducer } from 'redux';
 import { UserReducer, Action } from '../../../types';
 

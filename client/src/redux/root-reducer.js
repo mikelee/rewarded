@@ -9,7 +9,7 @@ import requirementsReducer from './requirements/requirements.reducer';
 import menuReducer from './menu/menu.reducer';
 import temporaryReducer from './temporary/temporary.reducer';
 
-import { userActionTypes } from './user/user.types';
+import userActionTypes from './user/user.types';
 
 const persistConfig = {
     key: 'root',

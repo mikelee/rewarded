@@ -1,5 +1,5 @@
 import { setRewards, setSelectedReward, setIsUnlocked } from './rewards.actions';
-import { rewardsActionTypes } from './rewards.types';
+import rewardsActionTypes from './rewards.types';
 
 it('should create an action to set the rewards', () => {
     const rewards = [

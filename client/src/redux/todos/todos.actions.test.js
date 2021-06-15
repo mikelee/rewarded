@@ -1,5 +1,5 @@
 import { setTodos } from './todos.actions';
-import { todosActionTypes } from './todos.types'
+import todosActionTypes from './todos.types'
 
 it('should create an action to set the todos', () => {
     const todos = [
