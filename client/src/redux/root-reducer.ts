@@ -11,6 +11,9 @@ import temporaryReducer from './temporary/temporary.reducer';
 
 import userActionTypes from './user/user.types';
 
+import { Reducer } from 'redux';
+import { ReduxState, Action } from '../../types';
+
 const persistConfig = {
     key: 'root',
     blacklist: ['temporary'],
@@ -26,7 +29,7 @@ const appReducer = combineReducers({
     temporary: temporaryReducer
 });
 
-const rootReducer = (state, action) => {
+const rootReducer: Reducer<ReduxState, Action> = (state, action) => {
     if (action.type === userActionTypes.CLEAR_ALL) {
         state = undefined
     }
