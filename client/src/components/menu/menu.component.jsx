@@ -20,19 +20,24 @@ class Menu extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials' : true
+                'Access-Control-Allow-Credentials' : 'true'
             },
             credentials: 'same-origin'
-        });
+        })
+        .then(res => res.json())
+        .then(isLoggedOut => {
+            if (isLoggedOut === true) {
+                // Clear all redux data
+                this.props.clearAll();
 
-        // Clear all redux data
-        this.props.clearAll();
+                document.body.style.setProperty('--color-primary', '#707eff');
+                document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
+                document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
 
-        document.body.style.setProperty('--color-primary', '#707eff');
-        document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
-        document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
-
-        this.props.setLoggedOutMessage();
+                this.props.setLoggedOutMessage();
+            }
+        })
+        .catch(err => console.log(err));
     }
 
     clickMenuItem = event => {
