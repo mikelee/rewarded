@@ -8,9 +8,19 @@ import './homepage.styles.scss';
 import completed from '../../assets/completed.svg';
 import hiking from '../../assets/hiking.svg';
 
+import { User, ReduxState } from '../../../types';
+
 import { getLoggedOutMessage } from '../../redux/temporary/temporary.selectors';
 
-const HomePage = ({ currentUser, loggedOutMessage }) => (
+interface HomePageProps extends StateProps {
+    currentUser: User | null
+}
+
+interface StateProps {
+    loggedOutMessage: boolean
+}
+
+const HomePage: React.FC<HomePageProps> = ({ currentUser, loggedOutMessage }) => (
     <div className='homepage'>
         <Nav currentUser={currentUser} isTransparent={true} />
         <div className='homepage-container'>
@@ -41,7 +51,7 @@ const HomePage = ({ currentUser, loggedOutMessage }) => (
     </div>
 );
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<ReduxState, { loggedOutMessage: boolean }>({
     loggedOutMessage: getLoggedOutMessage
 });
 

@@ -2,9 +2,18 @@ import React from 'react';
 
 import './add-item.styles.scss';
 
+import { User } from '../../../types';
+
 import { AddRounded } from '@material-ui/icons';
 
-class addItem extends React.Component {
+interface addItemProps {
+    type: string,
+    currentUser: User,
+    fetchTodos?: () => void,
+    fetchRewards?: () => void
+}
+
+class addItem extends React.Component<addItemProps> {
 
     addTodo = () => {
         fetch(`/api/${this.props.type}/create`, {
@@ -13,14 +22,16 @@ class addItem extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials' : true
+                'Access-Control-Allow-Credentials' : 'true'
             },
             body: JSON.stringify(this.props.currentUser)
         })
         .then(() => {
-            this.props.type === 'todo'
-                ? this.props.fetchTodos()
-                : this.props.fetchRewards()
+            if (this.props.type === 'todo' && this.props.fetchTodos) {
+                this.props.fetchTodos();
+            } else if (this.props.fetchRewards) {
+                this.props.fetchRewards();
+            }
         });
     }
     
