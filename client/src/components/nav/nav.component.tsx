@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -6,6 +6,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import './nav.styles.scss';
 
+import { Dispatch } from 'redux';
 import { User, ReduxState } from '../../../types';
 
 import Menu from '../menu/menu.component';

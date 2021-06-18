@@ -1,6 +1,7 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
+import { Dispatch } from 'redux';
 import { Todo, Reward, Requirement, User, Setting, UserData, SetIsUnlockedData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
