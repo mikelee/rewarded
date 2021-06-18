@@ -4,6 +4,9 @@ import { createStructuredSelector } from 'reselect';
 
 import './menu.styles.scss';
 
+import { Dispatch } from 'redux';
+import { ReduxState, Action } from '../../../types';
+
 import Submenu from '../submenu/submenu.component'
 
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
@@ -11,7 +14,20 @@ import { setSubmenuCategory } from '../../redux/menu/menu.actions'
 import { clearAll } from '../../redux/user/user.actions';
 import { setLoggedOutMessage } from '../../redux/temporary/temporary.actions';
 
-class Menu extends React.Component {
+interface MenuProps extends StateProps, DispatchProps {
+}
+
+interface StateProps {
+    submenuCategory: string | null
+}
+
+interface DispatchProps {
+    setSubmenuCategory: (category: string | null) => void,
+    clearAll: () => void,
+    setLoggedOutMessage: () => void
+}
+
+class Menu extends React.Component<MenuProps> {
 
     logout = () => {
         fetch('/logout', {
@@ -40,8 +56,9 @@ class Menu extends React.Component {
         .catch(err => console.log(err));
     }
 
-    clickMenuItem = event => {
-        let category = event.target.getAttribute('name');
+    clickMenuItem = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const el = event.target as HTMLElement;
+        const category = el.getAttribute('data-name');
         this.props.setSubmenuCategory(category);
     }
 
@@ -52,8 +69,8 @@ class Menu extends React.Component {
             <div className='menu'>
                 {
                 !submenuCategory ? 
-                    <div className='menu-items' onClick={this.clickMenuItem}>
-                        <p className='menu-item menu-colors' name='Color Theme'>Color Theme</p>
+                    <div className='menu-items' onClick={event => this.clickMenuItem(event)}>
+                        <p className='menu-item menu-colors' data-name='Color Theme'>Color Theme</p>
                         <p className='menu-item menu-logout-button' onClick={this.logout}>Logout</p>
                     </div>
                 :
@@ -64,12 +81,12 @@ class Menu extends React.Component {
     }
 }
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<ReduxState, { submenuCategory: string | null }>({
    submenuCategory: getSubmenuCategory
 });
 
-const mapDispatchToProps = dispatch => ({
-    setSubmenuCategory: category => dispatch(setSubmenuCategory(category)),
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    setSubmenuCategory: (category: string | null) => dispatch(setSubmenuCategory(category)),
     clearAll: () => dispatch(clearAll()),
     setLoggedOutMessage: () => dispatch(setLoggedOutMessage())
 });
