@@ -84,7 +84,10 @@ class UserPage extends React.Component {
                 body: JSON.stringify(this.props.currentUser)
             })
             .then(response => response.json())
-            .then(json => this.props.setRewards(json));
+            .then(json => {
+                this.props.setRewards(json);
+                this.assignUnlock(json);
+            });
         }
     }
 
