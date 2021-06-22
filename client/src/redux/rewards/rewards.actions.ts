@@ -7,9 +7,9 @@ export const setRewards = (rewards: Reward[]) => ({
     payload: rewards
 });
 
-export const setSelectedReward = (reward: Reward) => ({
+export const setSelectedReward = (rewardId: number | null) => ({
     type: rewardsActionTypes.SET_SELECTED_REWARD,
-    payload: reward
+    payload: rewardId
 });
 
 export const setIsUnlocked = (data: SetIsUnlockedData) => ({
