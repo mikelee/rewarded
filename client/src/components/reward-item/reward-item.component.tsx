@@ -4,6 +4,9 @@ import { createStructuredSelector } from 'reselect';
 
 import './reward-item.styles.scss';
 
+import { Dispatch } from 'redux';
+import { ReduxState, Reward, Requirement as RequirementInterface, Action, SetIsUnlockedData } from '../../../types';
+
 import Requirement from '../requirement/requirement.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
@@ -12,8 +15,33 @@ import { getRewards, getIsUnlocked, getSelectedReward } from '../../redux/reward
 import { setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 
-class RewardItem extends React.Component {
-    constructor(props) {
+interface RewardItemProps extends StateProps, DispatchProps {
+    id: number,
+    text: string,
+    fetchRewards: () => void,
+    fetchRequirements: () => void,
+    fetchTodosForSelection: () => void,
+    scroll: () => void,
+}
+
+interface RewardItemState {
+    text: string
+}
+
+interface StateProps {
+    isUnlocked: boolean | undefined,
+    rewards: Reward[] | null,
+    requirements: RequirementInterface[] | null,
+    selectedReward: Reward | null
+}
+
+interface DispatchProps {
+    setIsUnlocked: (isUnlocked: SetIsUnlockedData) => void,
+    setSelectedReward: (rewardId: number) => void
+}
+
+class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
+    constructor(props: RewardItemProps) {
         super(props);
 
         this.state = {
@@ -25,7 +53,7 @@ class RewardItem extends React.Component {
         this.props.fetchRequirements();
     }
 
-    handleTextChange = event => {
+    handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         
         this.setState({
@@ -33,7 +61,7 @@ class RewardItem extends React.Component {
         });
     }
 
-    editReward = event => {
+    editReward = (event: React.FormEvent<HTMLFormElement>) => {
         if (event) {
             event.preventDefault();
         }
@@ -49,14 +77,14 @@ class RewardItem extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials' : true
+                'Access-Control-Allow-Credentials' : 'true'
             },
             body: JSON.stringify(data)
         })
         .then(() => this.props.fetchRewards());
     }
 
-    deleteReward = event => {
+    deleteReward = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = {
@@ -69,7 +97,7 @@ class RewardItem extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials' : true
+                'Access-Control-Allow-Credentials' : 'true'
             },
             body: JSON.stringify(data)
         })
@@ -85,8 +113,8 @@ class RewardItem extends React.Component {
         this.props.scroll();
     }
 
-    deleteRequirement = id => {
-        return event => {
+    deleteRequirement = (id: number) => {
+        return (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
             const data = {
@@ -100,7 +128,7 @@ class RewardItem extends React.Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials' : true
+                    'Access-Control-Allow-Credentials' : 'true'
                 },
                 body: JSON.stringify(data)
             })
@@ -127,7 +155,7 @@ class RewardItem extends React.Component {
                         <h3 className='requirements-title'>Requirements</h3>
                         {requirements !== null
                         ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
-                            <Requirement key={requirement.todo_id} deleteRequirement={this.deleteRequirement} reward_id={id} {...requirement}/>
+                            <Requirement key={requirement.todo_id} deleteRequirement={this.deleteRequirement} {...requirement}/>
                         ))
                         : null }
                     </div>
@@ -147,16 +175,16 @@ class RewardItem extends React.Component {
     }
 }
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<ReduxState, RewardItemProps, { isUnlocked: boolean | undefined, rewards: Reward[] | null, requirements: RequirementInterface[] | null, selectedReward: Reward | null }>({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
     requirements: getRequirements,
     selectedReward: getSelectedReward
 });
 
-const mapDispatchToProps = dispatch => ({
-    setIsUnlocked: isUnlocked => dispatch(setIsUnlocked(isUnlocked)),
-    setSelectedReward: reward => dispatch(setSelectedReward(reward))
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    setIsUnlocked: (isUnlocked: SetIsUnlockedData) => dispatch(setIsUnlocked(isUnlocked)),
+    setSelectedReward: (rewardId: number) => dispatch(setSelectedReward(rewardId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RewardItem);

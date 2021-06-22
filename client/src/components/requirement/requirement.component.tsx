@@ -5,7 +5,15 @@ import './requirement.styles.scss';
 import { CheckRounded, Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-const Requirement = ({ todo_id, text, completed, deleteRequirement }) => (
+interface RequirementProps {
+    todo_id: number,
+    reward_id: number,
+    text: string,
+    completed: number,
+    deleteRequirement: (todo_id: number) => React.FormEventHandler<HTMLFormElement>
+}
+
+const Requirement: React.FC<RequirementProps> = ({ todo_id, text, completed, deleteRequirement }) => (
     <div className='requirement'>
         <div className='requirement-check-space'>
             {completed
