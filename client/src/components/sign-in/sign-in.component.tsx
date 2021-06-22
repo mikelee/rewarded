@@ -4,10 +4,27 @@ import { connect } from 'react-redux';
 import './sign-in.styles.scss';
 import benchGraphic from '../../assets/bench_checklist.svg';
 
+import { Dispatch } from 'redux';
+import { User, Action } from '../../../types';
+
 import { setCurrentUser } from '../../redux/user/user.actions';
 
-class SignIn extends React.Component {
-    constructor(props) {
+interface SignInProps extends DispatchProps {
+    type: string
+}
+
+interface State {
+    username: string,
+    password: string,
+    errorMessage: string
+}
+
+interface DispatchProps {
+    setCurrentUser: (user: User) => void
+}
+
+class SignIn extends React.Component<SignInProps, State> {
+    constructor(props: SignInProps) {
         super(props);
 
         this.state = {
@@ -17,7 +34,7 @@ class SignIn extends React.Component {
         }
     }
 
-    handleSubmit = async (event) => {
+    handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = {
@@ -32,7 +49,7 @@ class SignIn extends React.Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials' : true
+                    'Access-Control-Allow-Credentials' : 'true'
                 },
                 body: JSON.stringify(data)
             });
@@ -50,7 +67,7 @@ class SignIn extends React.Component {
                 }, 3000);
             } else {
                 this.setState({
-                    email: '',
+                    username: '',
                     password: ''
                 });
                 this.props.setCurrentUser(user);
@@ -60,11 +77,9 @@ class SignIn extends React.Component {
         }
     }
 
-    handleChange = event => {
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        });
+        this.setState({ [name]: value } as any);
     }
 
     render() {
@@ -100,8 +115,8 @@ class SignIn extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    setCurrentUser: (user: User) => dispatch(setCurrentUser(user))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
