@@ -4,13 +4,28 @@ import { createStructuredSelector } from 'reselect';
 
 import './submenu.styles.scss';
 
+import { Dispatch } from 'redux';
+import { User, ReduxState, Action } from '../../../types';
+
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
 import { getCurrentUser } from '../../redux/user/user.selectors';
 
+interface SubmenuProps extends StateProps, DispatchProps {
+}
 
-class Submenu extends React.Component {
+interface StateProps {
+    submenuCategory: string | null,
+    currentUser: User | null
+}
+
+interface DispatchProps {
+    setSubmenuCategory: (category: string | null) => void,
+    setColorTheme: (color: string) => void
+}
+
+class Submenu extends React.Component<SubmenuProps> {
 
     componentWillUnmount() {
         this.props.setSubmenuCategory(null);
@@ -38,12 +53,12 @@ class Submenu extends React.Component {
         this.props.setSubmenuCategory(null);
     }
 
-    toggleColor = event => {
-        const colorName = event.target.name;
+    toggleColor = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const colorName = (event.target as HTMLButtonElement).name;
 
         const data = {
             color: colorName,
-            user_id: this.props.currentUser.user_id
+            user_id: this.props.currentUser?.user_id
         }
 
         fetch('api/settings/color-theme/update', {
@@ -120,14 +135,14 @@ class Submenu extends React.Component {
     }
 }
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<ReduxState, { submenuCategory: string | null, currentUser: User | null }>({
     submenuCategory: getSubmenuCategory,
     currentUser: getCurrentUser
 });
 
-const mapDispatchToProps = dispatch => ({
-    setSubmenuCategory: category => dispatch(setSubmenuCategory(category)),
-    setColorTheme: color => dispatch(setColorTheme(color))
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    setSubmenuCategory: (category: string | null) => dispatch(setSubmenuCategory(category)),
+    setColorTheme: (color: string) => dispatch(setColorTheme(color))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Submenu);

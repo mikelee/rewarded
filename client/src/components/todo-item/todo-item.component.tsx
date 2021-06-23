@@ -6,8 +6,23 @@ import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-class TodoItem extends React.Component {
-    constructor(props) {
+interface TodoItemProps {
+    id: number,
+    text: string,
+    completed: number,
+    selectedReward: number | null,
+    associatedReward: number | undefined,
+    fetchTodos: () => void,
+    fetchRequirements: () => void,
+    fetchTodosForSelection: () => void,
+}
+
+interface State {
+    text: string
+}
+
+class TodoItem extends React.Component<TodoItemProps, State> {
+    constructor(props: TodoItemProps) {
         super(props);
 
         this.state = {
@@ -15,7 +30,7 @@ class TodoItem extends React.Component {
         }
     }
 
-    handleTextChange = event => {
+    handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         
         this.setState({
@@ -23,7 +38,7 @@ class TodoItem extends React.Component {
         });
     }
 
-    updateTodo = event => {
+    updateTodo = (event: React.FocusEvent<HTMLFormElement> | React.FormEvent<HTMLFormElement>) => {
         if (event) {
             event.preventDefault();
         }
@@ -49,7 +64,7 @@ class TodoItem extends React.Component {
         });
     }
 
-    deleteTodo = event => {
+    deleteTodo = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = {
