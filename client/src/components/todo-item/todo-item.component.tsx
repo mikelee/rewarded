@@ -10,7 +10,7 @@ interface TodoItemProps {
     id: number,
     text: string,
     completed: number,
-    selectedReward: number | null,
+    selectedRewardId: number | null,
     associatedReward: number | undefined,
     fetchTodos: () => void,
     fetchRequirements: () => void,
@@ -109,11 +109,11 @@ class TodoItem extends React.Component<TodoItemProps, State> {
     }
 
     createOrDeleteRequirement = () => {
-        let selected = this.props.selectedReward === this.props.associatedReward;
+        let selected = this.props.selectedRewardId === this.props.associatedReward;
         
         const data = {
             todoId: this.props.id,
-            rewardId: this.props.selectedReward,
+            rewardId: this.props.selectedRewardId,
             selected
         }
         
@@ -134,18 +134,18 @@ class TodoItem extends React.Component<TodoItemProps, State> {
     }
 
     render() {
-        const { id, text, completed, selectedReward, associatedReward } = this.props;
+        const { id, text, completed, selectedRewardId, associatedReward } = this.props;
 
         return (
             <div className='todo'>
-                {!selectedReward
+                {!selectedRewardId
                 ? <ToggleButton type='forTodo' completed={completed} toggleTodoCompleted={this.toggleTodoCompleted} />
-                : <ToggleButton type='forRequirement' selectedReward={selectedReward} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
+                : <ToggleButton type='forRequirement' selectedRewardId={selectedRewardId} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
                 }
                 <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
                     <input name='text' className='todo-edit-form-textfield' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
                 </form>
-                {!selectedReward
+                {!selectedRewardId
                 ?
                     <form className='todo-delete-form' onSubmit={this.deleteTodo}>
                         <IconButton className='todo-icon-button' type='submit'>

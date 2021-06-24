@@ -14,9 +14,9 @@ export const getRewards = createSelector(
     rewards => rewards.rewards
 );
 
-export const getSelectedReward = createSelector(
+export const getSelectedRewardId = createSelector(
     [selectRewards],
-    reward => reward.selectedReward
+    reward => reward.selectedRewardId
 );
 
 export const getIsUnlocked = createSelector(

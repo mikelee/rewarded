@@ -7,17 +7,17 @@ import { CheckRounded } from '@material-ui/icons';
 interface ToggleButtonProps {
     type: string,
     completed: number,
-    selectedReward?: number,
+    selectedRewardId?: number,
     associatedReward?: number,
     toggleTodoCompleted?: () => void,
     toggleRequirement?: () => void
 }
 
-const ToggleButton: React.FC<ToggleButtonProps> = ({ type, completed, selectedReward, associatedReward, toggleTodoCompleted, toggleRequirement }) => (
+const ToggleButton: React.FC<ToggleButtonProps> = ({ type, completed, selectedRewardId, associatedReward, toggleTodoCompleted, toggleRequirement }) => (
     <div className='toggle-button-container'>
-        <button className={`toggle-button ${selectedReward === associatedReward && selectedReward !== null && type === 'forRequirement' ? 'selected' : ''}`} onClick={type === 'forTodo' ? toggleTodoCompleted : toggleRequirement}>
+        <button className={`toggle-button ${selectedRewardId === associatedReward && selectedRewardId !== null && type === 'forRequirement' ? 'selected' : ''}`} onClick={type === 'forTodo' ? toggleTodoCompleted : toggleRequirement}>
             {completed === 1
-            ? <CheckRounded className={`check-icon ${selectedReward === associatedReward && selectedReward !== null && type === 'forRequirement' ? 'selected' : ''}`} fontSize='large'/>
+            ? <CheckRounded className={`check-icon ${selectedRewardId === associatedReward && selectedRewardId !== null && type === 'forRequirement' ? 'selected' : ''}`} fontSize='large'/>
             : null
             }
         </button>

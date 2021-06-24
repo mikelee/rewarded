@@ -1,4 +1,4 @@
-import { setRewards, setSelectedReward, setIsUnlocked } from './rewards.actions';
+import { setRewards, setSelectedRewardId, setIsUnlocked } from './rewards.actions';
 import rewardsActionTypes from './rewards.types';
 
 it('should create an action to set the rewards', () => {
@@ -17,14 +17,14 @@ it('should create an action to set the rewards', () => {
 });
 
 it('should create an action to set a selected reward', () => {
-    const selectedReward = {id: 2};
+    const selectedRewardId = {id: 2};
 
     const expectedAction = {
-        type: rewardsActionTypes.SET_SELECTED_REWARD,
-        payload: selectedReward
+        type: rewardsActionTypes.SET_SELECTED_REWARD_ID,
+        payload: selectedRewardId
     };
 
-    expect(setSelectedReward(selectedReward)).toEqual(expectedAction);
+    expect(setSelectedRewardId(selectedRewardId)).toEqual(expectedAction);
 });
 
 it('should create an action to set the reward with rewardId: 2 as unlocked', () => {

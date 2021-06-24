@@ -7,8 +7,8 @@ export const setRewards = (rewards: Reward[]) => ({
     payload: rewards
 });
 
-export const setSelectedReward = (rewardId: number | null) => ({
-    type: rewardsActionTypes.SET_SELECTED_REWARD,
+export const setSelectedRewardId = (rewardId: number | null) => ({
+    type: rewardsActionTypes.SET_SELECTED_REWARD_ID,
     payload: rewardId
 });
 

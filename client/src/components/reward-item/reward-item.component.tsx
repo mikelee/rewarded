@@ -11,8 +11,8 @@ import Requirement from '../requirement/requirement.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
-import { getRewards, getIsUnlocked, getSelectedReward } from '../../redux/rewards/rewards.selectors';
-import { setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
+import { getRewards, getIsUnlocked, getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
+import { setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 
 interface RewardItemProps extends StateProps, DispatchProps {
@@ -32,12 +32,12 @@ interface StateProps {
     isUnlocked: boolean | undefined,
     rewards: Reward[] | null,
     requirements: RequirementInterface[] | null,
-    selectedReward: Reward | null
+    selectedRewardId: number | null
 }
 
 interface DispatchProps {
     setIsUnlocked: (isUnlocked: SetIsUnlockedData) => void,
-    setSelectedReward: (rewardId: number) => void
+    setSelectedRewardId: (rewardId: number) => void
 }
 
 class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
@@ -108,7 +108,7 @@ class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
     }
 
     addOrDeleteRequirement = async () => {
-        await this.props.setSelectedReward(this.props.id);
+        await this.props.setSelectedRewardId(this.props.id);
         await this.props.fetchTodosForSelection();
         this.props.scroll();
     }
@@ -135,7 +135,7 @@ class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
             .then(() => {
                 this.props.fetchRequirements();
                 
-                if (this.props.selectedReward) {
+                if (this.props.selectedRewardId) {
                     this.props.fetchTodosForSelection();
                 }
             });
@@ -175,16 +175,16 @@ class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, RewardItemProps, { isUnlocked: boolean | undefined, rewards: Reward[] | null, requirements: RequirementInterface[] | null, selectedReward: Reward | null }>({
+const mapStateToProps = createStructuredSelector<ReduxState, RewardItemProps, { isUnlocked: boolean | undefined, rewards: Reward[] | null, requirements: RequirementInterface[] | null, selectedRewardId: number | null }>({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
     requirements: getRequirements,
-    selectedReward: getSelectedReward
+    selectedRewardId: getSelectedRewardId
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     setIsUnlocked: (isUnlocked: SetIsUnlockedData) => dispatch(setIsUnlocked(isUnlocked)),
-    setSelectedReward: (rewardId: number) => dispatch(setSelectedReward(rewardId))
+    setSelectedRewardId: (rewardId: number) => dispatch(setSelectedRewardId(rewardId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RewardItem);

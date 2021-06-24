@@ -68,7 +68,7 @@ export interface TodosReducer {
 
 export interface RewardsReducer {
     rewards: Reward[] | null,
-    selectedReward: Reward | null
+    selectedRewardId: number | null
 }
 
 export interface RequirementsReducer {

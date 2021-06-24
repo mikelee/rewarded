@@ -6,12 +6,12 @@ import { Reward } from '../../../types';
 
 interface State {
     rewards: Reward[] | null,
-    selectedReward: Reward | null
+    selectedRewardId: number | null
 }
 
 const initalState = {
     rewards: null,
-    selectedReward: null
+    selectedRewardId: null
 }
 
 const rewardsReducer: Reducer<State, Action> = (state = initalState, action) => {
@@ -21,10 +21,10 @@ const rewardsReducer: Reducer<State, Action> = (state = initalState, action) => 
                 ...state,
                 rewards: action.payload
             }
-        case rewardsActionTypes.SET_SELECTED_REWARD:
+        case rewardsActionTypes.SET_SELECTED_REWARD_ID:
             return {
                 ...state,
-                selectedReward: action.payload
+                selectedRewardId: action.payload
             }
         case rewardsActionTypes.SET_UNLOCKED:
             return {

@@ -1,9 +1,9 @@
 import rewardsReducer from './rewards.reducer';
-import { setRewards, setSelectedReward, setIsUnlocked } from './rewards.actions';
+import { setRewards, setSelectedRewardId, setIsUnlocked } from './rewards.actions';
 
 const initialState = {
     rewards: null,
-    selectedReward: null
+    selectedRewardId: null
 };
 
 const rewards = [
@@ -12,14 +12,14 @@ const rewards = [
     {reward_id: 3, user_id: 9, text: 'reward 3'}
 ];
 
-const selectedReward = 1;
+const selectedRewardId = 1;
 
 it('should set the rewards', () => {
-    expect(rewardsReducer(initialState, setRewards(rewards))).toEqual({rewards: rewards, selectedReward: null});
+    expect(rewardsReducer(initialState, setRewards(rewards))).toEqual({rewards: rewards, selectedRewardId: null});
 });
 
 it('should set the selected reward', () => {
-    expect(rewardsReducer(initialState, setSelectedReward(selectedReward))).toEqual({rewards: null, selectedReward: 1});
+    expect(rewardsReducer(initialState, setSelectedRewardId(selectedRewardId))).toEqual({rewards: null, selectedRewardId: 1});
 });
 
 it('should unlock reward with id: 1', () => {
@@ -34,7 +34,7 @@ it('should unlock reward with id: 1', () => {
             {reward_id: 2, user_id: 9, text: 'reward 2'},
             {reward_id: 3, user_id: 9, text: 'reward 3'}
         ],
-        selectedReward: null
+        selectedRewardId: null
     };
     
     expect(rewardsReducer(state, setIsUnlocked(unlockData))).toEqual({
@@ -43,7 +43,7 @@ it('should unlock reward with id: 1', () => {
             {reward_id: 2, user_id: 9, text: 'reward 2'},
             {reward_id: 3, user_id: 9, text: 'reward 3'},
         ],
-        selectedReward: null
+        selectedRewardId: null
     });
 });
 
@@ -59,7 +59,7 @@ it('should lock reward with id: 2', () => {
             {reward_id: 2, user_id: 9, text: 'reward 2'},
             {reward_id: 3, user_id: 9, text: 'reward 3'}
         ],
-        selectedReward: null
+        selectedRewardId: null
     };
     
     expect(rewardsReducer(state, setIsUnlocked(unlockData))).toEqual({
@@ -68,6 +68,6 @@ it('should lock reward with id: 2', () => {
             {reward_id: 2, user_id: 9, text: 'reward 2', isUnlocked: false},
             {reward_id: 3, user_id: 9, text: 'reward 3'},
         ],
-        selectedReward: null
+        selectedRewardId: null
     });
 });

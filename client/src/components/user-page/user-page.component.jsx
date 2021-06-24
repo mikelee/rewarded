@@ -10,8 +10,8 @@ import RewardItem from '../reward-item/reward-item.component';
 
 import { getTodos } from '../../redux/todos/todos.selectors'
 import { setTodos } from '../../redux/todos/todos.actions';
-import { getRewards, getSelectedReward } from '../../redux/rewards/rewards.selectors'
-import { setRewards, setSelectedReward, setIsUnlocked } from '../../redux/rewards/rewards.actions';
+import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
+import { setRewards, setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
@@ -115,7 +115,7 @@ class UserPage extends React.Component {
 
     fetchTodosForSelection = () => {
         const data = {
-            reward_id: this.props.selectedReward,
+            reward_id: this.props.selectedRewardId,
             user_id: this.props.currentUser.user_id
         }
 
@@ -138,21 +138,21 @@ class UserPage extends React.Component {
     }
 
     exitSelection = () => {
-        this.props.setSelectedReward(null);
+        this.props.setSelectedRewardId(null);
         this.fetchTodos();
     }
 
     render() {
-        const { todos, rewards, selectedReward } = this.props;
+        const { todos, rewards, selectedRewardId } = this.props;
 
         return (
             <div className='user-page'>
-                {selectedReward
+                {selectedRewardId
                     ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
                     : <h2 className='title'>To Do</h2>
                 }
-                {this.props.selectedReward !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
-                {todos ? todos.map(todo => <TodoItem fetchTodos={this.fetchTodos} fetchRequirements={this.fetchRequirements} fetchTodosForSelection={this.fetchTodosForSelection} key={todo.todo_id} id={todo.todo_id} text={todo.text} completed={todo.completed} selectedReward={this.props.selectedReward} associatedReward={todo.reward_id} />) : null}
+                {this.props.selectedRewardId !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
+                {todos ? todos.map(todo => <TodoItem fetchTodos={this.fetchTodos} fetchRequirements={this.fetchRequirements} fetchTodosForSelection={this.fetchTodosForSelection} key={todo.todo_id} id={todo.todo_id} text={todo.text} completed={todo.completed} selectedRewardId={this.props.selectedRewardId} associatedReward={todo.reward_id} />) : null}
                 <AddItem fetchTodos={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
 
                 <h3 className='title'>Rewards</h3>
@@ -166,7 +166,7 @@ class UserPage extends React.Component {
 const mapStateToProps = createStructuredSelector({
     todos: getTodos,
     rewards: getRewards,
-    selectedReward: getSelectedReward,
+    selectedRewardId: getSelectedRewardId,
     requirements: getRequirements,
     colorTheme: getColorTheme
 });
@@ -174,7 +174,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
     setTodos: todos => dispatch(setTodos(todos)),
     setRewards: rewards => dispatch(setRewards(rewards)),
-    setSelectedReward: reward => dispatch(setSelectedReward(reward)),
+    setSelectedRewardId: rewardId => dispatch(setSelectedRewardId(rewardId)),
     setIsUnlocked: requirements => dispatch(setIsUnlocked(requirements)),
     setRequirements: requirements => dispatch(setRequirements(requirements)),
     setColorTheme: color => dispatch(setColorTheme(color))
