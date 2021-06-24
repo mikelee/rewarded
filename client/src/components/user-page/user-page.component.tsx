@@ -4,6 +4,11 @@ import { createStructuredSelector } from 'reselect';
 
 import './user-page.styles.scss';
 
+import { User } from '../../../types';
+
+import { Dispatch } from 'redux';
+import { Todo, Reward, Requirement, SetIsUnlockedData, ReduxState, Action } from '../../../types';
+
 import TodoItem from '../todo-item/todo-item.component';
 import AddItem from '../add-item/add-item.component';
 import RewardItem from '../reward-item/reward-item.component';
@@ -17,39 +22,66 @@ import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
 
-class UserPage extends React.Component {
-    constructor(props) {
+interface UserPageProps extends StateProps, DispatchProps {
+    currentUser: User
+}
+
+interface StateProps {
+    todos: Todo[] | null,
+    rewards: Reward[] | null,
+    selectedRewardId: number | null,
+    requirements: Requirement[] | null,
+    colorTheme: string | null
+}
+
+interface DispatchProps {
+    setTodos: (todos: Todo[]) => void,
+    setRewards: (rewards: Reward[]) => void,
+    setSelectedRewardId: (rewardId: number | null) => void,
+    setIsUnlocked: (data: SetIsUnlockedData) => void,
+    setRequirements: (requirements: Requirement[]) => void,
+    setColorTheme: (color: string) => void
+}
+
+class UserPage extends React.Component<UserPageProps> {
+    selectionTitle: React.RefObject<HTMLHeadingElement>
+
+    constructor(props: UserPageProps) {
         super(props);
 
         this.selectionTitle = React.createRef();
     }
 
-    assignUnlock = (rewards) => {
+    assignUnlock = (rewards: Reward[] | null) => {
         if (rewards) {
             const { requirements } = this.props;
 
             rewards.forEach((reward) => {
-                const isUnlocked = requirements.filter(requ => requ.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
+                const isUnlocked = requirements?.filter(requ => requ.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
                 const rewardId = reward.reward_id;
 
-                const data = {
-                    rewardId,
-                    isUnlocked
+                if (isUnlocked) {
+                    const data = {
+                        rewardId,
+                        isUnlocked
+                    }
+                    this.props.setIsUnlocked(data);
                 }
-                this.props.setIsUnlocked(data);
             });
         } else {
             const { rewards, requirements } = this.props;
 
-            rewards.forEach(reward => {
-                const isUnlocked = requirements.filter(requirment => requirment.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
+            rewards?.forEach(reward => {
+                const isUnlocked = requirements?.filter(requirment => requirment.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
                 const rewardId = reward.reward_id;
 
-                const data = {
-                    rewardId,
-                    isUnlocked
+                if (isUnlocked) {
+                    const data = {
+                        rewardId,
+                        isUnlocked
+                    }
+                    this.props.setIsUnlocked(data);
                 }
-                this.props.setIsUnlocked(data);
             });
         }
     }
@@ -109,7 +141,7 @@ class UserPage extends React.Component {
         .then(response => response.json())
         .then(json => {
             this.props.setRequirements(json);
-            this.assignUnlock();
+            this.assignUnlock(null);
         });
     }
 
@@ -134,7 +166,7 @@ class UserPage extends React.Component {
     }
 
     scrollToSelection = () => {
-        this.selectionTitle.current.scrollIntoView({behavior: 'smooth'});
+        this.selectionTitle.current?.scrollIntoView({behavior: 'smooth'});
     }
 
     exitSelection = () => {
@@ -156,14 +188,14 @@ class UserPage extends React.Component {
                 <AddItem fetchTodos={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
 
                 <h3 className='title'>Rewards</h3>
-                {rewards ? rewards.map(reward => <RewardItem fetchRewards={this.fetchRewards} fetchRequirements={this.fetchRequirements} key={reward.reward_id} id={reward.reward_id} text={reward.text} fetchTodosForSelection={this.fetchTodosForSelection} scroll={this.scrollToSelection}/>) : null}
+                {rewards ? rewards.map(reward => <RewardItem fetchRewards={this.fetchRewards} fetchRequirements={this.fetchRequirements} key={reward.reward_id} id={reward.reward_id} text={reward.text} fetchTodosForSelection={this.fetchTodosForSelection} scroll={this.scrollToSelection} />) : null}
                 <AddItem fetchRewards={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
             </div>
         );
     }
 }
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<ReduxState, { todos: Todo[] | null, rewards: Reward[] | null, selectedRewardId: number | null, requirements: Requirement[] | null, colorTheme: string |null }>({
     todos: getTodos,
     rewards: getRewards,
     selectedRewardId: getSelectedRewardId,
@@ -171,13 +203,13 @@ const mapStateToProps = createStructuredSelector({
     colorTheme: getColorTheme
 });
 
-const mapDispatchToProps = dispatch => ({
-    setTodos: todos => dispatch(setTodos(todos)),
-    setRewards: rewards => dispatch(setRewards(rewards)),
-    setSelectedRewardId: rewardId => dispatch(setSelectedRewardId(rewardId)),
-    setIsUnlocked: requirements => dispatch(setIsUnlocked(requirements)),
-    setRequirements: requirements => dispatch(setRequirements(requirements)),
-    setColorTheme: color => dispatch(setColorTheme(color))
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
+    setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
+    setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId)),
+    setIsUnlocked: (data: SetIsUnlockedData) => dispatch(setIsUnlocked(data)),
+    setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
+    setColorTheme: (color: string) => dispatch(setColorTheme(color))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
