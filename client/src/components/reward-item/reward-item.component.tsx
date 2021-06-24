@@ -15,7 +15,7 @@ import { getRewards, getIsUnlocked, getSelectedRewardId } from '../../redux/rewa
 import { setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 
-interface RewardItemProps extends StateProps, DispatchProps {
+interface RewardItemProps {
     id: number,
     text: string,
     fetchRewards: () => void,
@@ -40,8 +40,10 @@ interface DispatchProps {
     setSelectedRewardId: (rewardId: number) => void
 }
 
-class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
-    constructor(props: RewardItemProps) {
+type ComponentProps = RewardItemProps & StateProps & DispatchProps;
+
+class RewardItem extends React.Component<ComponentProps, RewardItemState> {
+    constructor(props: ComponentProps) {
         super(props);
 
         this.state = {
@@ -108,8 +110,10 @@ class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
     }
 
     addOrDeleteRequirement = async () => {
-        await this.props.setSelectedRewardId(this.props.id);
-        await this.props.fetchTodosForSelection();
+        if (this.props.setSelectedRewardId) {
+            this.props.setSelectedRewardId(this.props.id);
+        }
+        this.props.fetchTodosForSelection();
         this.props.scroll();
     }
 
@@ -154,7 +158,7 @@ class RewardItem extends React.Component<RewardItemProps, RewardItemState> {
                     <div className='reward-to-complete'>
                         <h3 className='requirements-title'>Requirements</h3>
                         {requirements !== null
-                        ? requirements.filter(requirement => requirement.reward_id === id).map(requirement => (
+                        ? requirements?.filter(requirement => requirement.reward_id === id).map(requirement => (
                             <Requirement key={requirement.todo_id} deleteRequirement={this.deleteRequirement} {...requirement}/>
                         ))
                         : null }
