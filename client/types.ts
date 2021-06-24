@@ -5,6 +5,7 @@ export interface Todo {
     user_id: number,
     text: string,
     completed: number
+    reward_id?: number
 }
 
 export interface Reward {
