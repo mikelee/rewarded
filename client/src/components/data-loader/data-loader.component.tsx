@@ -19,12 +19,6 @@ interface OwnProps {
     requirements?: Requirement[]
 }
 
-interface StateProps {
-    currentUser: User,
-    rewards?: Reward[],
-    requirements?: Requirement[]
-}
-
 interface DispatchProps {
     setTodos?: (todos: Todo[]) => void,
     setRewards?: (rewards: Reward[]) => void,
@@ -33,7 +27,7 @@ interface DispatchProps {
     setColorTheme?: (color: string) => void
 }
 
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = OwnProps & DispatchProps;
 
 interface State {
     dataLoaded: boolean
@@ -216,4 +210,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     setColorTheme: (color: string) => dispatch(setColorTheme(color))
 });
 
-export default connect<StateProps | null, DispatchProps>(null, mapDispatchToProps)(DataLoader);
+export default connect(null, mapDispatchToProps)(DataLoader);
