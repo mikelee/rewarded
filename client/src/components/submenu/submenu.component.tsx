@@ -12,9 +12,6 @@ import { setSubmenuCategory } from '../../redux/menu/menu.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
 import { getCurrentUser } from '../../redux/user/user.selectors';
 
-interface SubmenuProps extends StateProps, DispatchProps {
-}
-
 interface StateProps {
     submenuCategory: string | null,
     currentUser: User | null
@@ -25,7 +22,9 @@ interface DispatchProps {
     setColorTheme: (color: string) => void
 }
 
-class Submenu extends React.Component<SubmenuProps> {
+type Props = StateProps & DispatchProps;
+
+class Submenu extends React.Component<Props> {
 
     componentWillUnmount() {
         this.props.setSubmenuCategory(null);

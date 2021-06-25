@@ -9,9 +9,15 @@ import { User, Action } from '../../../types';
 
 import { setCurrentUser } from '../../redux/user/user.actions';
 
-interface SignInProps extends DispatchProps {
+interface OwnProps {
     type: string
 }
+
+interface DispatchProps {
+    setCurrentUser: (user: User) => void
+}
+
+type Props = OwnProps & DispatchProps;
 
 interface State {
     username: string,
@@ -19,12 +25,8 @@ interface State {
     errorMessage: string
 }
 
-interface DispatchProps {
-    setCurrentUser: (user: User) => void
-}
-
-class SignIn extends React.Component<SignInProps, State> {
-    constructor(props: SignInProps) {
+class SignIn extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
 
         this.state = {

@@ -14,9 +14,6 @@ import { setSubmenuCategory } from '../../redux/menu/menu.actions'
 import { clearAll } from '../../redux/user/user.actions';
 import { setLoggedOutMessage } from '../../redux/temporary/temporary.actions';
 
-interface MenuProps extends StateProps, DispatchProps {
-}
-
 interface StateProps {
     submenuCategory: string | null
 }
@@ -27,7 +24,9 @@ interface DispatchProps {
     setLoggedOutMessage: () => void
 }
 
-class Menu extends React.Component<MenuProps> {
+type Props = StateProps & DispatchProps;
+
+class Menu extends React.Component<Props> {
 
     logout = () => {
         fetch('/logout', {

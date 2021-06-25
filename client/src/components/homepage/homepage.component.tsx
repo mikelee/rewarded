@@ -12,7 +12,7 @@ import { User, ReduxState } from '../../../types';
 
 import { getLoggedOutMessage } from '../../redux/temporary/temporary.selectors';
 
-interface HomePageProps extends StateProps {
+interface OwnProps {
     currentUser: User | null
 }
 
@@ -20,7 +20,9 @@ interface StateProps {
     loggedOutMessage: boolean
 }
 
-const HomePage: React.FC<HomePageProps> = ({ currentUser, loggedOutMessage }) => (
+type Props = OwnProps & StateProps;
+
+const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
     <div className='homepage'>
         <Nav currentUser={currentUser} isTransparent={true} />
         <div className='homepage-container'>

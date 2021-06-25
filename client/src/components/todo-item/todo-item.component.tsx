@@ -6,7 +6,7 @@ import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-interface TodoItemProps {
+interface OwnProps {
     id: number,
     text: string,
     completed: number,
@@ -17,12 +17,14 @@ interface TodoItemProps {
     fetchTodosForSelection: () => void,
 }
 
+type Props = OwnProps;
+
 interface State {
     text: string
 }
 
-class TodoItem extends React.Component<TodoItemProps, State> {
-    constructor(props: TodoItemProps) {
+class TodoItem extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
 
         this.state = {

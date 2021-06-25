@@ -14,7 +14,7 @@ import { toggleMenuVisible } from '../../redux/menu/menu.actions';
 import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 import { Action } from 'redux';
 
-interface NavProps extends StateProps, DispatchProps {
+interface OwnProps {
     currentUser: User | null,
     isTransparent?: boolean
 }
@@ -27,7 +27,9 @@ interface DispatchProps {
     toggleMenuVisible: () => void
 }
 
-const Nav: React.FC<NavProps> = ({ currentUser, visible, toggleMenuVisible, isTransparent }) => (
+type Props = OwnProps & StateProps & DispatchProps;
+
+const Nav: React.FC<Props> = ({ currentUser, visible, toggleMenuVisible, isTransparent }) => (
     <div className={`nav ${isTransparent ? 'nav-transparent' : ''}`}>
         {currentUser ?
             <div className='nav-buttons'>

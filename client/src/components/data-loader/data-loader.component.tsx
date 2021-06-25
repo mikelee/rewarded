@@ -13,8 +13,7 @@ import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
 import { Action } from 'redux';
 
-
-interface Props extends DispatchProps {
+interface OwnProps {
     currentUser: User,
     rewards?: Reward[],
     requirements?: Requirement[]
@@ -33,6 +32,8 @@ interface DispatchProps {
     setRequirements?: (requirements: Requirement[]) => void,
     setColorTheme?: (color: string) => void
 }
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 interface State {
     dataLoaded: boolean

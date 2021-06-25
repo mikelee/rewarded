@@ -6,14 +6,14 @@ import { User } from '../../../types';
 
 import { AddRounded } from '@material-ui/icons';
 
-interface addItemProps {
+interface Props {
     type: string,
     currentUser: User,
     fetchTodos?: () => void,
     fetchRewards?: () => void
 }
 
-class addItem extends React.Component<addItemProps> {
+class addItem extends React.Component<Props> {
 
     addTodo = () => {
         fetch(`/api/${this.props.type}/create`, {

@@ -22,7 +22,7 @@ import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
 
-interface UserPageProps extends StateProps, DispatchProps {
+interface OwnProps {
     currentUser: User
 }
 
@@ -43,13 +43,15 @@ interface DispatchProps {
     setColorTheme: (color: string) => void
 }
 
-class UserPage extends React.Component<UserPageProps> {
-    selectionTitle: React.RefObject<HTMLHeadingElement>
+type Props = OwnProps & StateProps & DispatchProps;
 
-    constructor(props: UserPageProps) {
+class UserPage extends React.Component<Props> {
+    private selectionTitle: React.RefObject<HTMLHeadingElement>
+
+    constructor(props: Props) {
         super(props);
 
-        this.selectionTitle = React.createRef();
+        this.selectionTitle = React.createRef<HTMLHeadingElement>();
     }
 
     assignUnlock = (rewards: Reward[] | null) => {
