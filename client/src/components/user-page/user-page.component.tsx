@@ -77,7 +77,7 @@ class UserPage extends React.Component<Props> {
                 const isUnlocked = requirements?.filter(requirment => requirment.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
                 const rewardId = reward.reward_id;
 
-                if (isUnlocked) {
+                if (isUnlocked !== undefined) {
                     const data = {
                         rewardId,
                         isUnlocked
