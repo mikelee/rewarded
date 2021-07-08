@@ -51,10 +51,6 @@ class RewardItem extends React.Component<Props, State> {
         }
     }
 
-    componentDidMount() {
-        this.props.fetchRequirements();
-    }
-
     handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         
