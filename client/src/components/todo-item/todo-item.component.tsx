@@ -20,7 +20,10 @@ interface OwnProps {
 type Props = OwnProps;
 
 interface State {
-    text: string
+    text: string,
+    swipeStart: number | undefined,
+    swipeEnd: number | undefined,
+    swipeChange: number | undefined
 }
 
 class TodoItem extends React.Component<Props, State> {
@@ -28,7 +31,10 @@ class TodoItem extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            text: this.props.text
+            text: this.props.text,
+            swipeStart: undefined,
+            swipeEnd: undefined,
+            swipeChange: undefined
         }
     }
 
@@ -38,6 +44,40 @@ class TodoItem extends React.Component<Props, State> {
         this.setState({
             text: value
         });
+    }
+
+    handleSwipeStart = (event: React.TouchEvent<HTMLDivElement>) => {
+        let x: number = event.changedTouches[0].clientX;
+
+        this.setState({swipeStart: x})
+    }
+    
+    handleSwipeEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+        let x: number = event.changedTouches[0].clientX;
+        let changeX;
+
+        if (this.state.swipeStart) {
+            changeX = x - this.state.swipeStart;
+        }
+
+        this.setState({swipeEnd: x});
+
+        if (this.state.swipeStart && changeX) {
+            if (changeX <= -75 || 75 <= changeX) {
+                this.deleteTodo();
+            } else {
+                this.setState({swipeChange: 0});
+            }
+        }
+    }
+
+    handleSwipeMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        let x: number = event.changedTouches[0].clientX;
+        let start: number | undefined = this.state.swipeStart;
+
+        if (start) {
+            this.setState({swipeChange: x - start});
+        }
     }
 
     updateTodo = (event: React.FocusEvent<HTMLFormElement> | React.FormEvent<HTMLFormElement>) => {
@@ -66,8 +106,8 @@ class TodoItem extends React.Component<Props, State> {
         });
     }
 
-    deleteTodo = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    deleteTodo = (event: React.FormEvent<HTMLFormElement> | undefined = undefined) => {
+        if (event) event.preventDefault();
 
         const data = {
             id: this.props.id
@@ -139,7 +179,17 @@ class TodoItem extends React.Component<Props, State> {
         const { id, text, completed, selectedRewardId, associatedReward } = this.props;
 
         return (
-            <div className='todo'>
+            <div
+                className='todo' 
+                {...window.innerWidth <= 480 &&
+                    {
+                        onTouchStart: event => this.handleSwipeStart(event), 
+                        onTouchEnd: event => this.handleSwipeEnd(event), 
+                        onTouchMove: event => this.handleSwipeMove(event)
+                    }
+                } 
+                style={{transform: `translateX(${this.state.swipeChange}px)`}}
+            >
                 {!selectedRewardId
                 ? <ToggleButton type='forTodo' completed={completed} toggleTodoCompleted={this.toggleTodoCompleted} />
                 : <ToggleButton type='forRequirement' selectedRewardId={selectedRewardId} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
