@@ -7,8 +7,8 @@ router.post('/api', (req, res) => {
     const { user_id } = req.body;
 
     connection.query(`
-        SELECT * FROM todos WHERE user_id = ? ORDER BY completed;
-        SELECT * FROM rewards WHERE user_id = ?;
+        SELECT todo_id, text, completed FROM todos WHERE user_id = ? ORDER BY completed;
+        SELECT reward_id, text FROM rewards WHERE user_id = ?;
         SELECT q.reward_id AS reward_id, q.todo_id AS todo_id, t.text as text, t.completed AS completed FROM requirements q LEFT JOIN todos t ON q.todo_id = t.todo_id WHERE t.user_id = ?;
         SELECT color_theme FROM SETTINGS WHERE user_id = ?;
     `, [user_id, user_id, user_id, user_id], (err, results) => {
@@ -31,8 +31,7 @@ router.post('/api/get-requirements-and-todos', (req, res) => {
                 t.todo_id AS todo_id,
                 t.text AS text,
                 q.reward_id AS reward_id,
-                t.completed AS completed,
-                t.user_id AS user_id
+                t.completed AS completed
             FROM todos t
             LEFT JOIN requirements q
             ON t.todo_id = q.todo_id
@@ -45,8 +44,7 @@ router.post('/api/get-requirements-and-todos', (req, res) => {
                 t.todo_id AS todo_id,
                 t.text AS text,
                 q.reward_id AS reward_id,
-                t.completed AS completed,
-                t.user_id AS user_id
+                t.completed AS completed
             FROM todos t
             LEFT JOIN requirements q
             ON t.todo_id = q.todo_id

@@ -6,7 +6,7 @@ const connection = require('../db');
 router.post('/get', (req, res) => {
     const { user_id } = req.body;
 
-    connection.query('SELECT * FROM todos WHERE user_id = ? ORDER BY completed', [user_id], (err, results) => {
+    connection.query('SELECT todo_id, text, completed FROM todos WHERE user_id = ? ORDER BY completed', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {

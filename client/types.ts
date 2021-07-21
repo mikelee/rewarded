@@ -2,7 +2,6 @@
 
 export interface Todo {
     todo_id: number,
-    user_id: number,
     text: string,
     completed: number
     reward_id?: number
@@ -10,7 +9,6 @@ export interface Todo {
 
 export interface Reward {
     reward_id: number,
-    user_id: number,
     text: string,
     isUnlocked?: boolean
 }
