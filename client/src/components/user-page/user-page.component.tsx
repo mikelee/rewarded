@@ -59,7 +59,7 @@ class UserPage extends React.Component<Props> {
             const { requirements } = this.props;
 
             rewards.forEach((reward) => {
-                const isUnlocked = requirements?.filter(requ => requ.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
+                const isUnlocked = requirements?.filter(requirement => requirement.reward_id === reward.reward_id).every(requirement => requirement.completed === 1);
                 const rewardId = reward.reward_id;
 
                 if (isUnlocked) {
