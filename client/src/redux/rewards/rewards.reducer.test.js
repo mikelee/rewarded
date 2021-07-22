@@ -7,9 +7,9 @@ const initialState = {
 };
 
 const rewards = [
-    {reward_id: 1, user_id: 9, text: 'reward 1'},
-    {reward_id: 2, user_id: 9, text: 'reward 2'},
-    {reward_id: 3, user_id: 9, text: 'reward 3'}
+    {rewardId: 1, userId: 9, text: 'reward 1'},
+    {rewardId: 2, userId: 9, text: 'reward 2'},
+    {rewardId: 3, userId: 9, text: 'reward 3'}
 ];
 
 const selectedRewardId = 1;
@@ -30,18 +30,18 @@ it('should unlock reward with id: 1', () => {
 
     const state = {
         rewards: [
-            {reward_id: 1, user_id: 9, text: 'reward 1'},
-            {reward_id: 2, user_id: 9, text: 'reward 2'},
-            {reward_id: 3, user_id: 9, text: 'reward 3'}
+            {rewardId: 1, userId: 9, text: 'reward 1'},
+            {rewardId: 2, userId: 9, text: 'reward 2'},
+            {rewardId: 3, userId: 9, text: 'reward 3'}
         ],
         selectedRewardId: null
     };
     
     expect(rewardsReducer(state, setIsUnlocked(unlockData))).toEqual({
         rewards: [
-            {reward_id: 1, user_id: 9, text: 'reward 1', isUnlocked: true},
-            {reward_id: 2, user_id: 9, text: 'reward 2'},
-            {reward_id: 3, user_id: 9, text: 'reward 3'},
+            {rewardId: 1, userId: 9, text: 'reward 1', isUnlocked: true},
+            {rewardId: 2, userId: 9, text: 'reward 2'},
+            {rewardId: 3, userId: 9, text: 'reward 3'},
         ],
         selectedRewardId: null
     });
@@ -55,18 +55,18 @@ it('should lock reward with id: 2', () => {
 
     const state = {
         rewards: [
-            {reward_id: 1, user_id: 9, text: 'reward 1'},
-            {reward_id: 2, user_id: 9, text: 'reward 2'},
-            {reward_id: 3, user_id: 9, text: 'reward 3'}
+            {rewardId: 1, userId: 9, text: 'reward 1'},
+            {rewardId: 2, userId: 9, text: 'reward 2'},
+            {rewardId: 3, userId: 9, text: 'reward 3'}
         ],
         selectedRewardId: null
     };
     
     expect(rewardsReducer(state, setIsUnlocked(unlockData))).toEqual({
         rewards: [
-            {reward_id: 1, user_id: 9, text: 'reward 1'},
-            {reward_id: 2, user_id: 9, text: 'reward 2', isUnlocked: false},
-            {reward_id: 3, user_id: 9, text: 'reward 3'},
+            {rewardId: 1, userId: 9, text: 'reward 1'},
+            {rewardId: 2, userId: 9, text: 'reward 2', isUnlocked: false},
+            {rewardId: 3, userId: 9, text: 'reward 3'},
         ],
         selectedRewardId: null
     });

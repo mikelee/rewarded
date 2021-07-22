@@ -4,9 +4,9 @@ const connection = require('../db');
 
 // Get todos
 router.post('/get', (req, res) => {
-    const { user_id } = req.body;
+    const { userId: user_id } = req.body;
 
-    connection.query('SELECT todo_id, text, completed FROM todos WHERE user_id = ? ORDER BY completed', [user_id], (err, results) => {
+    connection.query('SELECT todo_id AS todoId, text, completed FROM todos WHERE user_id = ? ORDER BY completed', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -17,7 +17,7 @@ router.post('/get', (req, res) => {
 
 // Create todo
 router.post('/create', (req, res) => {
-    const { user_id } = req.body;
+    const { userId: user_id } = req.body;
 
     connection.query('INSERT INTO todos (user_id) VALUES (?)', [user_id], (err, result) => {
         res.json(result);

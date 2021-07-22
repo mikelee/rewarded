@@ -57,7 +57,7 @@ class Submenu extends React.Component<Props> {
 
         const data = {
             color: colorName,
-            user_id: this.props.currentUser?.user_id
+            userId: this.props.currentUser?.userId
         }
 
         fetch('api/settings/color-theme/update', {

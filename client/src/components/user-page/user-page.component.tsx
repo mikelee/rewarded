@@ -59,8 +59,9 @@ class UserPage extends React.Component<Props> {
             const { requirements } = this.props;
 
             rewards.forEach((reward) => {
-                const isUnlocked = requirements?.filter(requirement => requirement.reward_id === reward.reward_id).every(requirement => requirement.completed === 1);
-                const rewardId = reward.reward_id;
+                console.log('yes')
+                const isUnlocked = requirements?.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed === 1);
+                const rewardId = reward.rewardId;
 
                 if (isUnlocked) {
                     const data = {
@@ -74,8 +75,8 @@ class UserPage extends React.Component<Props> {
             const { rewards, requirements } = this.props;
 
             rewards?.forEach(reward => {
-                const isUnlocked = requirements?.filter(requirment => requirment.reward_id === reward.reward_id).every((requirement) => requirement.completed === 1);
-                const rewardId = reward.reward_id;
+                const isUnlocked = requirements?.filter(requirment => requirment.rewardId === reward.rewardId).every((requirement) => requirement.completed === 1);
+                const rewardId = reward.rewardId;
 
                 if (isUnlocked !== undefined) {
                     const data = {
@@ -127,7 +128,7 @@ class UserPage extends React.Component<Props> {
 
     fetchRequirements = () => {
         const data = {
-            userId: this.props.currentUser.user_id
+            userId: this.props.currentUser.userId
         }
 
         fetch('/api/requirement/get', {
@@ -149,8 +150,8 @@ class UserPage extends React.Component<Props> {
 
     fetchTodosForSelection = () => {
         const data = {
-            reward_id: this.props.selectedRewardId,
-            user_id: this.props.currentUser.user_id
+            rewardId: this.props.selectedRewardId,
+            userId: this.props.currentUser.userId
         }
 
         fetch('/api/get-requirements-and-todos', {
@@ -186,11 +187,11 @@ class UserPage extends React.Component<Props> {
                     : <h2 className='title'>To Do</h2>
                 }
                 {this.props.selectedRewardId !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
-                {todos ? todos.map(todo => <TodoItem fetchTodos={this.fetchTodos} fetchRequirements={this.fetchRequirements} fetchTodosForSelection={this.fetchTodosForSelection} key={todo.todo_id} id={todo.todo_id} text={todo.text} completed={todo.completed} selectedRewardId={this.props.selectedRewardId} associatedReward={todo.reward_id} />) : null}
+                {todos ? todos.map(todo => <TodoItem fetchTodos={this.fetchTodos} fetchRequirements={this.fetchRequirements} fetchTodosForSelection={this.fetchTodosForSelection} key={todo.todoId} id={todo.todoId} text={todo.text} completed={todo.completed} selectedRewardId={this.props.selectedRewardId} associatedReward={todo.rewardId} />) : null}
                 <AddItem fetchTodos={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
 
                 <h3 className='title'>Rewards</h3>
-                {rewards ? rewards.map(reward => <RewardItem fetchRewards={this.fetchRewards} fetchRequirements={this.fetchRequirements} key={reward.reward_id} id={reward.reward_id} text={reward.text} fetchTodosForSelection={this.fetchTodosForSelection} scroll={this.scrollToSelection} />) : null}
+                {rewards ? rewards.map(reward => <RewardItem fetchRewards={this.fetchRewards} fetchRequirements={this.fetchRequirements} key={reward.rewardId} id={reward.rewardId} text={reward.text} fetchTodosForSelection={this.fetchTodosForSelection} scroll={this.scrollToSelection} />) : null}
                 <AddItem fetchRewards={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
             </div>
         );

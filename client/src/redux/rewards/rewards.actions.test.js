@@ -3,9 +3,9 @@ import rewardsActionTypes from './rewards.types';
 
 it('should create an action to set the rewards', () => {
     const rewards = [
-        {reward_id: 1, user_id: 9, text: 'reward 1'},
-        {reward_id: 2, user_id: 9, text: 'reward 2'},
-        {reward_id: 3, user_id: 9, text: 'reward 3'}
+        {rewardId: 1, userId: 9, text: 'reward 1'},
+        {rewardId: 2, userId: 9, text: 'reward 2'},
+        {rewardId: 3, userId: 9, text: 'reward 3'}
     ];
 
     const expectedAction = {

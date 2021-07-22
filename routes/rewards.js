@@ -4,9 +4,9 @@ const connection = require('../db');
 
 // Get rewards
 router.post('/get', (req, res) => {
-    const { user_id } = req.body;
+    const { userId: user_id } = req.body;
 
-    connection.query('SELECT reward_id, text FROM rewards WHERE user_id = ?', [user_id], (err, results) => {
+    connection.query('SELECT reward_id AS rewardId, text FROM rewards WHERE user_id = ?', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -17,7 +17,7 @@ router.post('/get', (req, res) => {
 
 // Create reward
 router.post('/create', (req, res) => {
-    const { user_id } = req.body;
+    const { userId: user_id } = req.body;
 
     connection.query('INSERT INTO rewards (user_id) VALUES (?)', [user_id], (err, result) => {
         res.json(result);

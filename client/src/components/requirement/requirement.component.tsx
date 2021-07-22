@@ -6,16 +6,16 @@ import { CheckRounded, Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
 interface OwnProps {
-    todo_id: number,
-    reward_id: number,
+    todoId: number,
+    rewardId: number,
     text: string,
     completed: number,
-    deleteRequirement: (todo_id: number) => React.FormEventHandler<HTMLFormElement>
+    deleteRequirement: (todoId: number) => React.FormEventHandler<HTMLFormElement>
 }
 
 type Props = OwnProps;
 
-const Requirement: React.FC<Props> = ({ todo_id, text, completed, deleteRequirement }) => (
+const Requirement: React.FC<Props> = ({ todoId, text, completed, deleteRequirement }) => (
     <div className='requirement'>
         <div className='requirement-check-space'>
             {completed
@@ -23,7 +23,7 @@ const Requirement: React.FC<Props> = ({ todo_id, text, completed, deleteRequirem
                 : null
             }
         </div>
-        <form className='requirement-form' key={todo_id} onSubmit={deleteRequirement(todo_id)}>
+        <form className='requirement-form' key={todoId} onSubmit={deleteRequirement(todoId)}>
             <p className='requirement-form-text'>{text}</p>
             <IconButton className='requirement-delete-button' type='submit'>
                 <Clear className='requirement-delete-icon' />

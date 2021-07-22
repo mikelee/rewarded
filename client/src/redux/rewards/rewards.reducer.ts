@@ -29,7 +29,7 @@ const rewardsReducer: Reducer<State, Action> = (state = initalState, action) => 
         case rewardsActionTypes.SET_UNLOCKED:
             return {
                 ...state,
-                rewards: state.rewards?.map(reward => reward.reward_id === action.payload.rewardId
+                rewards: state.rewards?.map(reward => reward.rewardId === action.payload.rewardId
                     ? {...reward, isUnlocked: action.payload.isUnlocked}
                     : {...reward}
                 )

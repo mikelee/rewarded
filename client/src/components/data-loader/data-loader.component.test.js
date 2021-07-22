@@ -7,7 +7,7 @@ configure({ adapter: new Adapter() });
 
 
 // const mockUser = {
-//     user_id: 9,
+//     userId: 9,
 //     username: 'Joe Smith'
 // }
 

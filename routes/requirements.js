@@ -4,9 +4,9 @@ const connection = require('../db');
 
 // Get requirements
 router.post('/get', (req, res) => {
-    const { userId } = req.body;
+    const { userId: user_id } = req.body;
 
-    connection.query('SELECT t.todo_id, text, completed, reward_id FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.user_id = ? ORDER BY t.completed', [userId], (err, results) => {
+    connection.query('SELECT t.todo_id AS todoId, text, completed, reward_id AS rewardId FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.user_id = ? ORDER BY t.completed', [user_id], (err, results) => {
         if (!err) {
             res.json(results);
         } else {
@@ -40,7 +40,7 @@ router.post('/toggle', (req, res) => {
 
 // Delete requirement
 router.delete('/delete', (req, res) => {
-    const { reward_id, todo_id } = req.body;
+    const { rewardId: reward_id, todoId: todo_id } = req.body;
 
     connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
         if (!err) {

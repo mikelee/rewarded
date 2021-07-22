@@ -1,27 +1,27 @@
 // Data
 
 export interface Todo {
-    todo_id: number,
+    todoId: number,
     text: string,
     completed: number
-    reward_id?: number
+    rewardId?: number
 }
 
 export interface Reward {
-    reward_id: number,
+    rewardId: number,
     text: string,
     isUnlocked?: boolean
 }
 
 export interface Requirement {
-    reward_id: number,
-    todo_id: number,
+    rewardId: number,
+    todoId: number,
     text: string,
     completed: number
 }
 
 export interface User {
-    user_id: number,
+    userId: number,
     username: string
 }
 

@@ -118,8 +118,8 @@ class RewardItem extends React.Component<Props, State> {
             event.preventDefault();
 
             const data = {
-                reward_id: this.props.id,
-                todo_id: id
+                rewardId: this.props.id,
+                todoId: id
             }
 
             fetch('/api/requirement/delete', {
@@ -154,8 +154,8 @@ class RewardItem extends React.Component<Props, State> {
                     <div className='reward-to-complete'>
                         <h3 className='requirements-title'>Requirements</h3>
                         {requirements !== null
-                        ? requirements?.filter(requirement => requirement.reward_id === id).map(requirement => (
-                            <Requirement key={requirement.todo_id} deleteRequirement={this.deleteRequirement} {...requirement}/>
+                        ? requirements?.filter(requirement => requirement.rewardId === id).map(requirement => (
+                            <Requirement key={requirement.todoId} deleteRequirement={this.deleteRequirement} {...requirement}/>
                         ))
                         : null }
                     </div>
