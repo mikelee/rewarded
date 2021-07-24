@@ -11,6 +11,22 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
+    position: relative;
+
+    &.locked {
+        transform: scale(90%);
+
+        &::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(black, .3);
+            z-index: 100;
+            border-radius: .5rem;
+            pointer-events: none;
+        }
+    }
 
     &-form {
         align-self: center;
@@ -115,10 +131,6 @@
     &:hover &-delete-form-button {
         visibility: visible;
     }
-}
-
-.unlocked {
-    box-shadow: 0 0 2.5rem rgba(rgb(233, 176, 20), .8);
 }
 
 @media screen and (max-width: 900px) {
