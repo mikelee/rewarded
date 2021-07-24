@@ -3,6 +3,11 @@
 exports[`should render TodoItem 1`] = `
 <div
   className="todo"
+  style={
+    Object {
+      "transform": "translateX(undefinedpx)",
+    }
+  }
 >
   <ToggleButton
     completed={1}

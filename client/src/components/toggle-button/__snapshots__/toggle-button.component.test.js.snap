@@ -6,7 +6,7 @@ exports[`should render Toggle Button without CheckRoundedIcon 1`] = `
 >
   <button
     className="toggle-button "
-    onClick={[MockFunction]}
+    onClick={[Function]}
   />
 </div>
 `;
@@ -17,7 +17,7 @@ exports[`should render ToggleButton with CheckRoundedIcon 1`] = `
 >
   <button
     className="toggle-button "
-    onClick={[MockFunction]}
+    onClick={[Function]}
   >
     <CheckRoundedIcon
       className="check-icon "
