@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './requirement.styles.scss';
+import './requirement-item.styles.scss';
 
 import { CheckRounded, Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
@@ -15,7 +15,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const Requirement: React.FC<Props> = ({ todoId, text, completed, deleteRequirement }) => (
+const RequirementItem: React.FC<Props> = ({ todoId, text, completed, deleteRequirement }) => (
     <div className='requirement'>
         <div className='requirement-check-space'>
             {completed
@@ -32,4 +32,4 @@ const Requirement: React.FC<Props> = ({ todoId, text, completed, deleteRequireme
     </div>
 );
 
-export default Requirement;
+export default RequirementItem;

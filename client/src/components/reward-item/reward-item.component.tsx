@@ -5,9 +5,9 @@ import { createStructuredSelector } from 'reselect';
 import './reward-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { ReduxState, Reward, Requirement as RequirementInterface, Action, SetIsUnlockedData } from '../../../types';
+import { ReduxState, Reward, Requirement, Action, SetIsUnlockedData } from '../../../types';
 
-import Requirement from '../requirement/requirement.component';
+import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
@@ -27,7 +27,7 @@ interface OwnProps {
 interface StateProps {
     isUnlocked: boolean | undefined,
     rewards: Reward[] | null,
-    requirements: RequirementInterface[] | null,
+    requirements: Requirement[] | null,
     selectedRewardId: number | null
 }
 
@@ -155,7 +155,7 @@ class RewardItem extends React.Component<Props, State> {
                         <h3 className='requirements-title'>Requirements</h3>
                         {requirements !== null
                         ? requirements?.filter(requirement => requirement.rewardId === id).map(requirement => (
-                            <Requirement key={requirement.todoId} deleteRequirement={this.deleteRequirement} {...requirement}/>
+                            <RequirementItem key={requirement.todoId} deleteRequirement={this.deleteRequirement} {...requirement}/>
                         ))
                         : null }
                     </div>
@@ -175,7 +175,7 @@ class RewardItem extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, OwnProps, { isUnlocked: boolean | undefined, rewards: Reward[] | null, requirements: RequirementInterface[] | null, selectedRewardId: number | null }>({
+const mapStateToProps = createStructuredSelector<ReduxState, OwnProps, { isUnlocked: boolean | undefined, rewards: Reward[] | null, requirements: Requirement[] | null, selectedRewardId: number | null }>({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
     requirements: getRequirements,
