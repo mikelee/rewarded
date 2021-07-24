@@ -113,13 +113,13 @@ class RewardItem extends React.Component<Props, State> {
         }
     }
 
-    deleteRequirement = (id: number) => {
+    deleteRequirement = (todoId: number) => {
         return (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
             const data = {
                 rewardId: this.props.id,
-                todoId: id
+                todoId
             }
 
             fetch('/api/requirement/delete', {
