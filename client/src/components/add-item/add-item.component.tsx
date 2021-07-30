@@ -15,7 +15,7 @@ interface Props {
 
 const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
 
-    const addTodo = () => {
+    const addTodoOrReward = () => {
         fetch(`/api/${type}/create`, {
             method: 'POST',
             headers: {
@@ -36,7 +36,7 @@ const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards 
     }
 
     return (
-        <div className={`add-item add-item-${type}`} onClick={addTodo} >
+        <div className={`add-item add-item-${type}`} onClick={addTodoOrReward} >
             <div className='plus-container'>
                 <AddRounded className='plus-icon' fontSize='large' />
             </div>
