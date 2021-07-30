@@ -13,10 +13,10 @@ interface Props {
     fetchRewards?: () => void
 }
 
-class addItem extends React.Component<Props> {
+const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
 
-    addTodo = () => {
-        fetch(`/api/${this.props.type}/create`, {
+    const addTodo = () => {
+        fetch(`/api/${type}/create`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -24,29 +24,25 @@ class addItem extends React.Component<Props> {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': 'true'
             },
-            body: JSON.stringify(this.props.currentUser)
+            body: JSON.stringify(currentUser)
         })
         .then(() => {
-            if (this.props.type === 'todo' && this.props.fetchTodos) {
-                this.props.fetchTodos();
-            } else if (this.props.fetchRewards) {
-                this.props.fetchRewards();
+            if (type === 'todo' && fetchTodos) {
+                fetchTodos();
+            } else if (fetchRewards) {
+                fetchRewards();
             }
         });
     }
-    
-    render() {
-        const { type } = this.props;
-        
-        return (
-            <div className={`add-item add-item-${type}`} onClick={this.addTodo} >
-                <div className='plus-container'>
-                    <AddRounded className='plus-icon' fontSize='large' />
-                </div>
-                <p className='add-item-text' >{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
+
+    return (
+        <div className={`add-item add-item-${type}`} onClick={addTodo} >
+            <div className='plus-container'>
+                <AddRounded className='plus-icon' fontSize='large' />
             </div>
-        );
-    }
-};
+            <p className='add-item-text' >{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
+        </div>
+    );
+}
 
 export default addItem;
