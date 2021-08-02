@@ -28,8 +28,8 @@ type Props = StateProps & DispatchProps;
 
 class Menu extends React.Component<Props> {
 
-    logout = () => {
-        fetch('/logout', {
+    logout = async () => {
+        const response = await fetch('/logout', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -38,21 +38,20 @@ class Menu extends React.Component<Props> {
                 'Access-Control-Allow-Credentials': 'true'
             },
             credentials: 'same-origin'
-        })
-        .then(res => res.json())
-        .then(isLoggedOut => {
-            if (isLoggedOut === true) {
-                // Clear all redux data
-                this.props.clearAll();
+        });
 
-                document.body.style.setProperty('--color-primary', '#707eff');
-                document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
-                document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
+        const isLoggedOut = await response.json();
+    
+        if (isLoggedOut === true) {
+            // Clear all redux data
+            this.props.clearAll();
 
-                this.props.setLoggedOutMessage();
-            }
-        })
-        .catch(err => console.log(err));
+            document.body.style.setProperty('--color-primary', '#707eff');
+            document.body.style.setProperty('--color-primary-faded', 'rgba(112, 126, 255, .7)');
+            document.body.style.setProperty('--color-primary-dark', 'rgb(72, 86, 215)');
+
+            this.props.setLoggedOutMessage();
+        }
     }
 
     clickMenuItem = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

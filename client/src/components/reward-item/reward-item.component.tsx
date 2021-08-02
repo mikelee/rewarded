@@ -59,7 +59,7 @@ class RewardItem extends React.Component<Props, State> {
         });
     }
 
-    editReward = (event: React.FormEvent<HTMLFormElement>) => {
+    editReward = async (event: React.FormEvent<HTMLFormElement>) => {
         if (event) {
             event.preventDefault();
         }
@@ -69,7 +69,7 @@ class RewardItem extends React.Component<Props, State> {
             text: this.state.text
         }
 
-        fetch('/api/reward/update', {
+        await fetch('/api/reward/update', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -78,18 +78,19 @@ class RewardItem extends React.Component<Props, State> {
                 'Access-Control-Allow-Credentials': 'true'
             },
             body: JSON.stringify(data)
-        })
-        .then(() => this.props.fetchRewards());
+        });
+
+        this.props.fetchRewards();
     }
 
-    deleteReward = (event: React.FormEvent<HTMLFormElement>) => {
+    deleteReward = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = {
             id: this.props.id
         }
 
-        fetch('/api/reward/delete', {
+        await fetch('/api/reward/delete', {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -98,11 +99,10 @@ class RewardItem extends React.Component<Props, State> {
                 'Access-Control-Allow-Credentials': 'true'
             },
             body: JSON.stringify(data)
-        })
-        .then(() => {
-            this.props.fetchRewards();
-            this.props.fetchRequirements();
         });
+
+        this.props.fetchRewards();
+        this.props.fetchRequirements();
     }
 
     addOrDeleteRequirement = async () => {
@@ -114,7 +114,7 @@ class RewardItem extends React.Component<Props, State> {
     }
 
     deleteRequirement = (todoId: number) => {
-        return (event: React.FormEvent<HTMLFormElement>) => {
+        return async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
             const data = {
@@ -122,7 +122,7 @@ class RewardItem extends React.Component<Props, State> {
                 todoId
             }
 
-            fetch('/api/requirement/delete', {
+            await fetch('/api/requirement/delete', {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -131,14 +131,13 @@ class RewardItem extends React.Component<Props, State> {
                     'Access-Control-Allow-Credentials': 'true'
                 },
                 body: JSON.stringify(data)
-            })
-            .then(() => {
-                this.props.fetchRequirements();
-                
-                if (this.props.selectedRewardId) {
-                    this.props.fetchTodosForSelection();
-                }
             });
+
+            this.props.fetchRequirements();
+            
+            if (this.props.selectedRewardId) {
+                this.props.fetchTodosForSelection();
+            }
         }
     }
 

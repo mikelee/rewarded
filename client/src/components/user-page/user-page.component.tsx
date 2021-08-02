@@ -89,9 +89,9 @@ class UserPage extends React.Component<Props> {
         }
     }
 
-    fetchTodos = () => {
+    fetchTodos = async () => {
         if (this.props.currentUser) {
-            fetch('/api/todo/get', {
+            const response = await fetch('/api/todo/get', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -100,38 +100,40 @@ class UserPage extends React.Component<Props> {
                     'Access-Control-Allow-Credentials': 'true'
                 },
                 body: JSON.stringify(this.props.currentUser)
-            })
-            .then(response => response.json())
-            .then(json => this.props.setTodos(json));
-        }
-    }
-
-    fetchRewards = () => {
-        if (this.props.currentUser) {
-            fetch('/api/reward/get', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(this.props.currentUser)
-            })
-            .then(response => response.json())
-            .then(json => {
-                this.props.setRewards(json);
-                this.assignUnlock(json);
             });
+
+            const json = await response.json();
+
+            this.props.setTodos(json);
         }
     }
 
-    fetchRequirements = () => {
+    fetchRewards = async () => {
+        if (this.props.currentUser) {
+            const response = await fetch('/api/reward/get', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': 'true'
+                },
+                body: JSON.stringify(this.props.currentUser)
+            });
+
+            const json = await response.json();
+
+            this.props.setRewards(json);
+            this.assignUnlock(json);
+        }
+    }
+
+    fetchRequirements = async () => {
         const data = {
             userId: this.props.currentUser.userId
         }
 
-        fetch('/api/requirement/get', {
+        const response = await fetch('/api/requirement/get', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -140,21 +142,21 @@ class UserPage extends React.Component<Props> {
                 'Access-Control-Allow-Credentials': 'true'
             },
             body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(json => {
-            this.props.setRequirements(json);
-            this.assignUnlock(null);
         });
+
+        const json = await response.json();
+
+        this.props.setRequirements(json);
+        this.assignUnlock(null);
     }
 
-    fetchTodosForSelection = () => {
+    fetchTodosForSelection = async () => {
         const data = {
             rewardId: this.props.selectedRewardId,
             userId: this.props.currentUser.userId
         }
 
-        fetch('/api/get-requirements-and-todos', {
+        const response = await fetch('/api/get-requirements-and-todos', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -163,9 +165,11 @@ class UserPage extends React.Component<Props> {
                 'Access-Control-Allow-Credentials': 'true'
             },
             body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(json => this.props.setTodos(json));
+        });
+
+        const json = await response.json();
+
+        this.props.setTodos(json);
     }
 
     scrollToSelection = () => {

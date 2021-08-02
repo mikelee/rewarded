@@ -52,7 +52,7 @@ class Submenu extends React.Component<Props> {
         this.props.setSubmenuCategory(null);
     }
 
-    toggleColor = (event: React.MouseEvent<HTMLButtonElement>) => {
+    toggleColor = async (event: React.MouseEvent<HTMLButtonElement>) => {
         const colorName = (event.target as HTMLButtonElement).name;
 
         const data = {
@@ -60,7 +60,7 @@ class Submenu extends React.Component<Props> {
             userId: this.props.currentUser?.userId
         }
 
-        fetch('api/settings/color-theme/update', {
+        await fetch('api/settings/color-theme/update', {
             method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -69,11 +69,9 @@ class Submenu extends React.Component<Props> {
                     'Access-Control-Allow-Credentials': 'true'
                 },
                 body: JSON.stringify(data)
-        })
-        .then(() => {
-            this.props.setColorTheme(colorName);
         });
 
+        this.props.setColorTheme(colorName);
         
         let color;
         let colorRGB;

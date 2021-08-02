@@ -15,8 +15,8 @@ interface Props {
 
 const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
 
-    const addTodoOrReward = () => {
-        fetch(`/api/${type}/create`, {
+    const addTodoOrReward = async () => {
+        await fetch(`/api/${type}/create`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -25,14 +25,13 @@ const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards 
                 'Access-Control-Allow-Credentials': 'true'
             },
             body: JSON.stringify(currentUser)
-        })
-        .then(() => {
-            if (type === 'todo' && fetchTodos) {
-                fetchTodos();
-            } else if (fetchRewards) {
-                fetchRewards();
-            }
         });
+        
+        if (type === 'todo' && fetchTodos) {
+            fetchTodos();
+        } else if (fetchRewards) {
+            fetchRewards();
+        }
     }
 
     return (
