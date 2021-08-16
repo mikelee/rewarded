@@ -1,3 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Preloader child component 1`] = `<Preloader />`;
+
+exports[`should render UserPage child component 1`] = `
+<Connect(UserPage)
+  currentUser={
+    Object {
+      "userId": 9,
+      "username": "Mike Lee",
+    }
+  }
+/>
+`;

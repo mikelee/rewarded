@@ -16,3 +16,11 @@ it('should render Preloader child component', () => {
 
     expect(shallowToJson(wrapper)).toMatchSnapshot();
 });
+
+it('should render UserPage child component', () => {
+    const wrapper = shallow(<DataLoader currentUser={mockUser} />);
+
+    wrapper.setState({ dataLoaded: true });
+
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+});
