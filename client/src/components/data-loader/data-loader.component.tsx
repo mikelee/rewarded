@@ -33,7 +33,7 @@ interface State {
     dataLoaded: boolean
 }
 
-class DataLoader extends React.Component<Props, State> {
+export class DataLoader extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
