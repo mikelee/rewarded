@@ -1,18 +1,18 @@
-import { shallow } from 'enzyme';
+import { shallow,  configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16'
 import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
-import DataLoader from './data-loader.component';
+import { DataLoader } from './data-loader.component';
 
 configure({ adapter: new Adapter() });
 
+const mockUser = {
+    userId: 9,
+    username: 'Mike Lee'
+}
 
-// const mockUser = {
-//     userId: 9,
-//     username: 'Joe Smith'
-// }
+it('should render Preloader child component', () => {
+    const wrapper = shallow(<DataLoader currentUser={mockUser} />);
 
-// it('should render DataLoader', () => {
-//     const wrapper = shallow(<DataLoader currentUser={mockUser} />);
-
-//     expect(shallowToJson(wrapper)).toMatchSnapshot();
-// });
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+});
