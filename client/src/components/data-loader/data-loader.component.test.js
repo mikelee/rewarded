@@ -24,3 +24,15 @@ it('should render UserPage child component', () => {
 
     expect(shallowToJson(wrapper)).toMatchSnapshot();
 });
+
+it('should call componentDidMount and then fetchUserData', () => {
+    const wrapper = shallow(<DataLoader currentUser={mockUser} />);
+    const instance = wrapper.instance();
+
+    jest.spyOn(instance, 'componentDidMount');
+    jest.spyOn(instance, 'fetchUserData');
+    instance.componentDidMount();
+
+    expect(instance.componentDidMount).toHaveBeenCalledTimes(1);
+    expect(instance.fetchUserData).toHaveBeenCalledTimes(1);
+});
