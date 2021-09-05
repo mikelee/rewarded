@@ -93,44 +93,25 @@ export class DataLoader extends React.Component<Props, State> {
             setRequirements(userData.requirements);
             setRewards(userData.rewards);
 
-            this.assignUnlock(userData.rewards, userData.requirements);
+            this.assignUnlock(userData.rewards, userData.requirements, this.props.setIsUnlocked);
             this.applySettings(userData.settings);
         }
 
     }
 
-    assignUnlock = (rewards: Reward[], requirements: Requirement[])=> {
-        if (rewards && requirements) {
-            rewards.forEach((reward: Reward) => {
-                const isUnlocked = requirements.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed === 1);
-                const rewardId = reward.rewardId;
+    assignUnlock = (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void) | undefined) => {
+        rewards.forEach((reward: Reward) => {
+            const isUnlocked = requirements.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed === 1);
+            const rewardId = reward.rewardId;
 
-                const data = {
-                    rewardId,
-                    isUnlocked
-                }
-                if (this.props.setIsUnlocked) {
-                    this.props.setIsUnlocked(data);
-                }
-            });
-        } else {
-            const { rewards, requirements, setIsUnlocked } = this.props;
-
-            if (rewards && requirements && setIsUnlocked) {
-
-                rewards.forEach(reward => {
-                    const isUnlocked = requirements.filter((requirment: Requirement) => requirment.rewardId === reward.rewardId).every((requirement: Requirement) => requirement.completed === 1);
-                    const rewardId = reward.rewardId;
-
-                    const data = {
-                        rewardId,
-                        isUnlocked
-                    }
-                    setIsUnlocked(data);
-                });
+            const data = {
+                rewardId,
+                isUnlocked
             }
-
-        }
+            if (setIsUnlocked) {
+                setIsUnlocked(data);
+            }
+        });
     }
 
     applySettings = (settings: Setting[]) => {
@@ -195,7 +176,7 @@ export class DataLoader extends React.Component<Props, State> {
 
         return (
             dataLoaded ?
-                <UserPage currentUser={this.props.currentUser} />
+                <UserPage currentUser={this.props.currentUser} assignUnlock={this.assignUnlock} />
             :
                 <Preloader />
         );

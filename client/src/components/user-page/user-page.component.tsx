@@ -23,7 +23,8 @@ import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
 
 interface OwnProps {
-    currentUser: User
+    currentUser: User,
+    assignUnlock: (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void) | undefined) => void
 }
 
 interface StateProps {
@@ -52,40 +53,6 @@ class UserPage extends React.Component<Props> {
         super(props);
 
         this.selectionTitle = React.createRef<HTMLHeadingElement>();
-    }
-
-    assignUnlock = (rewards: Reward[] | null) => {
-        if (rewards) {
-            const { requirements } = this.props;
-
-            rewards.forEach((reward) => {
-                const isUnlocked = requirements?.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed === 1);
-                const rewardId = reward.rewardId;
-
-                if (isUnlocked) {
-                    const data = {
-                        rewardId,
-                        isUnlocked
-                    }
-                    this.props.setIsUnlocked(data);
-                }
-            });
-        } else {
-            const { rewards, requirements } = this.props;
-
-            rewards?.forEach(reward => {
-                const isUnlocked = requirements?.filter(requirment => requirment.rewardId === reward.rewardId).every((requirement) => requirement.completed === 1);
-                const rewardId = reward.rewardId;
-
-                if (isUnlocked !== undefined) {
-                    const data = {
-                        rewardId,
-                        isUnlocked
-                    }
-                    this.props.setIsUnlocked(data);
-                }
-            });
-        }
     }
 
     fetchTodos = async () => {
@@ -123,7 +90,9 @@ class UserPage extends React.Component<Props> {
             const json = await response.json();
 
             this.props.setRewards(json);
-            this.assignUnlock(json);
+            if (this.props.requirements) {
+                this.props.assignUnlock(json, this.props.requirements, this.props.setIsUnlocked);
+            }
         }
     }
 
@@ -146,7 +115,9 @@ class UserPage extends React.Component<Props> {
         const json = await response.json();
 
         this.props.setRequirements(json);
-        this.assignUnlock(null);
+        if (this.props.rewards && this.props.requirements) {
+            this.props.assignUnlock(this.props.rewards, this.props.requirements, this.props.setIsUnlocked);
+        }
     }
 
     fetchTodosForSelection = async () => {
