@@ -47,7 +47,6 @@ export class DataLoader extends React.Component<Props, State> {
 
         if (userData) {
             this.applyUserData(userData);
-            this.applySettings(userData.settings);
     
             this.setState({
                 dataLoaded: true
