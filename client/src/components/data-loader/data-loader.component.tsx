@@ -55,28 +55,32 @@ export class DataLoader extends React.Component<Props, State> {
     }
 
     fetchUserData = async () => {
-        if (this.props.currentUser) {
-            const response = await fetch('/api', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(this.props.currentUser)
-            });
-
-            const data = await response.json();
-
-            const userData = {
-                todos: data[0],
-                rewards: data[1],
-                requirements: data[2],
-                settings: data[3]
+        try {
+            if (this.props.currentUser) {
+                const response = await fetch('/api', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Credentials': 'true'
+                    },
+                    body: JSON.stringify(this.props.currentUser)
+                });
+    
+                const data = await response.json();
+    
+                const userData = {
+                    todos: data[0],
+                    rewards: data[1],
+                    requirements: data[2],
+                    settings: data[3]
+                }
+    
+                return userData;
             }
-
-            return userData;
+        } catch (error) {
+            console.log(error)
         }
     }
 
