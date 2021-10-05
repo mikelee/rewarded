@@ -1,10 +1,7 @@
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
 import { DataLoader } from './data-loader.component';
-
-configure({ adapter: new Adapter() });
 
 const mockUser = {
     userId: 9,

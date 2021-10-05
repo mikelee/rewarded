@@ -1,10 +1,7 @@
-import { shallow, configure }  from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow }  from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json'
 import React from 'react';
 import TodoItem from './todo-item.component';
-
-configure({ adapter: new Adapter() });
 
 it('should render TodoItem', () => {
     const wrapper = shallow(<TodoItem type='forTodo' id={1} text={'first'} completed={1} selectedRewardId={null}/>)
