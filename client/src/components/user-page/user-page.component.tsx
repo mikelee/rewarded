@@ -114,7 +114,10 @@ class UserPage extends React.Component<Props> {
     }
 
     fetchTodosForSelection = async () => {
-        const response = await fetch(`/api/todos-for-selection?user_id=${this.props.currentUser.userId}&reward_id=${this.props.selectedRewardId}`, {
+        const userId = this.props.currentUser.userId;
+        const rewardId = this.props.selectedRewardId;
+
+        const response = await fetch(`/api/todos-for-selection?user_id=${userId}&reward_id=${rewardId}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
