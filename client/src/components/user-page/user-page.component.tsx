@@ -57,15 +57,14 @@ class UserPage extends React.Component<Props> {
 
     fetchTodos = async () => {
         if (this.props.currentUser) {
-            const response = await fetch('/api/todo/get', {
-                method: 'POST',
+            const response = await fetch(`/api/todo/${this.props.currentUser.userId}`, {
+                method: 'GET',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(this.props.currentUser)
+                }
             });
 
             const json = await response.json();
@@ -96,19 +95,14 @@ class UserPage extends React.Component<Props> {
     }
 
     fetchRequirements = async () => {
-        const data = {
-            userId: this.props.currentUser.userId
-        }
-
-        const response = await fetch('/api/requirement/get', {
-            method: 'POST',
+        const response = await fetch(`/api/requirement/${this.props.currentUser.userId}`, {
+            method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
+            }
         });
 
         const json = await response.json();
