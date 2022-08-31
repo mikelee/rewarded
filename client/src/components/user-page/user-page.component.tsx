@@ -76,15 +76,14 @@ class UserPage extends React.Component<Props> {
 
     fetchRewards = async () => {
         if (this.props.currentUser) {
-            const response = await fetch('/api/reward/get', {
-                method: 'POST',
+            const response = await fetch(`/api/reward/${this.props.currentUser.userId}`, {
+                method: 'GET',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(this.props.currentUser)
+                }
             });
 
             const json = await response.json();
