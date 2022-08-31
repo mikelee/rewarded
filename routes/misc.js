@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require('../db');
 
 // Get all todos, rewards, and requirements
-router.post('/api', (req, res) => {
-    const { userId: user_id } = req.body;
+router.get('/api/:user_id', (req, res) => {
+    const { user_id } = req.params;
 
     connection.query(`
         SELECT todo_id AS todoId, text, completed FROM todos WHERE user_id = ? ORDER BY completed;

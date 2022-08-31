@@ -57,15 +57,14 @@ export class DataLoader extends React.Component<Props, State> {
     fetchUserData = async () => {
         try {
             if (this.props.currentUser) {
-                const response = await fetch('/api', {
-                    method: 'POST',
+                const response = await fetch(`/api/${this.props.currentUser.userId}`, {
+                    method: 'GET',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                         'Access-Control-Allow-Origin': '*',
                         'Access-Control-Allow-Credentials': 'true'
-                    },
-                    body: JSON.stringify(this.props.currentUser)
+                    }
                 });
     
                 const data = await response.json();
