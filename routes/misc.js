@@ -21,8 +21,8 @@ router.post('/api', (req, res) => {
 });
 
 // Get requirements and todos
-router.post('/api/get-requirements-and-todos', (req, res) => {
-    const { rewardId: reward_id, userId: user_id } = req.body;
+router.get('/api/todos-for-selection', (req, res) => {
+    const { reward_id, user_id } = req.query;
 
     connection.query(`
         SELECT *
