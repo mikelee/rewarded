@@ -57,21 +57,17 @@ class UserPage extends React.Component<Props> {
     }
 
     fetchTodos = async () => {
-        if (this.props.currentUser) {
-            const todos = await fetchData(`/api/todo/${this.props.currentUser.userId}`);
+        const todos = await fetchData(`/api/todo/${this.props.currentUser.userId}`);
 
-            this.props.setTodos(todos);
-        }
+        this.props.setTodos(todos);
     }
 
     fetchRewards = async () => {
-        if (this.props.currentUser) {
-            const rewards = await fetchData(`/api/reward/${this.props.currentUser.userId}`);
+        const rewards = await fetchData(`/api/reward/${this.props.currentUser.userId}`);
 
-            this.props.setRewards(rewards);
-            if (this.props.requirements) {
-                this.props.assignUnlock(rewards, this.props.requirements, this.props.setIsUnlocked);
-            }
+        this.props.setRewards(rewards);
+        if (this.props.requirements) {
+            this.props.assignUnlock(rewards, this.props.requirements, this.props.setIsUnlocked);
         }
     }
 
