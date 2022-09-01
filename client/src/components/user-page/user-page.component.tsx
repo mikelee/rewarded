@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { fetchData } from '../../utils';
 
 import './user-page.styles.scss';
 
@@ -57,57 +58,27 @@ class UserPage extends React.Component<Props> {
 
     fetchTodos = async () => {
         if (this.props.currentUser) {
-            const response = await fetch(`/api/todo/${this.props.currentUser.userId}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                }
-            });
+            const todos = await fetchData(`/api/todo/${this.props.currentUser.userId}`);
 
-            const json = await response.json();
-
-            this.props.setTodos(json);
+            this.props.setTodos(todos);
         }
     }
 
     fetchRewards = async () => {
         if (this.props.currentUser) {
-            const response = await fetch(`/api/reward/${this.props.currentUser.userId}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                }
-            });
+            const rewards = await fetchData(`/api/reward/${this.props.currentUser.userId}`);
 
-            const json = await response.json();
-
-            this.props.setRewards(json);
+            this.props.setRewards(rewards);
             if (this.props.requirements) {
-                this.props.assignUnlock(json, this.props.requirements, this.props.setIsUnlocked);
+                this.props.assignUnlock(rewards, this.props.requirements, this.props.setIsUnlocked);
             }
         }
     }
 
     fetchRequirements = async () => {
-        const response = await fetch(`/api/requirement/${this.props.currentUser.userId}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            }
-        });
+        const requirements = await fetchData(`/api/requirement/${this.props.currentUser.userId}`);
 
-        const json = await response.json();
-
-        this.props.setRequirements(json);
+        this.props.setRequirements(requirements);
         if (this.props.rewards && this.props.requirements) {
             this.props.assignUnlock(this.props.rewards, this.props.requirements, this.props.setIsUnlocked);
         }
@@ -115,21 +86,11 @@ class UserPage extends React.Component<Props> {
 
     fetchTodosForSelection = async () => {
         const userId = this.props.currentUser.userId;
-        const rewardId = this.props.selectedRewardId;
+        const rewardId = this.props.selectedRewardId!;
 
-        const response = await fetch(`/api/todos-for-selection?user_id=${userId}&reward_id=${rewardId}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            }
-        });
+        const todosForSelection = await fetchData(`/api/todos-for-selection?user_id=${userId}&reward_id=${rewardId}`);
 
-        const json = await response.json();
-
-        this.props.setTodos(json);
+        this.props.setTodos(todosForSelection);
     }
 
     scrollToSelection = () => {
