@@ -57,7 +57,7 @@ class SignIn extends React.Component<Props, State> {
             });
 
             const responseData = await response.json();
-            console.log(responseData)
+            
             const user = {
                 userId: responseData.user?.user_id,
                 username: responseData.user?.username
