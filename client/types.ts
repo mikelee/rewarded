@@ -41,6 +41,8 @@ export interface SetIsUnlockedData {
     isUnlocked: boolean
 }
 
+export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
 
 
 // Redux
