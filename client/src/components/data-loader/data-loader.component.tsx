@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchData } from '../../utils';
 
 import { Dispatch } from 'redux';
 import { Todo, Reward, Requirement, User, Setting, UserData, SetIsUnlockedData } from '../../../types';
@@ -56,17 +57,7 @@ export class DataLoader extends React.Component<Props, State> {
 
     fetchUserData = async () => {
         try {
-            const response = await fetch(`/api/user-data/${this.props.currentUser.userId}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                }
-            });
-
-            const data = await response.json();
+            const data = await fetchData(`/api/user-data/${this.props.currentUser.userId}`);
 
             const userData = {
                 todos: data[0],
