@@ -57,13 +57,13 @@ class UserPage extends React.Component<Props> {
     }
 
     fetchTodos = async () => {
-        const todos = await fetchData(`/api/todo/${this.props.currentUser.userId}`);
+        const todos = await fetchData(`/api/todo/${this.props.currentUser.userId}`, 'GET');
 
         this.props.setTodos(todos);
     }
 
     fetchRewards = async () => {
-        const rewards = await fetchData(`/api/reward/${this.props.currentUser.userId}`);
+        const rewards = await fetchData(`/api/reward/${this.props.currentUser.userId}`, 'GET');
 
         this.props.setRewards(rewards);
         if (this.props.requirements) {
@@ -72,7 +72,7 @@ class UserPage extends React.Component<Props> {
     }
 
     fetchRequirements = async () => {
-        const requirements = await fetchData(`/api/requirement/${this.props.currentUser.userId}`);
+        const requirements = await fetchData(`/api/requirement/${this.props.currentUser.userId}`, 'GET');
 
         this.props.setRequirements(requirements);
         if (this.props.rewards && this.props.requirements) {
@@ -84,7 +84,7 @@ class UserPage extends React.Component<Props> {
         const userId = this.props.currentUser.userId;
         const rewardId = this.props.selectedRewardId!;
 
-        const todosForSelection = await fetchData(`/api/todos-for-selection?user_id=${userId}&reward_id=${rewardId}`);
+        const todosForSelection = await fetchData(`/api/todos-for-selection?user_id=${userId}&reward_id=${rewardId}`, 'GET');
 
         this.props.setTodos(todosForSelection);
     }

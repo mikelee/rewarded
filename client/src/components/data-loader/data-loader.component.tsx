@@ -57,7 +57,7 @@ export class DataLoader extends React.Component<Props, State> {
 
     fetchUserData = async () => {
         try {
-            const data = await fetchData(`/api/user-data/${this.props.currentUser.userId}`);
+            const data = await fetchData(`/api/user-data/${this.props.currentUser.userId}`, 'GET');
 
             const userData = {
                 todos: data[0],
