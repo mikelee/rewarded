@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { fetchData } from '../../utils';
 
 import './submenu.styles.scss';
 
@@ -55,21 +56,14 @@ class Submenu extends React.Component<Props> {
     toggleColor = async (event: React.MouseEvent<HTMLButtonElement>) => {
         const colorName = (event.target as HTMLButtonElement).name;
 
-        const data = {
+        const path = 'api/settings/color-theme/update';
+        const method = 'PUT';
+        const body = {
             color: colorName,
             userId: this.props.currentUser?.userId
-        }
+        };
 
-        await fetch('api/settings/color-theme/update', {
-            method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(data)
-        });
+        await fetchData(path, method, body);
 
         this.props.setColorTheme(colorName);
         

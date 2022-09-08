@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { fetchData } from '../../utils';
 
 import './reward-item.styles.scss';
 
@@ -64,21 +65,14 @@ class RewardItem extends React.Component<Props, State> {
             event.preventDefault();
         }
 
-        const data = {
+        const path = '/api/reward/update';
+        const method = 'PUT';
+        const body = {
             id: this.props.id,
             text: this.state.text
-        }
+        };
 
-        await fetch('/api/reward/update', {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
-        });
+        await fetchData(path, method, body);
 
         this.props.fetchRewards();
     }
@@ -86,20 +80,11 @@ class RewardItem extends React.Component<Props, State> {
     deleteReward = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const data = {
-            id: this.props.id
-        }
+        const path = '/api/reward/delete';
+        const method = 'DELETE';
+        const body = { id: this.props.id };
 
-        await fetch('/api/reward/delete', {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
-        });
+        await fetchData(path, method, body);
 
         this.props.fetchRewards();
         this.props.fetchRequirements();
@@ -117,21 +102,14 @@ class RewardItem extends React.Component<Props, State> {
         return async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
-            const data = {
+            const path = '/api/requirement/delete';
+            const method = 'DELETE';
+            const body = {
                 rewardId: this.props.id,
                 todoId
-            }
+            };
 
-            await fetch('/api/requirement/delete', {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(data)
-            });
+            await fetchData(path, method, body);
 
             this.props.fetchRequirements();
             

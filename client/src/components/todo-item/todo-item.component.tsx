@@ -1,4 +1,5 @@
 import React from 'react';
+import { fetchData } from '../../utils';
 
 import './todo-item.styles.scss';
 
@@ -85,21 +86,14 @@ class TodoItem extends React.Component<Props, State> {
             event.preventDefault();
         }
 
-        const data = {
+        const path = '/api/todo/update';
+        const method = 'PUT';
+        const body = {
             id: this.props.id,
             text: this.state.text
-        }
+        };
 
-        await fetch('/api/todo/update', {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
-        });
+        await fetchData(path, method, body);
 
         this.props.fetchTodos();
         this.props.fetchRequirements();
@@ -108,40 +102,22 @@ class TodoItem extends React.Component<Props, State> {
     deleteTodo = async (event: React.FormEvent<HTMLFormElement> | undefined = undefined) => {
         if (event) event.preventDefault();
 
-        const data = {
-            id: this.props.id
-        }
+        const path = '/api/todo/delete';
+        const method = 'DELETE';
+        const body = { id: this.props.id };
 
-        await fetch('/api/todo/delete', {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
-        });
+        await fetchData(path, method, body);
 
         this.props.fetchTodos();
         this.props.fetchRequirements();
     }
 
     toggleTodoCompleted = async () => {
-        const data = {
-            id: this.props.id
-        }
+        const path = '/api/todo/complete';
+        const method = 'POST';
+        const body = { id: this.props.id };
 
-        await fetch('/api/todo/complete', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
-        });
+        await fetchData(path, method, body);
 
         this.props.fetchTodos();
         this.props.fetchRequirements();
@@ -149,23 +125,16 @@ class TodoItem extends React.Component<Props, State> {
 
     createOrDeleteRequirement = async () => {
         let selected = this.props.selectedRewardId === this.props.associatedReward;
-        
-        const data = {
+
+        const path = '/api/requirement/toggle';
+        const method = 'POST';
+        const body = {
             todoId: this.props.id,
             rewardId: this.props.selectedRewardId,
             selected
-        }
-        
-        await fetch('/api/requirement/toggle', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(data)
-        });
+        };
+
+        await fetchData(path, method, body);
 
         this.props.fetchTodosForSelection();
         this.props.fetchRequirements();

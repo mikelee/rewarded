@@ -1,4 +1,5 @@
 import React from 'react';
+import { fetchData } from '../../utils';
 
 import './add-item.styles.scss';
 
@@ -16,16 +17,11 @@ interface Props {
 const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
 
     const addTodoOrReward = async () => {
-        await fetch(`/api/${type}/create`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            body: JSON.stringify(currentUser)
-        });
+        const path = `/api/${type}/create`;
+        const method = 'POST';
+        const body = currentUser;
+
+        await fetchData(path, method, body);
         
         if (type === 'todo' && fetchTodos) {
             fetchTodos();
