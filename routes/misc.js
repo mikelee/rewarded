@@ -7,7 +7,7 @@ router.get('/api/user-data/:user_id', (req, res) => {
     const { user_id } = req.params;
 
     connection.query(`
-        SELECT todo_id AS todoId, text, completed FROM todos WHERE user_id = ? ORDER BY completed;
+        SELECT todo_id AS todoId, text, completed FROM todos WHERE user_id = ? ORDER BY completed, todo_id desc;
         SELECT reward_id AS rewardId, text FROM rewards WHERE user_id = ?;
         SELECT q.reward_id AS rewardId, q.todo_id AS todoId, t.text as text, t.completed AS completed FROM requirements q LEFT JOIN todos t ON q.todo_id = t.todo_id WHERE t.user_id = ?;
         SELECT color_theme FROM SETTINGS WHERE user_id = ?;
@@ -52,7 +52,7 @@ router.get('/api/todos-for-selection', (req, res) => {
             GROUP BY todoId
         ) AS a
         GROUP BY todoId
-        ORDER BY completed;
+        ORDER BY completed, todoId desc;
     `, [reward_id, user_id, reward_id, user_id], (err, results) => {
         if (!err) {
             res.json(results);
