@@ -7,6 +7,7 @@ import './App.scss';
 
 import { User, ReduxState } from '../types';
 
+import ColorTheme from './components/color-theme/color-theme.component';
 import Nav from './components/nav/nav.component';
 import HomePage from './components/homepage/homepage.component';
 import SignIn from './components/sign-in/sign-in.component';
@@ -19,44 +20,46 @@ interface AppProps {
 }
 
 const App: React.FC<AppProps> = ({ currentUser }) => (
-    <Switch>
-        <Route
-            exact path='/'
-            render={() => currentUser
-                ? 
-                    <>
-                        <Nav currentUser={currentUser} />
-                        <DataLoader currentUser={currentUser} />
-                    </>
-                :
-                    <HomePage currentUser={currentUser} />
-            }
-        />
-        <Route
-            path='/sign-up'
-            render={() => currentUser
-                ?
-                    <Redirect to='/' />
-                : 
-                    <>
-                        <Nav currentUser={currentUser} />
-                        <SignIn type='sign-up' />
-                    </>
-            }
-        />
-        <Route
-            path='/sign-in'
-            render={() => currentUser
-                ?
-                    <Redirect to='/' />
-                : 
-                    <>
-                        <Nav currentUser={currentUser} />
-                        <SignIn type='sign-in' />
-                    </>
-            }
-        />
-    </Switch>
+    <ColorTheme>
+        <Switch>
+            <Route
+                exact path='/'
+                render={() => currentUser
+                    ? 
+                        <>
+                            <Nav currentUser={currentUser} />
+                            <DataLoader currentUser={currentUser} />
+                        </>
+                    :
+                        <HomePage currentUser={currentUser} />
+                }
+            />
+            <Route
+                path='/sign-up'
+                render={() => currentUser
+                    ?
+                        <Redirect to='/' />
+                    : 
+                        <>
+                            <Nav currentUser={currentUser} />
+                            <SignIn type='sign-up' />
+                        </>
+                }
+            />
+            <Route
+                path='/sign-in'
+                render={() => currentUser
+                    ?
+                        <Redirect to='/' />
+                    : 
+                        <>
+                            <Nav currentUser={currentUser} />
+                            <SignIn type='sign-in' />
+                        </>
+                }
+            />
+        </Switch>
+    </ColorTheme>
 );
 
 const mapStateToProps = createStructuredSelector<ReduxState, {currentUser: User | null}>({
