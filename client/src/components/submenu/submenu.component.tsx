@@ -100,6 +100,8 @@ class Submenu extends React.Component<Props> {
         document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
         document.body.style.setProperty('--color-primary-superfaded', `rgba(${colorRGB}, .1)`);
         document.body.style.setProperty('--color-primary-dark', colorDark);
+
+        window.localStorage.setItem('colorTheme', colorName);
     }
 
     render() {
