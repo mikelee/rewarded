@@ -66,40 +66,11 @@ class Submenu extends React.Component<Props> {
         await fetchData(path, method, body);
 
         this.props.setColorTheme(colorName);
-        
-        let color;
-        let colorRGB;
-        let colorDark;
 
-        switch (colorName) {
-            case 'red':
-                color = '#f0654f';
-                colorRGB = '240, 101, 79';
-                colorDark = '#c83c27';
-                break;
-            case 'blue':
-                color = '#4195f0';
-                colorRGB = '65, 149, 240';
-                colorDark = '#196ec8';
-                break;
-            case 'green':
-                color = '#2db92d';
-                colorRGB = '45, 185, 45';
-                colorDark = '#059105';
-                break;
-            case 'purple':
-                color = '#707eff';
-                colorRGB = '112, 126, 255';
-                colorDark = '#4856d7'
-                break;
-            default:
-                return null;
-        }
-
-        document.body.style.setProperty('--color-primary', color);
-        document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
-        document.body.style.setProperty('--color-primary-superfaded', `rgba(${colorRGB}, .1)`);
-        document.body.style.setProperty('--color-primary-dark', colorDark);
+        document.body.style.setProperty('--color-primary', `rgb(var(--rgb-${colorName}))`);
+        document.body.style.setProperty('--color-primary-faded', `rgba(var(--rgb-${colorName}), .7)`);
+        document.body.style.setProperty('--color-primary-superfaded', `rgba(var(--rgb-${colorName}), .1)`);
+        document.body.style.setProperty('--color-primary-dark', `rgb(var(--rgb-${colorName}-dark))`);
 
         window.localStorage.setItem('colorTheme', colorName);
     }
