@@ -7,27 +7,13 @@ interface Props {
 const ColorTheme: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
-        const colorName = window.localStorage.colorTheme;
-        
+        const colorName: string = window.localStorage.colorTheme;
+
         if (colorName) {
-            let color;
-    
-            switch (colorName) {
-                case 'red':
-                    color = '#f0654f';
-                    break;
-                case 'blue':
-                    color = '#4195f0';
-                    break;
-                case 'green':
-                    color = '#2db92d';
-                    break;
-                case 'purple':
-                    color = '#707eff';
-                    break;
-            }
-    
-            if (color) document.body.style.setProperty('--color-primary', color);
+            document.body.style.setProperty('--color-primary', `rgb(var(--rgb-${colorName}))`);
+            document.body.style.setProperty('--color-primary-faded', `rgba(var(--rgb-${colorName}), .7)`);
+            document.body.style.setProperty('--color-primary-superfaded', `rgba(var(--rgb-${colorName}), .1)`);
+            document.body.style.setProperty('--color-primary-dark', `rgb(var(--rgb-${colorName}-dark))`);
         }
     }, []);
 
