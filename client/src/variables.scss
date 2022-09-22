@@ -1,7 +1,19 @@
 // Colors
 :root {
-    --color-primary: #707eff;
-    --color-primary-faded: rgba(112, 126, 255, .7);
-    --color-primary-superfaded: rgba(112, 126, 255, .1);
-    --color-primary-dark: rgb(72, 86, 215); 
+    --rgb-red: 240, 101, 79;
+    --rgb-red-dark: 200, 60, 39;
+    --rgb-green: 45, 185, 45;
+    --rgb-green-dark: 5, 145, 5;
+    --rgb-blue: 65, 149, 240;
+    --rgb-blue-dark: 25, 110, 200;
+    --rgb-purple: 112, 126, 255;
+    --rgb-purple-dark: 72, 86, 215;
+
+    --rgb-default: var(--rgb-purple);
+    --rgb-dark-default: var(--rgb-purple-dark);
+
+    --color-primary: rgb(var(--rgb-default));
+    --color-primary-faded: rgba(var(--rgb-default), .7);
+    --color-primary-superfaded: rgba(var(--rgb-default), .1);
+    --color-primary-dark: rgb(var(--rbg-default-dark)); 
 }
