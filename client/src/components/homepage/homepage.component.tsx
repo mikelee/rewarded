@@ -5,8 +5,8 @@ import { createStructuredSelector } from 'reselect';
 import Nav from '../nav/nav.component';
 
 import './homepage.styles.scss';
-import completed from '../../assets/completed.svg';
-import hiking from '../../assets/hiking.svg';
+import CompletedSVG from '../svg-components/completed-svg.component';
+import HikingSVG from '../svg-components/hiking-svg.component';
 
 import { User, ReduxState } from '../../../types';
 
@@ -41,13 +41,14 @@ const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
                 }
             </div>
             <div className='graphic-container'>
-                {
-                    !loggedOutMessage ?
-                        <img className='homepage-graphic' src={completed} alt='checklist'/>
-                    :
-                        <img className='homepage-graphic' src={hiking} alt='hiking'/>
-
-                }
+                <div className='homepage-graphic'>
+                    {
+                        !loggedOutMessage ?
+                        <CompletedSVG />
+                        :
+                        <HikingSVG />
+                    }
+                </div>
             </div>
         </div>
     </div>

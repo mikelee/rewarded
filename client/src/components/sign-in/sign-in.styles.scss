@@ -26,7 +26,7 @@
 
             .bench-graphic {
                 align-self: flex-end;
-                height: 30rem;
+                width: 90%;
                 margin-bottom: 6rem;
                 margin-left: -7.5%;
             }
@@ -113,13 +113,6 @@
 
         .content {
 
-            .sign-in-left {
-
-                .bench-graphic {
-                    height: 25rem;
-                }
-            }
-
             .sign-in-right {
 
                 .sign-in-form {
@@ -166,7 +159,6 @@
                 border-radius: 0 0 .5rem .5rem;
 
                 .bench-graphic {
-                    height: 16rem;
                     margin-bottom: .5rem;
                     margin-left: 0;
                 }

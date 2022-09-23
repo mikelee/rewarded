@@ -49,10 +49,11 @@
         justify-content: center;
         flex: 1;
         margin-bottom: 3rem;
+        overflow: hidden;
     }
 
     &-graphic {
-        height: 28rem;
+        width: 45rem;
         padding-left: 7rem;
         z-index: -20;
     }
@@ -70,7 +71,7 @@
         }
 
     .homepage-graphic {
-            height: 20rem;
+            width: 40rem;
         }
     }
 }
@@ -92,7 +93,6 @@
         }
 
         .homepage-graphic {
-            height: 20rem;
             z-index: 10;
             padding: 0;
         }
@@ -121,10 +121,6 @@
 
         .homepage-subtext {
             font-size: 1.6rem;
-        }
-
-        .homepage-graphic {
-            height: 15rem;
         }
     }
 }

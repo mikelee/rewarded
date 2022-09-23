@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './sign-in.styles.scss';
-import benchGraphic from '../../assets/bench_checklist.svg';
+import BenchSVG from '../svg-components/bench-svg.component';
 
 import { Dispatch } from 'redux';
 import { User, Action } from '../../../types';
@@ -96,7 +96,9 @@ class SignIn extends React.Component<Props, State> {
             <div className='sign-in'>
                 <div className='content'>
                     <div className='sign-in-left'>
-                        <img className='bench-graphic' src={benchGraphic} alt='To do list graphic' />
+                        <div className='bench-graphic'>
+                            <BenchSVG />
+                        </div>
                     </div>
                     <div className='sign-in-right'>
                         <h3 className='sign-in-title'>
