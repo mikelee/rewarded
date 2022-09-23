@@ -10,10 +10,10 @@
     --rgb-purple-dark: 72, 86, 215;
 
     --rgb-default: var(--rgb-purple);
-    --rgb-dark-default: var(--rgb-purple-dark);
+    --rgb-default-dark: var(--rgb-purple-dark);
 
     --color-primary: rgb(var(--rgb-default));
     --color-primary-faded: rgba(var(--rgb-default), .7);
     --color-primary-superfaded: rgba(var(--rgb-default), .1);
-    --color-primary-dark: rgb(var(--rbg-default-dark)); 
+    --color-primary-dark: rgb(var(--rgb-default-dark)); 
 }
