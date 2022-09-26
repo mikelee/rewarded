@@ -6,6 +6,11 @@
     clip-path: polygon(-.5px -.5px, 85% -.5px, 100% calc(100% + .5px), -.5px calc(100% + .5px));
     width: 10%;
 
+    &:hover {
+        transform: scale(1.05);
+        transition: transform .15s ease-in;
+    }
+
     .toggle-button {
         display: flex;
         justify-content: center;
