@@ -30,8 +30,13 @@ router.post('/sign-in', (req, res, next) => {
 
 // Logout route
 router.post('/logout', (req, res) => {
-    req.logout();
-    res.send(true);
+    req.logout((err) => {
+        if (!err) {
+            res.send(true);
+        } else {
+            res.send(false);
+        }
+    });
 });
 
 module.exports = router;
