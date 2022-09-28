@@ -6,6 +6,7 @@ const redis = require('redis');
 const session = require('express-session');
 const passport = require('passport');
 const passportSetUp = require('./auth');
+const { isLoggedIn } = require('./middleware');
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -34,6 +35,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 passportSetUp();
+
+app.use('/api', isLoggedIn);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
