@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 // Create todo
 router.post('/create', (req, res) => {
-    const { userId: user_id } = req.body;
+    const { user_id } = req.user;
 
     connection.query('INSERT INTO todos (user_id) VALUES (?)', [user_id], (err, result) => {
         res.json(result);
