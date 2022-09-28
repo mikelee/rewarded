@@ -3,7 +3,7 @@ const router = express.Router();
 const connection = require('../db');
 
 // Get all todos, rewards, and requirements
-router.get('/api/user-data/:user_id', (req, res) => {
+router.get('/user-data/:user_id', (req, res) => {
     const { user_id } = req.params;
 
     connection.query(`
@@ -21,7 +21,7 @@ router.get('/api/user-data/:user_id', (req, res) => {
 });
 
 // Get requirements and todos
-router.get('/api/todos-for-selection', (req, res) => {
+router.get('/todos-for-selection', (req, res) => {
     const { reward_id, user_id } = req.query;
 
     connection.query(`

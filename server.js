@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use('/', authRoutes);
-app.use('/', miscRoutes);
+app.use('/api', miscRoutes);
 app.use('/api/todo', todoRoutes);
 app.use('/api/reward', rewardRoutes);
 app.use('/api/requirement', requirementRoutes);
