@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require('../db');
 
 // Get rewards
-router.get('/:user_id', (req, res) => {
-    const { user_id } = req.params;
+router.get('/', (req, res) => {
+    const { user_id } = req.user;
 
     connection.query('SELECT reward_id AS rewardId, text FROM rewards WHERE user_id = ?', [user_id], (err, results) => {
         if (!err) {

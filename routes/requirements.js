@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require('../db');
 
 // Get requirements
-router.get('/:user_id', (req, res) => {
-    const { user_id } = req.params;
+router.get('/', (req, res) => {
+    const { user_id } = req.user;
 
     connection.query('SELECT t.todo_id AS todoId, text, completed, reward_id AS rewardId FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.user_id = ? ORDER BY t.completed', [user_id], (err, results) => {
         if (!err) {

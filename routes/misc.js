@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require('../db');
 
 // Get all todos, rewards, and requirements
-router.get('/user-data/:user_id', (req, res) => {
-    const { user_id } = req.params;
+router.get('/user-data', (req, res) => {
+    const { user_id } = req.user;
 
     connection.query(`
         SELECT todo_id AS todoId, text, completed FROM todos WHERE user_id = ? ORDER BY completed, todo_id desc;
@@ -22,7 +22,8 @@ router.get('/user-data/:user_id', (req, res) => {
 
 // Get requirements and todos
 router.get('/todos-for-selection', (req, res) => {
-    const { reward_id, user_id } = req.query;
+    const { reward_id } = req.query;
+    const { user_id } = req.user;
 
     connection.query(`
         SELECT *

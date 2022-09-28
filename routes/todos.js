@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require('../db');
 
 // Get todos
-router.get('/:user_id', (req, res) => {
-    const { user_id } = req.params;
+router.get('/', (req, res) => {
+    const { user_id } = req.user;
 
     connection.query('SELECT todo_id AS todoId, text, completed FROM todos WHERE user_id = ? ORDER BY completed, todo_id desc', [user_id], (err, results) => {
         if (!err) {
