@@ -4,7 +4,7 @@
   "main": "server.js",
   "engines": {
     "node": ">=10.15.1",
-    "npm": "6.13.4"
+    "npm": ">=6.13.4"
   },
   "scripts": {
     "build": "cd client && npm run build",
