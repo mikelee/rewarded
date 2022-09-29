@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db');
+const { isTodoOwner } = require('../middleware');
 
 // Get todos
 router.get('/', (req, res) => {
@@ -25,7 +26,7 @@ router.post('/create', (req, res) => {
 });
 
 // Update todo
-router.put('/update', (req, res) => {
+router.put('/update', isTodoOwner, (req, res) => {
     const { id, text } = req.body;
 
     connection.query('UPDATE todos SET text = ? WHERE todo_id = ?', [text, id], (err, result) => {
@@ -34,7 +35,7 @@ router.put('/update', (req, res) => {
 });
 
 // Toggle todo Completed
-router.post('/complete', (req, res) => {
+router.post('/complete', isTodoOwner, (req, res) => {
     const { id } = req.body;
 
     connection.query('UPDATE todos SET completed = NOT completed WHERE todo_id = ?', [id], (err, result) => {
@@ -43,7 +44,7 @@ router.post('/complete', (req, res) => {
 });
 
 // Delete todo
-router.delete('/delete', (req, res) => {
+router.delete('/delete', isTodoOwner, (req, res) => {
     const { id } = req.body;
 
     connection.query('DELETE FROM todos WHERE todo_id = ?; DELETE FROM requirements WHERE todo_id = ?', [id ,id], (err, result) => {
