@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db');
+const { isRewardOwner } = require('../middleware');
 
 // Get rewards
 router.get('/', (req, res) => {
@@ -25,7 +26,7 @@ router.post('/create', (req, res) => {
 });
 
 // Update reward
-router.put('/update', (req, res) => {
+router.put('/update', isRewardOwner, (req, res) => {
     const { id, text } = req.body;
 
     connection.query('UPDATE rewards SET text = ? WHERE reward_id = ?', [text, id], (err, result) => {
@@ -34,7 +35,7 @@ router.put('/update', (req, res) => {
 });
 
 // Delete reward
-router.delete('/delete', (req, res) => {
+router.delete('/delete', isRewardOwner, (req, res) => {
     const { id } = req.body;
 
     connection.query('DELETE FROM rewards WHERE reward_id = ?; DELETE FROM requirements WHERE reward_id = ?', [id, id], (err, result) => {
