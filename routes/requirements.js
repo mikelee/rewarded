@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db');
+const { isRequirementOwner } = require('../middleware');
 
 // Get requirements
 router.get('/', (req, res) => {
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 // Create or Delete requirement
-router.post('/toggle', (req, res) => {
+router.post('/toggle', isRequirementOwner, (req, res) => {
     const { reward_id, todo_id, selected } = req.body;
 
     if (selected) {
@@ -39,7 +40,7 @@ router.post('/toggle', (req, res) => {
 });
 
 // Delete requirement
-router.delete('/delete', (req, res) => {
+router.delete('/delete', isRequirementOwner, (req, res) => {
     const { reward_id, todo_id } = req.body;
 
     connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
