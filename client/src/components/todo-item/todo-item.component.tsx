@@ -129,8 +129,8 @@ class TodoItem extends React.Component<Props, State> {
         const path = '/api/requirement/toggle';
         const method = 'POST';
         const body = {
-            todoId: this.props.id,
-            rewardId: this.props.selectedRewardId,
+            reward_id: this.props.selectedRewardId,
+            todo_id: this.props.id,
             selected
         };
 

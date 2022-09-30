@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
 
 // Create or Delete requirement
 router.post('/toggle', (req, res) => {
-    const { todoId, rewardId, selected } = req.body;
+    const { reward_id, todo_id, selected } = req.body;
 
     if (selected) {
-        connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [rewardId, todoId], (err, results) => {
+        connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
             if (!err) {
                 res.json(results);
             } else {
@@ -28,7 +28,7 @@ router.post('/toggle', (req, res) => {
             }
         });
     } else {
-        connection.query('INSERT INTO requirements (reward_id, todo_id) VALUES (?, ?)', [rewardId, todoId], (err, results) => {
+        connection.query('INSERT INTO requirements (reward_id, todo_id) VALUES (?, ?)', [reward_id, todo_id], (err, results) => {
             if (!err) {
                 res.json(results);
             } else {
@@ -40,7 +40,7 @@ router.post('/toggle', (req, res) => {
 
 // Delete requirement
 router.delete('/delete', (req, res) => {
-    const { rewardId: reward_id, todoId: todo_id } = req.body;
+    const { reward_id, todo_id } = req.body;
 
     connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
         if (!err) {

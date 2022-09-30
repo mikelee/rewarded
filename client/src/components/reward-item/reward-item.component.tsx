@@ -105,8 +105,8 @@ class RewardItem extends React.Component<Props, State> {
             const path = '/api/requirement/delete';
             const method = 'DELETE';
             const body = {
-                rewardId: this.props.id,
-                todoId
+                reward_id: this.props.id,
+                todo_id: todoId
             };
 
             await fetchData(path, method, body);
