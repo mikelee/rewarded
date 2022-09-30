@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db');
+const { isRewardOwner } = require('../middleware');
 
 // Get all todos, rewards, and requirements
 router.get('/user-data', (req, res) => {
@@ -21,7 +22,7 @@ router.get('/user-data', (req, res) => {
 });
 
 // Get requirements and todos
-router.get('/todos-for-selection', (req, res) => {
+router.get('/todos-for-selection', isRewardOwner, (req, res) => {
     const { reward_id } = req.query;
     const { user_id } = req.user;
 
