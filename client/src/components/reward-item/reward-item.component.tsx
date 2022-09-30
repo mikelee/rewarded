@@ -68,7 +68,7 @@ class RewardItem extends React.Component<Props, State> {
         const path = '/api/reward/update';
         const method = 'PUT';
         const body = {
-            id: this.props.id,
+            reward_id: this.props.id,
             text: this.state.text
         };
 
@@ -82,7 +82,7 @@ class RewardItem extends React.Component<Props, State> {
 
         const path = '/api/reward/delete';
         const method = 'DELETE';
-        const body = { id: this.props.id };
+        const body = { reward_id: this.props.id };
 
         await fetchData(path, method, body);
 

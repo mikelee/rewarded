@@ -10,7 +10,7 @@ const isLoggedIn = (req, res, next) => {
 }
 
 const isRewardOwner = (req, res, next) => {
-    const reward_id = req.body.id;
+    const { reward_id } = req.body;
     const { user_id } = req.user;
     
     connection.query(`

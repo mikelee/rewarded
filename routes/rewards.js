@@ -27,18 +27,18 @@ router.post('/create', (req, res) => {
 
 // Update reward
 router.put('/update', isRewardOwner, (req, res) => {
-    const { id, text } = req.body;
+    const { reward_id, text } = req.body;
 
-    connection.query('UPDATE rewards SET text = ? WHERE reward_id = ?', [text, id], (err, result) => {
+    connection.query('UPDATE rewards SET text = ? WHERE reward_id = ?', [text, reward_id], (err, result) => {
         res.json(result);
     });
 });
 
 // Delete reward
 router.delete('/delete', isRewardOwner, (req, res) => {
-    const { id } = req.body;
+    const { reward_id } = req.body;
 
-    connection.query('DELETE FROM rewards WHERE reward_id = ?; DELETE FROM requirements WHERE reward_id = ?', [id, id], (err, result) => {
+    connection.query('DELETE FROM rewards WHERE reward_id = ?; DELETE FROM requirements WHERE reward_id = ?', [reward_id, reward_id], (err, result) => {
         res.json(result);
     });
 });
