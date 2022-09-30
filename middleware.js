@@ -36,7 +36,7 @@ const isRewardOwner = (req, res, next) => {
 };
 
 const isTodoOwner = (req, res, next) => {
-    const todo_id = req.body.id;
+    const { todo_id } = req.body;
     const { user_id } = req.user;
     
     connection.query(`

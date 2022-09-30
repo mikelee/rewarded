@@ -27,27 +27,27 @@ router.post('/create', (req, res) => {
 
 // Update todo
 router.put('/update', isTodoOwner, (req, res) => {
-    const { id, text } = req.body;
+    const { todo_id, text } = req.body;
 
-    connection.query('UPDATE todos SET text = ? WHERE todo_id = ?', [text, id], (err, result) => {
+    connection.query('UPDATE todos SET text = ? WHERE todo_id = ?', [text, todo_id], (err, result) => {
         res.json(result);
     });
 });
 
 // Toggle todo Completed
 router.post('/complete', isTodoOwner, (req, res) => {
-    const { id } = req.body;
+    const { todo_id } = req.body;
 
-    connection.query('UPDATE todos SET completed = NOT completed WHERE todo_id = ?', [id], (err, result) => {
+    connection.query('UPDATE todos SET completed = NOT completed WHERE todo_id = ?', [todo_id], (err, result) => {
         res.json(result);
     });
 });
 
 // Delete todo
 router.delete('/delete', isTodoOwner, (req, res) => {
-    const { id } = req.body;
+    const { todo_id } = req.body;
 
-    connection.query('DELETE FROM todos WHERE todo_id = ?; DELETE FROM requirements WHERE todo_id = ?', [id ,id], (err, result) => {
+    connection.query('DELETE FROM todos WHERE todo_id = ?; DELETE FROM requirements WHERE todo_id = ?', [todo_id, todo_id], (err, result) => {
         res.json(result);
     });
 });

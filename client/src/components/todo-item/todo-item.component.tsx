@@ -89,7 +89,7 @@ class TodoItem extends React.Component<Props, State> {
         const path = '/api/todo/update';
         const method = 'PUT';
         const body = {
-            id: this.props.id,
+            todo_id: this.props.id,
             text: this.state.text
         };
 
@@ -104,7 +104,7 @@ class TodoItem extends React.Component<Props, State> {
 
         const path = '/api/todo/delete';
         const method = 'DELETE';
-        const body = { id: this.props.id };
+        const body = { todo_id: this.props.id };
 
         await fetchData(path, method, body);
 
@@ -115,7 +115,7 @@ class TodoItem extends React.Component<Props, State> {
     toggleTodoCompleted = async () => {
         const path = '/api/todo/complete';
         const method = 'POST';
-        const body = { id: this.props.id };
+        const body = { todo_id: this.props.id };
 
         await fetchData(path, method, body);
 
