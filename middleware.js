@@ -28,7 +28,7 @@ const isRewardOwner = (req, res, next) => {
 
         if (!isOwner) {
             res.status(403);
-            return res.send('You are not authorized');
+            return forbidden(res);
         }
 
         next();
@@ -53,12 +53,17 @@ const isTodoOwner = (req, res, next) => {
 
         if (!isOwner) {
             res.status(403);
-            return res.send('You are not authorized');
+            return forbidden(res);
         }
 
         next();
     });
 };
+
+const forbidden = res => {
+    res.status(403);
+    res.send('Forbidden. You are not authorized.');
+}
 
 module.exports = {
     isLoggedIn,
