@@ -45,7 +45,7 @@ class SignIn extends React.Component<Props, State> {
         }
 
         try {
-            const response = await fetch(`/${this.props.type}`, {
+            const response = await fetch(`/auth/${this.props.type}`, {
                 method:'POST',
                 headers: {
                     'Accept': 'application/json',

@@ -29,7 +29,7 @@ type Props = StateProps & DispatchProps;
 class Menu extends React.Component<Props> {
 
     logout = async () => {
-        const response = await fetch('/logout', {
+        const response = await fetch('/auth/logout', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

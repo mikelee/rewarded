@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
-app.use('/', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/api', miscRoutes);
 app.use('/api/todo', todoRoutes);
 app.use('/api/reward', rewardRoutes);
