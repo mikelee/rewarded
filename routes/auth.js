@@ -8,7 +8,11 @@ router.post('/sign-up', (req, res, next) => {
         if (info) {
             return res.json({ errorMessage: info.message })
         } else if (user) {
-            return res.json({ user: user });
+            req.logIn(user, (err) => {
+                if (!err) {
+                    return res.json({ user: user });
+                }
+            });
         }
     })(req, res, next);
 });
