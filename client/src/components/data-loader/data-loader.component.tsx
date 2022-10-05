@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from '../../utils';
+import { applyColorTheme } from '../color-theme/color-theme.component';
 
 import { Dispatch } from 'redux';
 import { Todo, Reward, Requirement, User, Setting, UserData, SetIsUnlockedData } from '../../../types';
@@ -117,7 +118,7 @@ export class DataLoader extends React.Component<Props, State> {
 
             switch (key) {
                 case 'color_theme':
-                    if (value) this.applyColorTheme(value);
+                    if (value) applyColorTheme(value);
                     // for: if colorTheme doesn't exist because the user is using a different computer
                     // or colorTheme is different from a different user previously logged in
                     if (value && localStorage.getItem('colorTheme') !== value) localStorage.setItem('colorTheme', value);
@@ -126,42 +127,6 @@ export class DataLoader extends React.Component<Props, State> {
                     return null;
             }
         });
-    }
-
-    applyColorTheme = (colorName: string) => {
-        let color: string;
-        let colorRGB: string;
-        let colorDark: string;
-
-        switch (colorName) {
-            case 'red':
-                color = '#f0654f';
-                colorRGB = '240, 101, 79';
-                colorDark = '#c83c27';
-                break;
-            case 'blue':
-                color = '#4195f0';
-                colorRGB = '65, 149, 240';
-                colorDark = '#196ec8';
-                break;
-            case 'green':
-                color = '#2db92d';
-                colorRGB = '45, 185, 45';
-                colorDark = '#059105';
-                break;
-            case 'purple':
-                color = '#707eff';
-                colorRGB = '112, 126, 255';
-                colorDark = '#4856d7'
-                break;
-            default:
-                return null;
-        }
-
-        document.body.style.setProperty('--color-primary', color);
-        document.body.style.setProperty('--color-primary-faded', `rgba(${colorRGB}, .7)`);
-        document.body.style.setProperty('--color-primary-superfaded', `rgba(${colorRGB}, .1)`);
-        document.body.style.setProperty('--color-primary-dark', colorDark);
     }
 
     render() {
