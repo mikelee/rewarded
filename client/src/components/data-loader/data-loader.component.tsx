@@ -118,6 +118,9 @@ export class DataLoader extends React.Component<Props, State> {
             switch (key) {
                 case 'color_theme':
                     if (value) this.applyColorTheme(value);
+                    // for: if colorTheme doesn't exist because the user is using a different computer
+                    // or colorTheme is different from a different user previously logged in
+                    if (value && localStorage.getItem('colorTheme') !== value) localStorage.setItem('colorTheme', value);
                     break;
                 default:
                     return null;
