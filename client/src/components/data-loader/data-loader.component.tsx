@@ -117,7 +117,7 @@ export class DataLoader extends React.Component<Props, State> {
 
             switch (key) {
                 case 'color_theme':
-                    this.applyColorTheme(value);
+                    if (value) this.applyColorTheme(value);
                     break;
                 default:
                     return null;
