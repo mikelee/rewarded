@@ -1,11 +1,11 @@
 import { ReactElement, useEffect } from 'react';
-import { ColorTheme } from '../../../types';
+import { Color } from '../../../types';
 
 interface Props {
     children: ReactElement<any, any> | null
 }
 
-export const applyColorTheme = (colorName: ColorTheme | null) => {
+export const applyColorTheme = (colorName: Color | null) => {
     if (colorName) {
         document.body.style.setProperty('--color-primary', `rgb(var(--rgb-${colorName}))`);
         document.body.style.setProperty('--color-primary-faded', `rgba(var(--rgb-${colorName}), .7)`);
@@ -17,7 +17,7 @@ export const applyColorTheme = (colorName: ColorTheme | null) => {
 const ColorTheme: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
-        const colorName: ColorTheme = window.localStorage.colorTheme;
+        const colorName: Color = window.localStorage.colorTheme;
 
         applyColorTheme(colorName);
     }, []);
