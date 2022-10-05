@@ -41,7 +41,7 @@ export interface SetIsUnlockedData {
     isUnlocked: boolean
 }
 
-export type ColorTheme = 'red' | 'green' | 'blue' | 'purple';
+export type Color = 'red' | 'green' | 'blue' | 'purple';
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
