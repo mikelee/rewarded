@@ -7,3 +7,23 @@ body {
     font-family: 'Noir';
     src: url('./assets/Noir_regular.otf');
 }
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translate(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50vh);
+    }
+
+    to {
+        transform: translatY(0);
+    }
+}
