@@ -81,6 +81,7 @@
 
         &::after {
             width: 100vw;
+            background-image: linear-gradient(to top, var(--color-primary), var(--color-primary-dark));
             clip-path: polygon(0 6rem, 100% calc(10% + 6rem), 100% 100%, 0 100%);
           }
 
