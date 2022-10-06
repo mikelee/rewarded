@@ -15,9 +15,9 @@
         top:0;
         left:0;
         height: 100vh;
-        width: 100vw;
-        clip-path: polygon(0rem 0rem, 45% 0rem, 60% 100%, 0rem 100%);
-        background-color: var(--color-primary);
+        width: 55vw;
+        clip-path: polygon(0rem 0rem, 85% 0rem, 100% 100%, 0rem 100%);
+        background-image: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
       }
 
     &-text-container {
@@ -80,6 +80,7 @@
     .homepage {
 
         &::after {
+            width: 100vw;
             clip-path: polygon(0 6rem, 100% calc(10% + 6rem), 100% 100%, 0 100%);
           }
 
