@@ -10,9 +10,9 @@ import { User } from '../../../types';
 import { Dispatch } from 'redux';
 import { Todo, Reward, Requirement, SetIsUnlockedData, ReduxState, Action } from '../../../types';
 
-import TodoItem from '../todo-item/todo-item.component';
-import AddItem from '../add-item/add-item.component';
-import RewardItem from '../reward-item/reward-item.component';
+import TodoItem from '../../components/todo-item/todo-item.component';
+import AddItem from '../../components/add-item/add-item.component';
+import RewardItem from '../../components/reward-item/reward-item.component';
 
 import { getTodos } from '../../redux/todos/todos.selectors'
 import { setTodos } from '../../redux/todos/todos.actions';

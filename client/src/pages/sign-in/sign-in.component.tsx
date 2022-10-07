@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchData } from '../../utils';
 
 import './sign-in.styles.scss';
-import BenchSVG from '../svg-components/bench-svg.component';
+import BenchSVG from '../../components/svg-components/bench-svg.component';
 
 import { Dispatch } from 'redux';
 import { User, Action } from '../../../types';

@@ -7,7 +7,7 @@ import { Dispatch } from 'redux';
 import { Todo, Reward, Requirement, User, Setting, UserData, SetIsUnlockedData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
-import UserPage from '../user-page/user-page.component';
+import UserPage from '../../pages/user-page/user-page.component';
 
 import { setTodos } from '../../redux/todos/todos.actions';
 import { setRewards, setIsUnlocked } from '../../redux/rewards/rewards.actions';

@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Nav from '../nav/nav.component';
+import Nav from '../../components/nav/nav.component';
 
 import './homepage.styles.scss';
-import CompletedSVG from '../svg-components/completed-svg.component';
-import HikingSVG from '../svg-components/hiking-svg.component';
+import CompletedSVG from '../../components/svg-components/completed-svg.component';
+import HikingSVG from '../../components/svg-components/hiking-svg.component';
 
 import { User, ReduxState } from '../../../types';
 
