@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchData } from '../../utils';
 
 import './sign-in.styles.scss';
 import BenchSVG from '../svg-components/bench-svg.component';
@@ -39,24 +40,14 @@ class SignIn extends React.Component<Props, State> {
     handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const data = {
-            username: this.state.username,
-            password: this.state.password
-        }
-
         try {
-            const response = await fetch(`/auth/${this.props.type}`, {
-                method:'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                body: JSON.stringify(data)
-            });
+            const path = `/auth/${this.props.type}`;
+            const body = {
+                username: this.state.username,
+                password: this.state.password
+            }
 
-            const responseData = await response.json();
+            const responseData = await fetchData(path, 'POST', body);
             
             const user = {
                 userId: responseData.user?.user_id,
