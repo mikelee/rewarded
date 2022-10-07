@@ -8,6 +8,29 @@ const mockUser = {
     username: 'Mike Lee'
 }
 
+const mockResponseData = [
+    [
+        {id: 1, text: 'First todo'},
+        {id: 2, text: 'Second todo'},
+        {id: 3, text: 'Third todo'}
+    ],
+    [
+        {id: 1, text: 'First reward'},
+        {id: 2, text: 'Second reward'},
+        {id: 3, text: 'Third reward'}
+    ],
+    [
+        {id: 1, text: 'First requirement'},
+        {id: 2, text: 'Second requirement'},
+        {id: 3, text: 'Third requirement'}
+    ],
+    [
+        {color: 'red'}
+    ]
+];
+
+fetch.mockResponse(JSON.stringify(mockResponseData));
+
 it('should render Preloader child component', () => {
     const wrapper = shallow(<DataLoader currentUser={mockUser} />);
 
@@ -35,27 +58,6 @@ it('should call componentDidMount and then fetchUserData', () => {
 });
 
 it('should return userData from fetchUserData()', async () => {
-    const mockResponseData = [
-        [
-            {id: 1, text: 'First todo'},
-            {id: 2, text: 'Second todo'},
-            {id: 3, text: 'Third todo'}
-        ],
-        [
-            {id: 1, text: 'First reward'},
-            {id: 2, text: 'Second reward'},
-            {id: 3, text: 'Third reward'}
-        ],
-        [
-            {id: 1, text: 'First requirement'},
-            {id: 2, text: 'Second requirement'},
-            {id: 3, text: 'Third requirement'}
-        ],
-        [
-            {color: 'red'}
-        ]
-    ];
-
     const mockUserData = {
         todos: [
             {id: 1, text: 'First todo'},
@@ -76,8 +78,6 @@ it('should return userData from fetchUserData()', async () => {
             {color: 'red'}
         ]
     };
-
-    fetch.mockResponse(JSON.stringify(mockResponseData));
 
     const wrapper = shallow(<DataLoader currentUser={mockUser} />);
     const instance = wrapper.instance();
