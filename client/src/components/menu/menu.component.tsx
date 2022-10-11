@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { fetchData } from '../../utils';
 
 import './menu.styles.scss';
 
@@ -29,18 +30,7 @@ type Props = StateProps & DispatchProps;
 class Menu extends React.Component<Props> {
 
     logout = async () => {
-        const response = await fetch('/auth/logout', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            },
-            credentials: 'same-origin'
-        });
-
-        const isLoggedOut = await response.json();
+        const isLoggedOut = await fetchData('/auth/logout', 'POST');
     
         if (isLoggedOut === true) {
             // Clear all redux data
