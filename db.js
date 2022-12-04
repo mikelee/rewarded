@@ -1,8 +1,7 @@
-const mysql = require('mysql');
+const postgres = require('postgres');
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+const sql = postgres(process.env.PG_URL, {
+    ssl: true
+});
 
-const url = process.env.CLEARDB_DATABASE_URL + '&multipleStatements=true';
-const connection = mysql.createPool(url);
-
-module.exports = connection;
+module.exports = sql;
