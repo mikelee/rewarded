@@ -1,55 +1,54 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../db');
+const sql = require('../db');
 const { isRequirementOwner } = require('../middleware');
 
 // Get requirements
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const { user_id } = req.user;
 
-    connection.query('SELECT t.todo_id AS todoId, text, completed, reward_id AS rewardId FROM todos t INNER JOIN requirements q ON t.todo_id = q.todo_id WHERE t.user_id = ? ORDER BY t.completed', [user_id], (err, results) => {
-        if (!err) {
-            res.json(results);
-        } else {
-            console.log(err);
-        }
-    });
+    const requirements = await sql`
+        SELECT t.todo_id AS "todoId", text, completed, reward_id AS "rewardId" 
+        FROM todos t 
+        INNER JOIN requirements q
+        ON t.todo_id = q.todo_id 
+        WHERE t.user_id = ${user_id} ORDER BY t.completed;
+    `;
+
+    res.json(requirements);
 });
 
 // Create or Delete requirement
-router.post('/toggle', isRequirementOwner, (req, res) => {
+router.post('/toggle', isRequirementOwner, async (req, res) => {
     const { reward_id, todo_id, selected } = req.body;
 
     if (selected) {
-        connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
-            if (!err) {
-                res.json(results);
-            } else {
-                console.log(err);
-            }
-        });
+        const result = await sql`
+            DELETE FROM requirements
+            WHERE reward_id = ${reward_id} AND todo_id = ${todo_id};
+        `;
+    
+        res.json(result);
     } else {
-        connection.query('INSERT INTO requirements (reward_id, todo_id) VALUES (?, ?)', [reward_id, todo_id], (err, results) => {
-            if (!err) {
-                res.json(results);
-            } else {
-                console.log(err);
-            }
-        });
+        const result = await sql`
+            INSERT INTO requirements (reward_id, todo_id)
+            VALUES (${reward_id}, ${todo_id});
+        `;
+
+        res.json(result);
     }
 });
 
 // Delete requirement
-router.delete('/delete', isRequirementOwner, (req, res) => {
+router.delete('/delete', isRequirementOwner, async (req, res) => {
     const { reward_id, todo_id } = req.body;
 
-    connection.query('DELETE FROM requirements WHERE reward_id = ? AND todo_id = ?', [reward_id, todo_id], (err, results) => {
-        if (!err) {
-            res.json(results);
-        } else {
-            console.log(err);
-        }
-    });
+    const result = await sql`
+        DELETE FROM requirements
+        WHERE reward_id = ${reward_id} AND todo_id = ${todo_id};
+    `;
+
+    res.json(result);
 });
 
 module.exports = router;
