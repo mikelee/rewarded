@@ -59,17 +59,19 @@ router.post('/complete', isTodoOwner, async (req, res) => {
 router.delete('/delete', isTodoOwner, async (req, res) => {
     const { todo_id } = req.body;
 
-    const resultTodos = await sql`
+    const todosQuery = sql`
         DELETE FROM todos
         WHERE todo_id = ${todo_id};
     `;
 
-    const resultRequirements = await sql`
+    const requirementsQuery = sql`
         DELETE FROM requirements
         WHERE todo_id = ${todo_id};
     `;
 
-    res.json(resultRequirements);
+    const result = await Promise.all([todosQuery, requirementsQuery]);
+
+    res.json(result);
 });
 
 module.exports = router;

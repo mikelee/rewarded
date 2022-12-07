@@ -45,17 +45,19 @@ router.put('/update', isRewardOwner, async (req, res) => {
 router.delete('/delete', isRewardOwner, async (req, res) => {
     const { reward_id } = req.body;
 
-    const resultRewards = await sql`
+    const rewardsQuery = sql`
         DELETE FROM rewards
         WHERE reward_id = ${reward_id};
     `;
 
-    const resultRequirements = await sql`
+    const requirementsQuery = sql`
         DELETE FROM requirements
         WHERE reward_id = ${reward_id};
     `;
 
-    res.json(resultRequirements);
+    const result = await Promise.all([rewardsQuery, requirementsQuery]);
+
+    res.json(result);
 });
 
 module.exports = router;
