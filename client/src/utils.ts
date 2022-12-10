@@ -19,7 +19,7 @@ export const fetchData = async (path: string, method: Method, body?: any ) => {
 
     if (body) options.body = JSON.stringify(body);
     
-    const response = await fetch(path, options);
+    const response = await fetch('https://server.rewarded.dev' + path, options);
     const data = await response.json();
 
     return data;
