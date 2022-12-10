@@ -56,7 +56,7 @@ class Submenu extends React.Component<Props> {
     toggleColor = async (event: React.MouseEvent<HTMLButtonElement>) => {
         const colorName = (event.target as HTMLButtonElement).name;
 
-        const path = 'api/settings/color-theme/update';
+        const path = '/api/settings/color-theme/update';
         const method = 'PUT';
         const body = {
             color: colorName,
