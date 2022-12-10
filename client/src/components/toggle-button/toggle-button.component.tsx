@@ -30,7 +30,7 @@ const ToggleButton: React.FC<Props> = ({ type, completed, selectedRewardId, asso
     return (
         <div className='toggle-button-container'>
             <button className={`toggle-button ${selectedRewardId === associatedReward && selectedRewardId !== null && type === 'forRequirement' ? 'selected' : ''}`} onClick={event => determineClick(event)} >
-                {completed === 1
+                {completed
                 ? <CheckRounded className={`check-icon ${selectedRewardId === associatedReward && selectedRewardId !== null && type === 'forRequirement' ? 'selected' : ''}`} fontSize='large'/>
                 : null
                 }

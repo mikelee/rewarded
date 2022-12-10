@@ -1,4 +1,4 @@
-const connection = require('./db');
+const sql = require('./db');
 
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -10,22 +10,36 @@ const isLoggedIn = (req, res, next) => {
 }
 
 const isOwnerQuery = (item, item_id, user_id) => {
-    return new Promise((resolve, reject) => {
-        connection.query(`
-            SELECT EXISTS
-            (
-                SELECT *
-                FROM ${item}s
-                WHERE ${item}_id = ? AND user_id = ?
-            )
-            as doesExist;
-        `, [item_id, user_id], (err, result) => {
-            if (err) return reject(err);
-            // doesExist will be 0 if the item id doesn't exist or if the item id doesn't belong to the user
-            const isOwner = Boolean(result[0].doesExist);
+    return new Promise(async (resolve, reject) => {
+        if (item === 'todo') {
+            const query = await sql`
+                SELECT EXISTS
+                (
+                    SELECT *
+                    FROM todos
+                    WHERE todo_id = ${item_id} AND user_id = ${user_id}
+                )
+                as "doesExist";
+            `;
 
-            return resolve(isOwner);
-        });
+            const doesExist = query[0].doesExist;
+    
+            return resolve(doesExist);
+        } else {
+            const query = await sql`
+                SELECT EXISTS
+                (
+                    SELECT *
+                    FROM rewards
+                    WHERE reward_id = ${item_id} AND user_id = ${user_id}
+                )
+                as "doesExist";
+            `;
+
+            const doesExist = query[0].doesExist;
+    
+            return resolve(doesExist);
+        }
     });
 }
 

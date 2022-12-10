@@ -92,7 +92,7 @@ export class DataLoader extends React.Component<Props, State> {
 
     assignUnlock = (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void) | undefined) => {
         rewards.forEach((reward: Reward) => {
-            const isUnlocked = requirements.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed === 1);
+            const isUnlocked = requirements.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed);
             const rewardId = reward.rewardId;
 
             const data = {
