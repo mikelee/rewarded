@@ -22,6 +22,7 @@ const port = process.env.PORT || 4444;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
+    origin: 'https://rewarded.dev',
     credentials: true
 }));
 
