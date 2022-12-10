@@ -21,7 +21,9 @@ const port = process.env.PORT || 4444;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    credentials: true
+}));
 
 let RedisStore = require('connect-redis')(session);
 let redisClient = redis.createClient(process.env.REDIS_URL);

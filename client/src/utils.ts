@@ -10,7 +10,8 @@ export const fetchData = async (path: string, method: Method, body?: any ) => {
 
     const options: RequestInit = {
         method,
-        headers
+        headers,
+        credentials: 'include'
     };
 
     if (body) options.body = JSON.stringify(body);
