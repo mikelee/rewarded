@@ -1,5 +1,5 @@
 {
-  "name": "daily-achievements-server",
+  "name": "rewarded-server",
   "version": "1.0.0",
   "main": "server.js",
   "engines": {
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikelee/daily-achievements.git"
+    "url": "git+https://github.com/mikelee/rewarded.git"
   },
   "author": "Mike Lee",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mikelee/daily-achievements/issues"
+    "url": "https://github.com/mikelee/rewarded/issues"
   },
-  "homepage": "https://github.com/mikelee/daily-achievements#readme",
+  "homepage": "https://github.com/mikelee/rewarded#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",

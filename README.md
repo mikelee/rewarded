@@ -1,10 +1,10 @@
-# Daily Achievements
+# Rewarded
 
 ### _More than a todo list_
 
 ## Description
 
-Daily Achievements is more than a todo list. You can create rewards and link them to your todos. Once all of the required todos are completed, your reward is unlocked.
+Rewarded is more than a todo list. You can create rewards and link them to your todos. Once all of the required todos are completed, your reward is unlocked.
 
 ## Features
 - Add, edit, and delete todos
@@ -36,7 +36,7 @@ Daily Achievements is more than a todo list. You can create rewards and link the
 
 ## Installation
 
-1. Clone repo ``` git clone https://github.com/mikelee/daily-achievements.git ```
+1. Clone repo ``` git clone https://github.com/mikelee/rewarded.git ```
 
 2. Go to root of project
 

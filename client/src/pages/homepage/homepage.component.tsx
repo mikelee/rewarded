@@ -30,7 +30,7 @@ const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
                 {
                     !loggedOutMessage ?
                         <>
-                            <h1 className='homepage-text'>Daily <br/> Achievements</h1>
+                            <h1 className='homepage-text'>Rewarded</h1>
                             <p className='homepage-subtext'>Achieve greatness!</p>
                         </>
                     :
