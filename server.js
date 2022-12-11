@@ -45,6 +45,11 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
+app.get('/sign-in', (req, res) => {
+    console.log('in sign in')
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
 app.use('/auth', authRoutes);
 app.use('/api', miscRoutes);
 app.use('/api/todo', todoRoutes);
