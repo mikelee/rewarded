@@ -9,9 +9,17 @@
     width: 100%;
     margin: 1rem 0rem;
 
-    &-check-space {
+    &-check-container {
+        display: flex;
+        align-items: center;
+        height: 100%;
         padding: 0 1rem;
-        width: 5%;
+
+        .requirement-check-placeholder {
+            // width of CheckRounded (large) from material-ui
+            width: 21.825px;
+            height: 100%;
+        }
     }
 
     &-form {
@@ -19,7 +27,7 @@
         justify-content: space-between;
         width: 95%;
         align-items: center;
-        padding: 0 1rem;
+        padding-right: 1rem;
 
         &-text {
             margin: 0;

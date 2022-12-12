@@ -17,10 +17,10 @@ type Props = OwnProps;
 
 const RequirementItem: React.FC<Props> = ({ todoId, text, completed, deleteRequirement }) => (
     <div className='requirement'>
-        <div className='requirement-check-space'>
+        <div className='requirement-check-container'>
             {completed
                 ? <CheckRounded fontSize='large' />
-                : null
+                : <div className='requirement-check-placeholder'></div>
             }
         </div>
         <form className='requirement-form' key={todoId} onSubmit={deleteRequirement(todoId)}>
