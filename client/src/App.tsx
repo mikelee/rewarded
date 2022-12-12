@@ -9,8 +9,8 @@ import { User, ReduxState } from '../types';
 
 import ColorTheme from './components/color-theme/color-theme.component';
 import Nav from './components/nav/nav.component';
-import HomePage from './pages/homepage/homepage.component';
-import SignIn from './pages/sign-in/sign-in.component';
+import HomePage from './pages/homepage/homepage.page';
+import SignIn from './pages/sign-in/sign-in.page';
 import DataLoader from './components/data-loader/data-loader.component';
 
 import { getCurrentUser } from './redux/user/user.selectors';
