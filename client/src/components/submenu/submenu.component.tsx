@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { fetchData } from '../../utils';
+import { applyColorTheme } from '../color-theme/color-theme.component';
 
 import './submenu.styles.scss';
 
 import { Dispatch } from 'redux';
-import { User, ReduxState, Action } from '../../../types';
+import { User, ReduxState, Action, Color } from '../../../types';
 
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions';
@@ -54,7 +55,7 @@ class Submenu extends React.Component<Props> {
     }
 
     toggleColor = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        const colorName = (event.target as HTMLButtonElement).name;
+        const colorName = ((event.target as HTMLButtonElement).name as Color);
 
         const path = '/api/settings/color-theme/update';
         const method = 'PUT';
@@ -67,10 +68,7 @@ class Submenu extends React.Component<Props> {
 
         this.props.setColorTheme(colorName);
 
-        document.body.style.setProperty('--color-primary', `rgb(var(--rgb-${colorName}))`);
-        document.body.style.setProperty('--color-primary-faded', `rgba(var(--rgb-${colorName}), .7)`);
-        document.body.style.setProperty('--color-primary-superfaded', `rgba(var(--rgb-${colorName}), .1)`);
-        document.body.style.setProperty('--color-primary-dark', `rgb(var(--rgb-${colorName}-dark))`);
+        applyColorTheme(colorName);
 
         window.localStorage.setItem('colorTheme', colorName);
     }
