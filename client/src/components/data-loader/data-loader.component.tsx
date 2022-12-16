@@ -16,9 +16,7 @@ import { setColorTheme } from '../../redux/user/user.actions';
 import { Action } from 'redux';
 
 interface OwnProps {
-    currentUser: User,
-    rewards?: Reward[],
-    requirements?: Requirement[]
+    currentUser: User
 }
 
 interface DispatchProps {
