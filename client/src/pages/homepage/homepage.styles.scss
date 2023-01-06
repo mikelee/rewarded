@@ -28,8 +28,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex: 1;
-        margin-bottom: 3rem;
+        width: 55vw;
         animation: slideRight .5s ease-out;
 
         .homepage-text {
@@ -49,14 +48,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        flex: 1;
-        margin-bottom: 3rem;
+        width: 45vw;
+        padding: 2rem;
+        box-sizing: border-box;
         overflow: hidden;
     }
 
     &-graphic {
         width: 45rem;
-        padding-left: 7rem;
         z-index: -20;
     }
 }
@@ -93,6 +92,8 @@
         }
 
         &-text-container {
+            width: auto;
+            flex: 1;
             animation: slideUp .5s ease-out;
 
             .homepage-text {
@@ -100,10 +101,13 @@
             }
         }
 
+        .graphic-container {
+            width: auto;
+            flex: 1;
+        }
 
         .homepage-graphic {
             z-index: 10;
-            padding: 0;
             animation: slideUp .5s ease-out;
         }
     }
