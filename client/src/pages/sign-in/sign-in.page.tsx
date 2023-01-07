@@ -87,8 +87,10 @@ class SignIn extends React.Component<Props, State> {
             <div className='sign-in'>
                 <div className='content'>
                     <div className='sign-in-left'>
-                        <div className='bench-graphic'>
-                            <BenchSVG />
+                        <div className='graphic-container'>
+                            <div className='bench-graphic'>
+                                <BenchSVG />
+                            </div>
                         </div>
                     </div>
                     <div className='sign-in-right'>
