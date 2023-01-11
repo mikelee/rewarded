@@ -34,7 +34,7 @@ const Nav: React.FC<Props> = ({ currentUser, visible, toggleMenuVisible, isTrans
         {currentUser ?
             <div className='nav-buttons'>
                 <h3 className='nav-username'>Hi, {currentUser.username}</h3>
-                <svg className='menu-icon' onClick={toggleMenuVisible} viewBox="0 0 150 65" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <svg className='menu-icon' onClick={toggleMenuVisible} data-testid='menu-button' viewBox="0 0 150 65" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <title>menu_icon</title>
                     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                         <rect id="top" fill="#FFFFFF" x="0" y="0" width="150" height="5" rx="2.5"></rect>
