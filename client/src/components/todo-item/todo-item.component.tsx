@@ -161,7 +161,7 @@ class TodoItem extends React.Component<Props, State> {
                 : <ToggleButton type='forRequirement' selectedRewardId={selectedRewardId} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
                 }
                 <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
-                    <input name='text' className='todo-edit-form-textfield' onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
+                    <input name='text' className={`todo-edit-form-textfield ${completed ? 'text-completed': ''}`} onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
                 </form>
                 {!selectedRewardId
                 ?

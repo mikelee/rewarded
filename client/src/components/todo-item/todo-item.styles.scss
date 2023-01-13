@@ -23,6 +23,11 @@
             border: none;
             line-height: 4rem;
 
+            &.text-completed {
+                text-decoration: line-through;
+                color: rgba(black, .4);
+            }
+
             &:focus {
                 outline: none;
             }
