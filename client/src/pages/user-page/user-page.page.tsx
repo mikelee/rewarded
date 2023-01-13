@@ -102,38 +102,45 @@ class UserPage extends React.Component<Props> {
 
         return (
             <div className='user-page'>
-                {selectedRewardId
-                    ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
-                    : <h2 className='title'>To Do</h2>
-                }
-                {this.props.selectedRewardId !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
-                {todos ? todos.map(todo =>
-                    <TodoItem
-                        fetchTodos={this.fetchTodos}
-                        fetchRequirements={this.fetchRequirements}
-                        fetchTodosForSelection={this.fetchTodosForSelection}
-                        key={todo.todoId}
-                        id={todo.todoId}
-                        text={todo.text}
-                        completed={todo.completed}
-                        selectedRewardId={this.props.selectedRewardId}
-                        associatedReward={todo.rewardId}
-                    />)
-                : null}
-                <AddItem fetchTodos={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
-
-                <h3 className='title'>Rewards</h3>
-                {rewards ? rewards.map(reward =>
-                    <RewardItem
-                        fetchRewards={this.fetchRewards}
-                        fetchRequirements={this.fetchRequirements}
-                        key={reward.rewardId} id={reward.rewardId}
-                        text={reward.text}
-                        fetchTodosForSelection={this.fetchTodosForSelection}
-                        scroll={this.scrollToSelection}
-                    />)
-                : null}
-                <AddItem fetchRewards={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
+                <section className='todos-section'>
+                    {selectedRewardId
+                        ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
+                        : <h2 className='title'>To Do</h2>
+                    }
+                    {this.props.selectedRewardId !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
+                    <div className='list'>
+                        {todos ? todos.map(todo =>
+                            <TodoItem
+                                fetchTodos={this.fetchTodos}
+                                fetchRequirements={this.fetchRequirements}
+                                fetchTodosForSelection={this.fetchTodosForSelection}
+                                key={todo.todoId}
+                                id={todo.todoId}
+                                text={todo.text}
+                                completed={todo.completed}
+                                selectedRewardId={this.props.selectedRewardId}
+                                associatedReward={todo.rewardId}
+                            />)
+                        : null}
+                    </div>
+                    <AddItem fetchTodos={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
+                </section>
+                <section className='rewards-section'>
+                    <h3 className='title'>Rewards</h3>
+                    <div className='list'>
+                        {rewards ? rewards.map(reward =>
+                            <RewardItem
+                                fetchRewards={this.fetchRewards}
+                                fetchRequirements={this.fetchRequirements}
+                                key={reward.rewardId} id={reward.rewardId}
+                                text={reward.text}
+                                fetchTodosForSelection={this.fetchTodosForSelection}
+                                scroll={this.scrollToSelection}
+                            />)
+                        : null}
+                    </div>
+                    <AddItem fetchRewards={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
+                </section>
             </div>
         );
     }
