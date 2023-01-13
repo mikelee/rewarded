@@ -123,7 +123,7 @@ class RewardItem extends React.Component<Props, State> {
         const { id, text, requirements, isUnlocked } = this.props;
 
         return (
-            <div className={`reward ${isUnlocked ? '' : 'locked'}`}>
+            <div className={`reward ${isUnlocked ? '' : 'locked'}`} data-testid={`reward-${id}`}>
                 <form className='reward-form' id={`reward-form-${id}`} onBlur={this.editReward} onSubmit={this.editReward} >
                     <input className='reward-form-textfield' defaultValue={text} name='text' onChange={this.handleTextChange} />
                 </form>
