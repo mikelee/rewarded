@@ -130,11 +130,13 @@ class RewardItem extends React.Component<Props, State> {
                 <div className='reward-right-side'>
                     <div className='reward-to-complete'>
                         <h3 className='requirements-title'>Requirements</h3>
-                        {requirements !== null
-                        ? requirements?.filter(requirement => requirement.rewardId === id).map(requirement => (
-                            <RequirementItem key={requirement.todoId} deleteRequirement={this.deleteRequirement} {...requirement}/>
-                        ))
-                        : null }
+                        <div className='requirements-list'>
+                            {requirements !== null
+                            ? requirements?.filter(requirement => requirement.rewardId === id).map(requirement => (
+                                <RequirementItem key={requirement.todoId} deleteRequirement={this.deleteRequirement} {...requirement}/>
+                            ))
+                            : null }
+                        </div>
                     </div>
                     <div className='reward-buttons'>
                         <IconButton className='requirement-add-button' onClick={this.addOrDeleteRequirement}>
