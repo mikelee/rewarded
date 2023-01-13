@@ -146,6 +146,7 @@ class TodoItem extends React.Component<Props, State> {
         return (
             <div
                 className='todo' 
+                data-testid={`todo-${id}`}
                 {...window.innerWidth <= 480 &&
                     {
                         onTouchStart: event => this.handleSwipeStart(event), 
