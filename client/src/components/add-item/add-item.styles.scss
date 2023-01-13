@@ -6,7 +6,9 @@
     justify-content: flex-start;
     width: 70%;
     height: 6rem;
+    border: none;
     border-radius: .5rem;
+    padding: 0;
     margin-top: 1rem;
     background-color: var(--color-primary-faded);
     box-shadow: 1rem 1rem 2rem rgba(black, .2);
@@ -37,6 +39,7 @@
     
     .add-item-text {
         color: white;
+        font-family: Noir;
         font-size: 2.4rem;
         margin-left: 2rem;
     }

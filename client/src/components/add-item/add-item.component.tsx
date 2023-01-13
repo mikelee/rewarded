@@ -31,12 +31,12 @@ const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards 
     }
 
     return (
-        <div className={`add-item add-item-${type}`} onClick={addTodoOrReward} >
+        <button className={`add-item add-item-${type}`} onClick={addTodoOrReward} >
             <div className='plus-container'>
                 <AddRounded className='plus-icon' fontSize='large' />
             </div>
             <p className='add-item-text' >{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
-        </div>
+        </button>
     );
 }
 
