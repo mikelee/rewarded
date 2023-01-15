@@ -3,6 +3,7 @@
 exports[`should render TodoItem 1`] = `
 <div
   className="todo"
+  data-testid="todo-1"
   style={
     Object {
       "transform": "translateX(undefinedpx)",
@@ -21,7 +22,7 @@ exports[`should render TodoItem 1`] = `
     onSubmit={[Function]}
   >
     <input
-      className="todo-edit-form-textfield"
+      className="todo-edit-form-textfield text-completed"
       defaultValue="first"
       name="text"
       onChange={[Function]}
