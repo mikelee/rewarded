@@ -123,7 +123,7 @@ class UserPage extends React.Component<Props> {
                             />)
                         : null}
                     </div>
-                    <AddItem fetchTodos={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
+                    <AddItem fetchItems={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
                 </section>
                 <section className='rewards-section'>
                     <h3 className='title'>Rewards</h3>
@@ -139,7 +139,7 @@ class UserPage extends React.Component<Props> {
                             />)
                         : null}
                     </div>
-                    <AddItem fetchRewards={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
+                    <AddItem fetchItems={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
                 </section>
             </div>
         );

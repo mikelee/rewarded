@@ -10,32 +10,27 @@ import { AddRounded } from '@material-ui/icons';
 interface Props {
     type: string,
     currentUser: User,
-    fetchTodos?: () => void,
-    fetchRewards?: () => void
+    fetchItems: () => void
 }
 
-const AddItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
+const AddItem: React.FC<Props> = ({ type, currentUser, fetchItems }) => {
 
-    const addTodoOrReward = async () => {
+    const addItem = async () => {
         const path = `/api/${type}/create`;
         const method = 'POST';
         const body = currentUser;
 
         await fetchData(path, method, body);
         
-        if (type === 'todo' && fetchTodos) {
-            fetchTodos();
-        } else if (fetchRewards) {
-            fetchRewards();
-        }
+        fetchItems();
     }
 
     return (
-        <button className={`add-item add-item-${type}`} onClick={addTodoOrReward} >
+        <button className={`add-item add-item-${type}`} onClick={addItem} >
             <div className='plus-container'>
                 <AddRounded className='plus-icon' fontSize='large' />
             </div>
-            <p className='add-item-text' >{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
+            <p className='add-item-text'>{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
         </button>
     );
 }
