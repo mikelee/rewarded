@@ -14,7 +14,7 @@ interface Props {
     fetchRewards?: () => void
 }
 
-const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
+const AddItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards }) => {
 
     const addTodoOrReward = async () => {
         const path = `/api/${type}/create`;
@@ -40,4 +40,4 @@ const addItem: React.FC<Props> = ({ type, currentUser, fetchTodos, fetchRewards 
     );
 }
 
-export default addItem;
+export default AddItem;
