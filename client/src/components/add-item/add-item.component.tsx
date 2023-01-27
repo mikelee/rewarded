@@ -26,7 +26,7 @@ const AddItem: React.FC<Props> = ({ type, currentUser, fetchItems }) => {
     }
 
     return (
-        <button className={`add-item add-item-${type}`} onClick={addItem} >
+        <button className='add-item' onClick={addItem} >
             <div className='plus-container'>
                 <AddRounded className='plus-icon' fontSize='large' />
             </div>
