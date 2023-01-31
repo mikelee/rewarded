@@ -20,11 +20,11 @@ interface OwnProps {
 }
 
 interface DispatchProps {
-    setTodos?: (todos: Todo[]) => void,
-    setRewards?: (rewards: Reward[]) => void,
-    setIsUnlocked?: (data: SetIsUnlockedData) => void,
-    setRequirements?: (requirements: Requirement[]) => void,
-    setColorTheme?: (color: string) => void
+    setTodos: (todos: Todo[]) => void,
+    setRewards: (rewards: Reward[]) => void,
+    setIsUnlocked: (data: SetIsUnlockedData) => void,
+    setRequirements: (requirements: Requirement[]) => void,
+    setColorTheme: (color: string) => void
 }
 
 type Props = OwnProps & DispatchProps;
