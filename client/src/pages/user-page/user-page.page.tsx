@@ -25,7 +25,7 @@ import { setColorTheme } from '../../redux/user/user.actions';
 
 interface OwnProps {
     currentUser: User,
-    assignUnlock: (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void) | undefined) => void
+    assignUnlock: (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => void
 }
 
 interface StateProps {

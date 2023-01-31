@@ -86,7 +86,7 @@ export class DataLoader extends React.Component<Props, State> {
         this.applySettings(userData.settings);
     }
 
-    assignUnlock = (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void) | undefined) => {
+    assignUnlock = (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => {
         rewards.forEach((reward: Reward) => {
             const isUnlocked = requirements.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed);
             const rewardId = reward.rewardId;
@@ -95,9 +95,8 @@ export class DataLoader extends React.Component<Props, State> {
                 rewardId,
                 isUnlocked
             }
-            if (setIsUnlocked) {
-                setIsUnlocked(data);
-            }
+            
+            setIsUnlocked(data);
         });
     }
 
