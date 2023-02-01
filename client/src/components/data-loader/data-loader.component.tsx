@@ -75,14 +75,15 @@ export class DataLoader extends React.Component<Props, State> {
         const {
             setTodos,
             setRewards,
-            setRequirements,
+            setIsUnlocked,
+            setRequirements
         } = this.props;
 
         setTodos(userData.todos);
         setRequirements(userData.requirements);
         setRewards(userData.rewards);
 
-        this.assignUnlock(userData.rewards, userData.requirements, this.props.setIsUnlocked);
+        this.assignUnlock(userData.rewards, userData.requirements, setIsUnlocked);
         this.applySettings(userData.settings);
     }
 
