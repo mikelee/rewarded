@@ -10,6 +10,7 @@ import { Dispatch } from 'redux';
 import { User, ReduxState } from '../../../types';
 
 import Menu from '../menu/menu.component';
+
 import { toggleMenuVisible } from '../../redux/menu/menu.actions';
 import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 import { Action } from 'redux';
