@@ -56,6 +56,12 @@ class UserPage extends React.Component<Props> {
         this.selectionTitle = React.createRef<HTMLHeadingElement>();
     }
 
+    componentDidMount() {
+        if (this.props.selectedRewardId !== null) {
+            this.fetchTodosForSelection();
+        }
+    }
+
     fetchTodos = async () => {
         const todos = await fetchData('/api/todo', 'GET');
 
