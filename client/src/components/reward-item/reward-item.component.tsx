@@ -92,23 +92,6 @@ class RewardItem extends React.Component<Props, State> {
         this.props.setSelectedRewardId(this.props.id);
     }
 
-    deleteRequirement = (todoId: number) => {
-        return async (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-
-            const path = '/api/requirement/delete';
-            const method = 'DELETE';
-            const body = {
-                reward_id: this.props.id,
-                todo_id: todoId
-            };
-
-            await fetchData(path, method, body);
-
-            this.props.fetchRequirements();
-        }
-    }
-
     render() {
         const { id, text, requirements, isUnlocked } = this.props;
 
@@ -123,7 +106,7 @@ class RewardItem extends React.Component<Props, State> {
                         <div className='requirements-list'>
                             {requirements !== null
                             ? requirements?.filter(requirement => requirement.rewardId === id).map(requirement => (
-                                <RequirementItem key={requirement.todoId} deleteRequirement={this.deleteRequirement} {...requirement}/>
+                                <RequirementItem key={requirement.todoId} fetchRequirements={this.props.fetchRequirements} {...requirement}/>
                             ))
                             : null }
                         </div>
