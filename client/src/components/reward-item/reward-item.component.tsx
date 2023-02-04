@@ -20,9 +20,7 @@ interface OwnProps {
     id: number,
     text: string,
     fetchRewards: () => void,
-    fetchRequirements: () => void,
-    fetchTodosForSelection: () => void,
-    scroll: () => void,
+    fetchRequirements: () => void
 }
 
 interface StateProps {
@@ -91,9 +89,7 @@ class RewardItem extends React.Component<Props, State> {
     }
 
     addOrDeleteRequirement = async () => {
-        await this.props.setSelectedRewardId(this.props.id);
-        await this.props.fetchTodosForSelection();
-        this.props.scroll();
+        this.props.setSelectedRewardId(this.props.id);
     }
 
     deleteRequirement = (todoId: number) => {
@@ -110,10 +106,6 @@ class RewardItem extends React.Component<Props, State> {
             await fetchData(path, method, body);
 
             this.props.fetchRequirements();
-            
-            if (this.props.selectedRewardId) {
-                this.props.fetchTodosForSelection();
-            }
         }
     }
 

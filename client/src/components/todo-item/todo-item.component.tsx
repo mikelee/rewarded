@@ -14,8 +14,7 @@ interface OwnProps {
     selectedRewardId: number | null,
     associatedReward: number | undefined,
     fetchTodos: () => void,
-    fetchRequirements: () => void,
-    fetchTodosForSelection: () => void,
+    fetchRequirements: () => void
 }
 
 type Props = OwnProps;
@@ -136,7 +135,6 @@ class TodoItem extends React.Component<Props, State> {
 
         await fetchData(path, method, body);
 
-        this.props.fetchTodosForSelection();
         this.props.fetchRequirements();
     }
 

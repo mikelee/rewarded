@@ -62,6 +62,19 @@ class UserPage extends React.Component<Props> {
         }
     }
 
+    componentDidUpdate(prevProps: Readonly<Props>) {
+        // if there is a selected reward and it changed
+        if (this.props.selectedRewardId !== null && prevProps.selectedRewardId !== this.props.selectedRewardId) {
+            this.fetchTodosForSelection();
+            this.scrollToSelection();
+        }
+        
+        // if there is a selected reward and the requirements changed
+        if (this.props.selectedRewardId !== null && prevProps.requirements !== this.props.requirements) {
+            this.fetchTodosForSelection();
+        }
+    }
+
     fetchTodos = async () => {
         const todos = await fetchData('/api/todo', 'GET');
 
@@ -119,7 +132,6 @@ class UserPage extends React.Component<Props> {
                             <TodoItem
                                 fetchTodos={this.fetchTodos}
                                 fetchRequirements={this.fetchRequirements}
-                                fetchTodosForSelection={this.fetchTodosForSelection}
                                 key={todo.todoId}
                                 id={todo.todoId}
                                 text={todo.text}
@@ -140,8 +152,6 @@ class UserPage extends React.Component<Props> {
                                 fetchRequirements={this.fetchRequirements}
                                 key={reward.rewardId} id={reward.rewardId}
                                 text={reward.text}
-                                fetchTodosForSelection={this.fetchTodosForSelection}
-                                scroll={this.scrollToSelection}
                             />)
                         : null}
                     </div>
