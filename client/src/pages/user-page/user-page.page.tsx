@@ -24,8 +24,7 @@ import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
 
 interface OwnProps {
-    currentUser: User,
-    assignUnlock: (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => void
+    currentUser: User
 }
 
 interface StateProps {
@@ -85,18 +84,12 @@ class UserPage extends React.Component<Props> {
         const rewards = await fetchData('/api/reward', 'GET');
 
         this.props.setRewards(rewards);
-        if (this.props.requirements) {
-            this.props.assignUnlock(rewards, this.props.requirements, this.props.setIsUnlocked);
-        }
     }
 
     fetchRequirements = async () => {
         const requirements = await fetchData('/api/requirement', 'GET');
 
         this.props.setRequirements(requirements);
-        if (this.props.rewards && this.props.requirements) {
-            this.props.assignUnlock(this.props.rewards, this.props.requirements, this.props.setIsUnlocked);
-        }
     }
 
     fetchTodosForSelection = async () => {

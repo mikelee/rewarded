@@ -50,6 +50,30 @@ class RewardItem extends React.Component<Props, State> {
         }
     }
 
+    componentDidMount() {
+        if (this.props.requirements) {
+            this.assignUnlock(this.props.requirements, this.props.setIsUnlocked);
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<Props>) {
+        if (this.props.requirements && this.props.requirements !== prevProps.requirements) {
+            this.assignUnlock(this.props.requirements, this.props.setIsUnlocked);
+        }
+    }
+
+    assignUnlock = (requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => {
+        const isUnlocked = requirements.filter(requirement => requirement.rewardId === this.props.id).every(requirement => requirement.completed);
+        const rewardId = this.props.id;
+
+        const data = {
+            rewardId,
+            isUnlocked
+        }
+        
+        setIsUnlocked(data);
+    }
+
     handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         

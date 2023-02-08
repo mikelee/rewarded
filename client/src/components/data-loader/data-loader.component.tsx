@@ -83,22 +83,7 @@ export class DataLoader extends React.Component<Props, State> {
         setRequirements(userData.requirements);
         setRewards(userData.rewards);
 
-        this.assignUnlock(userData.rewards, userData.requirements, setIsUnlocked);
         this.applySettings(userData.settings);
-    }
-
-    assignUnlock = (rewards: Reward[], requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => {
-        rewards.forEach((reward: Reward) => {
-            const isUnlocked = requirements.filter(requirement => requirement.rewardId === reward.rewardId).every(requirement => requirement.completed);
-            const rewardId = reward.rewardId;
-
-            const data = {
-                rewardId,
-                isUnlocked
-            }
-            
-            setIsUnlocked(data);
-        });
     }
 
     applySettings = (settings: Setting[]) => {
@@ -130,7 +115,7 @@ export class DataLoader extends React.Component<Props, State> {
 
         return (
             dataLoaded ?
-                <UserPage currentUser={this.props.currentUser} assignUnlock={this.assignUnlock} />
+                <UserPage currentUser={this.props.currentUser} />
             :
                 <Preloader />
         );
