@@ -62,7 +62,7 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
     </ColorTheme>
 );
 
-const mapStateToProps = createStructuredSelector<ReduxState, {currentUser: User | null}>({
+const mapStateToProps = createStructuredSelector<ReduxState, AppProps>({
 	currentUser: getCurrentUser
 });
 
