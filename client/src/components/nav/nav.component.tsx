@@ -65,7 +65,7 @@ const Nav: React.FC<Props> = ({ currentUser, visible, toggleMenuVisible, isTrans
     </div>
 );
 
-const mapStateToProps = createStructuredSelector<ReduxState, {visible: boolean}>({
+const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
     visible: selectMenuVisible
 });
 

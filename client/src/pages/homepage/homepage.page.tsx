@@ -54,7 +54,7 @@ const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
     </div>
 );
 
-const mapStateToProps = createStructuredSelector<ReduxState, { loggedOutMessage: boolean }>({
+const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
     loggedOutMessage: getLoggedOutMessage
 });
 

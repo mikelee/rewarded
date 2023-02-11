@@ -155,7 +155,7 @@ class UserPage extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, { todos: Todo[] | null, rewards: Reward[] | null, selectedRewardId: number | null, requirements: Requirement[] | null, colorTheme: string |null }>({
+const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
     todos: getTodos,
     rewards: getRewards,
     selectedRewardId: getSelectedRewardId,

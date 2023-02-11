@@ -65,7 +65,7 @@ class Menu extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, { submenuCategory: string | null }>({
+const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
    submenuCategory: getSubmenuCategory
 });
 

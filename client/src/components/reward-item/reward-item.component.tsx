@@ -151,7 +151,7 @@ class RewardItem extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, OwnProps, { isUnlocked: boolean | undefined, rewards: Reward[] | null, requirements: Requirement[] | null, selectedRewardId: number | null }>({
+const mapStateToProps = createStructuredSelector<ReduxState, OwnProps, StateProps>({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
     requirements: getRequirements,

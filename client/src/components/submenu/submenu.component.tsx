@@ -97,7 +97,7 @@ class Submenu extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, { submenuCategory: string | null, currentUser: User | null }>({
+const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
     submenuCategory: getSubmenuCategory,
     currentUser: getCurrentUser
 });
