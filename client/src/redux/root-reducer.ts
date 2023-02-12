@@ -12,7 +12,7 @@ import temporaryReducer from './temporary/temporary.reducer';
 import userActionTypes from './user/user.types';
 
 import { Reducer } from 'redux';
-import { ReduxState, Action } from '../../types';
+import { Action } from '../../types';
 
 const persistConfig = {
     key: 'root',
@@ -36,5 +36,7 @@ const rootReducer: Reducer<ReduxState, Action> = (state, action) => {
 
     return appReducer(state, action);
 }
+
+type ReduxState = ReturnType<typeof appReducer>;
 
 export default persistReducer(persistConfig, rootReducer);
