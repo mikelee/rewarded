@@ -8,7 +8,7 @@ import './user-page.styles.scss';
 import { User } from '../../../types';
 
 import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, SetIsUnlockedData, ReduxState, Action } from '../../../types';
+import { Todo, Reward, Requirement, SetIsUnlockedData, Action } from '../../../types';
 
 import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
@@ -155,7 +155,7 @@ class UserPage extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
+const mapStateToProps = createStructuredSelector({
     todos: getTodos,
     rewards: getRewards,
     selectedRewardId: getSelectedRewardId,

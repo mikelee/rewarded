@@ -7,7 +7,7 @@ import { applyColorTheme } from '../color-theme/color-theme.component';
 import './submenu.styles.scss';
 
 import { Dispatch } from 'redux';
-import { User, ReduxState, Action, Color } from '../../../types';
+import { User, Action, Color } from '../../../types';
 
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions';
@@ -97,7 +97,7 @@ class Submenu extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
+const mapStateToProps = createStructuredSelector({
     submenuCategory: getSubmenuCategory,
     currentUser: getCurrentUser
 });

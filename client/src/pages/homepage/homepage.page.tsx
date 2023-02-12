@@ -8,7 +8,7 @@ import './homepage.styles.scss';
 import CompletedSVG from '../../components/svg-components/completed-svg.component';
 import HikingSVG from '../../components/svg-components/hiking-svg.component';
 
-import { User, ReduxState } from '../../../types';
+import { User } from '../../../types';
 
 import { getLoggedOutMessage } from '../../redux/temporary/temporary.selectors';
 
@@ -54,7 +54,7 @@ const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
     </div>
 );
 
-const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
+const mapStateToProps = createStructuredSelector({
     loggedOutMessage: getLoggedOutMessage
 });
 

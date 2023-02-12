@@ -7,7 +7,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './nav.styles.scss';
 
 import { Dispatch } from 'redux';
-import { User, ReduxState } from '../../../types';
+import { User } from '../../../types';
 
 import Menu from '../menu/menu.component';
 
@@ -65,7 +65,7 @@ const Nav: React.FC<Props> = ({ currentUser, visible, toggleMenuVisible, isTrans
     </div>
 );
 
-const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
+const mapStateToProps = createStructuredSelector({
     visible: selectMenuVisible
 });
 

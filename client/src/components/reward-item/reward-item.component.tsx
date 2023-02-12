@@ -6,7 +6,7 @@ import { fetchData } from '../../utils';
 import './reward-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { ReduxState, Reward, Requirement, Action, SetIsUnlockedData } from '../../../types';
+import { Reward, Requirement, Action, SetIsUnlockedData } from '../../../types';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@material-ui/core';
@@ -151,7 +151,7 @@ class RewardItem extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, OwnProps, StateProps>({
+const mapStateToProps = createStructuredSelector({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
     requirements: getRequirements,

@@ -6,7 +6,7 @@ import { fetchData } from '../../utils';
 import './menu.styles.scss';
 
 import { Dispatch } from 'redux';
-import { ReduxState, Action } from '../../../types';
+import { Action } from '../../../types';
 
 import Submenu from '../submenu/submenu.component'
 
@@ -65,7 +65,7 @@ class Menu extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = createStructuredSelector<ReduxState, StateProps>({
+const mapStateToProps = createStructuredSelector({
    submenuCategory: getSubmenuCategory
 });
 

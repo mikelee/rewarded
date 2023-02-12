@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './App.scss';
 
-import { User, ReduxState } from '../types';
+import { User } from '../types';
 
 import ColorTheme from './components/color-theme/color-theme.component';
 import Nav from './components/nav/nav.component';
@@ -62,7 +62,7 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
     </ColorTheme>
 );
 
-const mapStateToProps = createStructuredSelector<ReduxState, AppProps>({
+const mapStateToProps = createStructuredSelector({
 	currentUser: getCurrentUser
 });
 
