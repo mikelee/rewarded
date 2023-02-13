@@ -16,7 +16,7 @@ import { getRewards, getIsUnlocked, getSelectedRewardId } from '../../redux/rewa
 import { setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 
-interface OwnProps {
+export interface OwnProps {
     id: number,
     text: string,
     fetchRewards: () => void,
