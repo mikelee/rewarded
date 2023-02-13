@@ -2,19 +2,14 @@ import rewardsActionTypes from './rewards.types';
 import { Reducer } from 'redux';
 import { Action } from '../../../types';
 
-import { Reward } from '../../../types';
-
-interface State {
-    rewards: Reward[] | null,
-    selectedRewardId: number | null
-}
+import { RewardsReducer } from '../../../types';
 
 const initalState = {
     rewards: null,
     selectedRewardId: null
 }
 
-const rewardsReducer: Reducer<State, Action> = (state = initalState, action) => {
+const rewardsReducer: Reducer<RewardsReducer, Action> = (state = initalState, action) => {
     switch(action.type) {
         case rewardsActionTypes.SET_REWARDS:
             return {
