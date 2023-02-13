@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { ReduxState, Reward } from '../../../types';
+import { Reward } from '../../../types';
+import { ReduxState } from '../root-reducer';
 
 const selectRewards = (state: ReduxState) => state.rewards;
 

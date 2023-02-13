@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { ReduxState } from '../../../types';
+import { ReduxState } from '../root-reducer';
 
 const selectMenu = (state: ReduxState) => state.menu;
 

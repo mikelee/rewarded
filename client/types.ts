@@ -45,19 +45,6 @@ export type Color = 'red' | 'green' | 'blue' | 'purple';
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-
-
-// Redux
-
-export interface ReduxState {
-    user: UserReducer,
-    todos: TodosReducer,
-    rewards: RewardsReducer,
-    requirements: RequirementsReducer,
-    menu: MenuReducer,
-    temporary: TemporaryReducer
-}
-
 export interface UserReducer {
     currentUser: User | null,
     settings: {
