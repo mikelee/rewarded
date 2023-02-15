@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { fetchData } from '../../utils';
+import equal from 'fast-deep-equal';
 
 import './reward-item.styles.scss';
 
@@ -14,7 +15,7 @@ import { Add, Clear } from '@material-ui/icons';
 
 import { getRewards, getIsUnlocked, getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
 import { setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
-import { getRequirements } from '../../redux/requirements/requirements.selectors';
+import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
 
 export interface OwnProps {
     id: number,
@@ -26,7 +27,7 @@ export interface OwnProps {
 interface StateProps {
     isUnlocked: boolean | undefined,
     rewards: Reward[] | null,
-    requirements: Requirement[] | null,
+    rewardRequirements: Requirement[] | undefined,
     selectedRewardId: number | null
 }
 
@@ -51,19 +52,22 @@ class RewardItem extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        if (this.props.requirements) {
-            this.assignUnlock(this.props.requirements, this.props.setIsUnlocked);
+        if (this.props.rewardRequirements) {
+            this.assignUnlock(this.props.rewardRequirements, this.props.setIsUnlocked);
         }
     }
 
     componentDidUpdate(prevProps: Readonly<Props>) {
-        if (this.props.requirements && this.props.requirements !== prevProps.requirements) {
-            this.assignUnlock(this.props.requirements, this.props.setIsUnlocked);
+        const currentRequirements = this.props.rewardRequirements;
+        const prevRequirements = prevProps.rewardRequirements;
+
+        if (currentRequirements && !equal(currentRequirements, prevRequirements)) {
+            this.assignUnlock(currentRequirements, this.props.setIsUnlocked);
         }
     }
 
     assignUnlock = (requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => {
-        const isUnlocked = requirements.filter(requirement => requirement.rewardId === this.props.id).every(requirement => requirement.completed);
+        const isUnlocked = requirements.every(requirement => requirement.completed);
         const rewardId = this.props.id;
 
         const data = {
@@ -117,7 +121,7 @@ class RewardItem extends React.Component<Props, State> {
     }
 
     render() {
-        const { id, text, requirements, isUnlocked } = this.props;
+        const { id, text, isUnlocked, rewardRequirements } = this.props;
 
         return (
             <div className={`reward ${isUnlocked ? '' : 'locked'}`} data-testid={`reward-${id}`}>
@@ -128,11 +132,11 @@ class RewardItem extends React.Component<Props, State> {
                     <div className='reward-to-complete'>
                         <h3 className='requirements-title'>Requirements</h3>
                         <div className='requirements-list'>
-                            {requirements !== null
-                            ? requirements?.filter(requirement => requirement.rewardId === id).map(requirement => (
-                                <RequirementItem key={requirement.todoId} fetchRequirements={this.props.fetchRequirements} {...requirement}/>
-                            ))
-                            : null }
+                            {
+                                rewardRequirements?.map(rewardRequirements =>
+                                    <RequirementItem key={rewardRequirements.todoId} fetchRequirements={this.props.fetchRequirements} {...rewardRequirements}/>
+                                )
+                            }
                         </div>
                     </div>
                     <div className='reward-buttons'>
@@ -154,7 +158,7 @@ class RewardItem extends React.Component<Props, State> {
 const mapStateToProps = createStructuredSelector({
     isUnlocked: getIsUnlocked,
     rewards: getRewards,
-    requirements: getRequirements,
+    rewardRequirements: getRewardRequirements,
     selectedRewardId: getSelectedRewardId
 });
 
