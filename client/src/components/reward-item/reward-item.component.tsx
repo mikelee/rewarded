@@ -61,7 +61,7 @@ class RewardItem extends React.Component<Props, State> {
         const currentRequirements = this.props.rewardRequirements;
         const prevRequirements = prevProps.rewardRequirements;
 
-        if (currentRequirements && !equal(currentRequirements, prevRequirements)) {
+        if (currentRequirements && (!equal(currentRequirements, prevRequirements) || this.props.isUnlocked !== prevProps.isUnlocked)) {
             this.assignUnlock(currentRequirements, this.props.setIsUnlocked);
         }
     }
