@@ -7,14 +7,14 @@ import equal from 'fast-deep-equal';
 import './reward-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { Reward, Requirement, Action, SetIsUnlockedData } from '../../../types';
+import { Reward, Requirement, Action } from '../../../types';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
-import { getRewards, getIsUnlocked, getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
-import { setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
+import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
+import { setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
 
 export interface OwnProps {
@@ -25,21 +25,20 @@ export interface OwnProps {
 }
 
 interface StateProps {
-    isUnlocked: boolean | undefined,
     rewards: Reward[] | null,
     rewardRequirements: Requirement[] | undefined,
     selectedRewardId: number | null
 }
 
 interface DispatchProps {
-    setIsUnlocked: (isUnlocked: SetIsUnlockedData) => void,
     setSelectedRewardId: (rewardId: number | null) => void
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
 
 interface State {
-    text: string
+    text: string,
+    isUnlocked: boolean
 }
 
 class RewardItem extends React.Component<Props, State> {
@@ -47,13 +46,14 @@ class RewardItem extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            text: this.props.text
+            text: this.props.text,
+            isUnlocked: false
         }
     }
 
     componentDidMount() {
         if (this.props.rewardRequirements) {
-            this.assignUnlock(this.props.rewardRequirements, this.props.setIsUnlocked);
+            this.assignUnlock(this.props.rewardRequirements);
         }
     }
 
@@ -61,21 +61,17 @@ class RewardItem extends React.Component<Props, State> {
         const currentRequirements = this.props.rewardRequirements;
         const prevRequirements = prevProps.rewardRequirements;
 
-        if (currentRequirements && (!equal(currentRequirements, prevRequirements) || this.props.isUnlocked !== prevProps.isUnlocked)) {
-            this.assignUnlock(currentRequirements, this.props.setIsUnlocked);
+        if (currentRequirements && !equal(currentRequirements, prevRequirements)) {
+            this.assignUnlock(currentRequirements);
         }
     }
 
-    assignUnlock = (requirements: Requirement[], setIsUnlocked: ((data: SetIsUnlockedData) => void)) => {
+    assignUnlock = (requirements: Requirement[]) => {
         const isUnlocked = requirements.every(requirement => requirement.completed);
-        const rewardId = this.props.id;
-
-        const data = {
-            rewardId,
-            isUnlocked
-        }
         
-        setIsUnlocked(data);
+        this.setState({
+            isUnlocked: isUnlocked
+        });
     }
 
     handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,7 +117,8 @@ class RewardItem extends React.Component<Props, State> {
     }
 
     render() {
-        const { id, text, isUnlocked, rewardRequirements } = this.props;
+        const { id, text, rewardRequirements } = this.props;
+        const { isUnlocked } = this.state;
 
         return (
             <div className={`reward ${isUnlocked ? '' : 'locked'}`} data-testid={`reward-${id}`}>
@@ -156,14 +153,12 @@ class RewardItem extends React.Component<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-    isUnlocked: getIsUnlocked,
     rewards: getRewards,
     rewardRequirements: getRewardRequirements,
     selectedRewardId: getSelectedRewardId
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    setIsUnlocked: (isUnlocked: SetIsUnlockedData) => dispatch(setIsUnlocked(isUnlocked)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
 });
 
