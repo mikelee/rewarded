@@ -4,13 +4,13 @@ import { fetchData } from '../../utils';
 import { applyColorTheme } from '../color-theme/color-theme.component';
 
 import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, User, Setting, UserData, SetIsUnlockedData } from '../../../types';
+import { Todo, Reward, Requirement, User, Setting, UserData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
 import UserPage from '../../pages/user-page/user-page.page';
 
 import { setTodos } from '../../redux/todos/todos.actions';
-import { setRewards, setIsUnlocked } from '../../redux/rewards/rewards.actions';
+import { setRewards } from '../../redux/rewards/rewards.actions';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
 import { Action } from 'redux';
@@ -22,7 +22,6 @@ interface OwnProps {
 interface DispatchProps {
     setTodos: (todos: Todo[]) => void,
     setRewards: (rewards: Reward[]) => void,
-    setIsUnlocked: (data: SetIsUnlockedData) => void,
     setRequirements: (requirements: Requirement[]) => void,
     setColorTheme: (color: string) => void
 }
@@ -75,7 +74,6 @@ export class DataLoader extends React.Component<Props, State> {
         const {
             setTodos,
             setRewards,
-            setIsUnlocked,
             setRequirements
         } = this.props;
 
@@ -125,7 +123,6 @@ export class DataLoader extends React.Component<Props, State> {
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
-    setIsUnlocked: (data: SetIsUnlockedData) => dispatch(setIsUnlocked(data)),
     setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
     setColorTheme: (color: string) => dispatch(setColorTheme(color))
 });
