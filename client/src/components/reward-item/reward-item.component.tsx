@@ -7,13 +7,13 @@ import equal from 'fast-deep-equal';
 import './reward-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { Reward, Requirement, Action } from '../../../types';
+import { Requirement, Action } from '../../../types';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
-import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
+import { getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
 import { setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
 
@@ -25,7 +25,6 @@ export interface OwnProps {
 }
 
 interface StateProps {
-    rewards: Reward[] | null,
     rewardRequirements: Requirement[] | undefined,
     selectedRewardId: number | null
 }
@@ -153,7 +152,6 @@ class RewardItem extends React.Component<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-    rewards: getRewards,
     rewardRequirements: getRewardRequirements,
     selectedRewardId: getSelectedRewardId
 });
