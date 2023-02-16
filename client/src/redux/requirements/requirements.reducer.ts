@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 import { RequirementsReducer, Action } from '../../../types';
 
 const initialState = {
-    requirements: null
+    requirements: []
 }
 
 const requirementsReducer: Reducer<RequirementsReducer, Action>  = (state = initialState, action) => {

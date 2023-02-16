@@ -28,10 +28,10 @@ interface OwnProps {
 }
 
 interface StateProps {
-    todos: Todo[] | null,
-    rewards: Reward[] | null,
+    todos: Todo[],
+    rewards: Reward[],
     selectedRewardId: number | null,
-    requirements: Requirement[] | null,
+    requirements: Requirement[],
     colorTheme: string | null
 }
 
@@ -121,7 +121,7 @@ class UserPage extends React.Component<Props> {
                     }
                     {this.props.selectedRewardId !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
                     <div className='list'>
-                        {todos ? todos.map(todo =>
+                        {todos.map(todo =>
                             <TodoItem
                                 fetchTodos={this.fetchTodos}
                                 fetchRequirements={this.fetchRequirements}
@@ -132,21 +132,21 @@ class UserPage extends React.Component<Props> {
                                 selectedRewardId={this.props.selectedRewardId}
                                 associatedReward={todo.rewardId}
                             />)
-                        : null}
+                        }
                     </div>
                     <AddItem fetchItems={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
                 </section>
                 <section className='rewards-section'>
                     <h3 className='title'>Rewards</h3>
                     <div className='list'>
-                        {rewards ? rewards.map(reward =>
+                        {rewards.map(reward =>
                             <RewardItem
                                 fetchRewards={this.fetchRewards}
                                 fetchRequirements={this.fetchRequirements}
                                 key={reward.rewardId} id={reward.rewardId}
                                 text={reward.text}
                             />)
-                        : null}
+                        }
                     </div>
                     <AddItem fetchItems={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
                 </section>

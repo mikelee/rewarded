@@ -5,7 +5,7 @@ import { Action } from '../../../types';
 import { RewardsReducer } from '../../../types';
 
 const initalState = {
-    rewards: null,
+    rewards: [],
     selectedRewardId: null
 }
 

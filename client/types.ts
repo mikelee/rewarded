@@ -53,16 +53,16 @@ export interface UserReducer {
 }
 
 export interface TodosReducer {
-    todos: Todo[] | null
+    todos: Todo[]
 }
 
 export interface RewardsReducer {
-    rewards: Reward[] | null,
+    rewards: Reward[],
     selectedRewardId: number | null
 }
 
 export interface RequirementsReducer {
-    requirements: Requirement[] | null
+    requirements: Requirement[]
 }
 
 export interface MenuReducer {

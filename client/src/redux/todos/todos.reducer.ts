@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 import { TodosReducer, Action } from '../../../types';
 
 const initialState = {
-    todos: null
+    todos: []
 }
 
 const todosReducer: Reducer<TodosReducer, Action> = (state = initialState, action) => {
