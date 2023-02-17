@@ -8,7 +8,7 @@ import './user-page.styles.scss';
 import { User } from '../../../types';
 
 import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, SetIsUnlockedData, Action } from '../../../types';
+import { Todo, Reward, Requirement, Action } from '../../../types';
 
 import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
@@ -17,7 +17,7 @@ import RewardItem from '../../components/reward-item/reward-item.component';
 import { getTodos } from '../../redux/todos/todos.selectors'
 import { setTodos } from '../../redux/todos/todos.actions';
 import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
-import { setRewards, setSelectedRewardId, setIsUnlocked } from '../../redux/rewards/rewards.actions';
+import { setRewards, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
@@ -39,7 +39,6 @@ interface DispatchProps {
     setTodos: (todos: Todo[]) => void,
     setRewards: (rewards: Reward[]) => void,
     setSelectedRewardId: (rewardId: number | null) => void,
-    setIsUnlocked: (data: SetIsUnlockedData) => void,
     setRequirements: (requirements: Requirement[]) => void,
     setColorTheme: (color: string) => void
 }
@@ -167,7 +166,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId)),
-    setIsUnlocked: (data: SetIsUnlockedData) => dispatch(setIsUnlocked(data)),
     setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
     setColorTheme: (color: string) => dispatch(setColorTheme(color))
 });
