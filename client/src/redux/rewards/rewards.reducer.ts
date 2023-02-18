@@ -16,6 +16,20 @@ const rewardsReducer: Reducer<RewardsReducer, Action> = (state = initalState, ac
                 ...state,
                 rewards: [...state.rewards, action.payload]
             }
+        case rewardsActionTypes.EDIT_REWARD_TEXT:
+            return {
+                ...state,
+                rewards: state.rewards.map(reward => {
+                    if (reward.rewardId === action.payload.rewardId) {
+                        return {
+                            ...reward,
+                            text: action.payload.text
+                        }
+                    }
+
+                    return reward;
+                })
+            }
         case rewardsActionTypes.SET_REWARDS:
             return {
                 ...state,

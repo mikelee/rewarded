@@ -7,6 +7,11 @@ export const addReward = (reward: Reward) => ({
     payload: reward
 });
 
+export const editRewardText = (reward: Reward) => ({
+    type: rewardsActionTypes.EDIT_REWARD_TEXT,
+    payload: reward
+});
+
 export const setRewards = (rewards: Reward[]) => ({
     type: rewardsActionTypes.SET_REWARDS,
     payload: rewards
