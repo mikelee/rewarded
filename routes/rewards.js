@@ -22,10 +22,13 @@ router.post('/create', async (req, res) => {
 
     const result = await sql`
         INSERT INTO rewards (user_id)
-        VALUES (${user_id});
+        VALUES (${user_id})
+        RETURNING reward_id AS "rewardId", text;
     `;
 
-    res.json(result);
+    const newReward = result[0];
+
+    res.json(newReward);
 });
 
 // Update reward
@@ -35,10 +38,13 @@ router.put('/update', isRewardOwner, async (req, res) => {
     const result = await sql`
         UPDATE rewards
         SET text = ${text}
-        WHERE reward_id = ${reward_id};
+        WHERE reward_id = ${reward_id}
+        RETURNING reward_id AS "rewardId", text;
     `;
 
-    res.json(result);
+    const updatedReward = result[0];
+
+    res.json(updatedReward);
 });
 
 // Delete reward
@@ -47,17 +53,24 @@ router.delete('/delete', isRewardOwner, async (req, res) => {
 
     const rewardsQuery = sql`
         DELETE FROM rewards
-        WHERE reward_id = ${reward_id};
+        WHERE reward_id = ${reward_id}
+        RETURNING reward_id AS "rewardId", text;
     `;
 
     const requirementsQuery = sql`
         DELETE FROM requirements
-        WHERE reward_id = ${reward_id};
+        WHERE reward_id = ${reward_id}
+        RETURNING reward_id AS "rewardId", todo_id AS "todoId";
     `;
 
     const result = await Promise.all([rewardsQuery, requirementsQuery]);
 
-    res.json(result);
+    const deletedData = {
+        reward: result[0][0],
+        requirements: result[1]
+    }
+
+    res.json(deletedData);
 });
 
 module.exports = router;
