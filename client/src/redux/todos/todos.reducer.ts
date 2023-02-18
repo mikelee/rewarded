@@ -8,6 +8,11 @@ const initialState = {
 
 const todosReducer: Reducer<TodosReducer, Action> = (state = initialState, action) => {
     switch(action.type) {
+        case todosActionTypes.ADD_TODO:
+            return {
+                ...state,
+                todos: [...state.todos, action.payload]
+            };
         case todosActionTypes.SET_TODOS:
             return {
                 ...state,
