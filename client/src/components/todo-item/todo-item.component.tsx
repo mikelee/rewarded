@@ -1,11 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { fetchData } from '../../utils';
 
 import './todo-item.styles.scss';
 
+import { Dispatch } from 'redux';
+import { Action, Todo } from '../../../types';
+
 import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
+
+import { editTodoText } from '../../redux/todos/todos.actions';
+import { editRequirementText } from '../../redux/requirements/requirements.actions';
 
 interface OwnProps {
     id: number,
@@ -17,7 +24,12 @@ interface OwnProps {
     fetchRequirements: () => void
 }
 
-type Props = OwnProps;
+interface DispatchProps {
+    editTodoText: (todo: Todo) => void,
+    editRequirementText: (todo: Todo) => void
+}
+
+type Props = OwnProps & DispatchProps;
 
 interface State {
     text: string,
@@ -92,10 +104,10 @@ class TodoItem extends React.Component<Props, State> {
             text: this.state.text
         };
 
-        await fetchData(path, method, body);
+        const updatedTodo: Todo = await fetchData(path, method, body);
 
-        this.props.fetchTodos();
-        this.props.fetchRequirements();
+        this.props.editTodoText(updatedTodo);
+        this.props.editRequirementText(updatedTodo);
     }
 
     deleteTodo = async (event: React.FormEvent<HTMLFormElement> | undefined = undefined) => {
@@ -185,4 +197,9 @@ class TodoItem extends React.Component<Props, State> {
     }
 }
 
-export default TodoItem;
+const mapDispatchToProps = (dispach: Dispatch<Action>) => ({
+   editTodoText: (todo: Todo) => dispach(editTodoText(todo)),
+   editRequirementText: (todo: Todo) => dispach(editRequirementText(todo))
+});
+
+export default connect(null, mapDispatchToProps)(TodoItem);
