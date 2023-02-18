@@ -24,10 +24,13 @@ router.post('/create', isRequirementOwner, async (req, res) => {
 
     const result = await sql`
         INSERT INTO requirements (reward_id, todo_id)
-        VALUES (${reward_id}, ${todo_id});
+        VALUES (${reward_id}, ${todo_id})
+        RETURNING reward_id AS "rewardId", todo_id AS "todoId";
     `;
 
-    res.json(result);
+    const newRequirement = result[0];
+
+    res.json(newRequirement);
 });
 
 // Delete requirement
@@ -36,10 +39,13 @@ router.delete('/delete', isRequirementOwner, async (req, res) => {
 
     const result = await sql`
         DELETE FROM requirements
-        WHERE reward_id = ${reward_id} AND todo_id = ${todo_id};
+        WHERE reward_id = ${reward_id} AND todo_id = ${todo_id}
+        RETURNING reward_id AS "rewardId", todo_id AS "todoId";
     `;
 
-    res.json(result);
+    const deletedRequirement = result[0];
+
+    res.json(deletedRequirement);
 });
 
 module.exports = router;
