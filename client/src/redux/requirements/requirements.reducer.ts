@@ -8,6 +8,11 @@ const initialState = {
 
 const requirementsReducer: Reducer<RequirementsReducer, Action>  = (state = initialState, action) => {
     switch(action.type) {
+        case requirementsActionTypes.ADD_REQUIREMENT:
+            return {
+                ...state,
+                requirements: [...state.requirements, action.payload]
+            }
         case requirementsActionTypes.SET_REQUIREMENTS:
             return {
                 ...state,
