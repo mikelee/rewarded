@@ -11,6 +11,11 @@ const initalState = {
 
 const rewardsReducer: Reducer<RewardsReducer, Action> = (state = initalState, action) => {
     switch(action.type) {
+        case rewardsActionTypes.ADD_REWARD:
+            return {
+                ...state,
+                rewards: [...state.rewards, action.payload]
+            }
         case rewardsActionTypes.SET_REWARDS:
             return {
                 ...state,
