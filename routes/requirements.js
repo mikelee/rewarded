@@ -18,25 +18,16 @@ router.get('/', async (req, res) => {
     res.json(requirements);
 });
 
-// Create or Delete requirement
-router.post('/toggle', isRequirementOwner, async (req, res) => {
-    const { reward_id, todo_id, selected } = req.body;
+// Create requirement
+router.post('/create', isRequirementOwner, async (req, res) => {
+    const { reward_id, todo_id } = req.body;
 
-    if (selected) {
-        const result = await sql`
-            DELETE FROM requirements
-            WHERE reward_id = ${reward_id} AND todo_id = ${todo_id};
-        `;
-    
-        res.json(result);
-    } else {
-        const result = await sql`
-            INSERT INTO requirements (reward_id, todo_id)
-            VALUES (${reward_id}, ${todo_id});
-        `;
+    const result = await sql`
+        INSERT INTO requirements (reward_id, todo_id)
+        VALUES (${reward_id}, ${todo_id});
+    `;
 
-        res.json(result);
-    }
+    res.json(result);
 });
 
 // Delete requirement

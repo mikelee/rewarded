@@ -125,15 +125,25 @@ class TodoItem extends React.Component<Props, State> {
     createOrDeleteRequirement = async () => {
         let selected = this.props.selectedRewardId === this.props.associatedReward;
 
-        const path = '/api/requirement/toggle';
-        const method = 'POST';
-        const body = {
-            reward_id: this.props.selectedRewardId,
-            todo_id: this.props.id,
-            selected
-        };
+        if (selected) {
+            const path = '/api/requirement/delete';
+            const method = 'DELETE';
+            const body = {
+                reward_id: this.props.selectedRewardId,
+                todo_id: this.props.id
+            };
 
-        await fetchData(path, method, body);
+            const result = await fetchData(path, method, body);
+        } else {
+            const path = '/api/requirement/create';
+            const method = 'POST';
+            const body = {
+                reward_id: this.props.selectedRewardId,
+                todo_id: this.props.id
+            };
+
+            const result = await fetchData(path, method, body);
+        }
 
         this.props.fetchRequirements();
     }
