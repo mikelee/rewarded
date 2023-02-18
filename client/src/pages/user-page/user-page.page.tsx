@@ -15,9 +15,9 @@ import AddItem from '../../components/add-item/add-item.component';
 import RewardItem from '../../components/reward-item/reward-item.component';
 
 import { getTodos } from '../../redux/todos/todos.selectors'
-import { setTodos } from '../../redux/todos/todos.actions';
+import { addTodo, setTodos } from '../../redux/todos/todos.actions';
 import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
-import { setRewards, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { addReward, setRewards, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRequirements } from '../../redux/requirements/requirements.selectors';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
@@ -36,7 +36,9 @@ interface StateProps {
 }
 
 interface DispatchProps {
+    addTodo: (todo: Todo) => void,
     setTodos: (todos: Todo[]) => void,
+    addReward: (reward: Reward) => void,
     setRewards: (rewards: Reward[]) => void,
     setSelectedRewardId: (rewardId: number | null) => void,
     setRequirements: (requirements: Requirement[]) => void,
@@ -109,7 +111,7 @@ class UserPage extends React.Component<Props> {
     }
 
     render() {
-        const { todos, rewards, selectedRewardId } = this.props;
+        const { todos, rewards, selectedRewardId, addTodo, addReward } = this.props;
 
         return (
             <div className='user-page'>
@@ -133,7 +135,7 @@ class UserPage extends React.Component<Props> {
                             />)
                         }
                     </div>
-                    <AddItem fetchItems={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
+                    <AddItem addItemToRedux={addTodo} type='todo' currentUser={this.props.currentUser} />
                 </section>
                 <section className='rewards-section'>
                     <h3 className='title'>Rewards</h3>
@@ -147,7 +149,7 @@ class UserPage extends React.Component<Props> {
                             />)
                         }
                     </div>
-                    <AddItem fetchItems={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
+                    <AddItem addItemToRedux={addReward} type='reward' currentUser={this.props.currentUser} />
                 </section>
             </div>
         );
@@ -163,7 +165,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    addTodo: (todo: Todo) => dispatch(addTodo(todo)),
     setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
+    addReward: (reward: Reward) => dispatch(addReward(reward)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId)),
     setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
