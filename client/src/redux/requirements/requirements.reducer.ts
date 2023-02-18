@@ -13,6 +13,21 @@ const requirementsReducer: Reducer<RequirementsReducer, Action>  = (state = init
                 ...state,
                 requirements: [...state.requirements, action.payload]
             }
+        case requirementsActionTypes.EDIT_REQUIREMENT_TEXT:
+            return {
+                ...state,
+                requirements:
+                    state.requirements.map(requirement => {
+                        if (requirement.todoId === action.payload.todoId) {
+                            return {
+                                ...requirement,
+                                text: action.payload.text
+                            }
+                        }
+
+                        return requirement;
+                    })
+            }
         case requirementsActionTypes.SET_REQUIREMENTS:
             return {
                 ...state,
