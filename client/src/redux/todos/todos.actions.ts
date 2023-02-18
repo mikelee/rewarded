@@ -6,6 +6,11 @@ export const addTodo = (todo: Todo) => ({
     payload: todo
 });
 
+export const editTodoText = (todo: Todo) => ({
+    type: todosActionTypes.EDIT_TODO_TEXT,
+    payload: todo
+})
+
 export const setTodos = (todos: Todo[]) => ({
     type: todosActionTypes.SET_TODOS,
     payload: todos
