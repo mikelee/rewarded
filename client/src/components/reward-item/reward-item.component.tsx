@@ -14,8 +14,9 @@ import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
 import { getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
-import { editRewardText, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { deleteReward, editRewardText, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
+import { deleteItemRequirements } from '../../redux/requirements/requirements.actions';
 
 export interface OwnProps {
     id: number,
@@ -30,6 +31,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
+    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => void,
+    deleteReward: (rewardId: number) => void,
     editRewardText: (reward: Reward) => void,
     setSelectedRewardId: (rewardId: number | null) => void
 }
@@ -106,10 +109,10 @@ class RewardItem extends React.Component<Props, State> {
         const method = 'DELETE';
         const body = { reward_id: this.props.id };
 
-        await fetchData(path, method, body);
+        const { reward }: { reward: Reward } = await fetchData(path, method, body);
 
-        this.props.fetchRewards();
-        this.props.fetchRequirements();
+        this.props.deleteReward(reward.rewardId);
+        this.props.deleteItemRequirements('reward', reward.rewardId);
     }
 
     addOrDeleteRequirement = async () => {
@@ -158,6 +161,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
+    deleteReward: (rewardId: number) => dispatch(deleteReward(rewardId)),
     editRewardText: (reward: Reward) => dispatch(editRewardText(reward)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
 });
