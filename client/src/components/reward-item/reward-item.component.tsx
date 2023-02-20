@@ -131,7 +131,7 @@ class RewardItem extends React.Component<Props, State> {
                         <div className='requirements-list'>
                             {
                                 rewardRequirements?.map(rewardRequirements =>
-                                    <RequirementItem key={rewardRequirements.todoId} fetchRequirements={this.props.fetchRequirements} {...rewardRequirements}/>
+                                    <RequirementItem key={rewardRequirements.todoId} {...rewardRequirements}/>
                                 )
                             }
                         </div>
