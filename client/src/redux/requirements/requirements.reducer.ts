@@ -13,6 +13,20 @@ const requirementsReducer: Reducer<RequirementsReducer, Action>  = (state = init
                 ...state,
                 requirements: [...state.requirements, action.payload]
             }
+        case requirementsActionTypes.DELETE_ITEM_REQUIREMENTS:
+            return {
+                ...state,
+                requirements: action.payload.itemType === 'todo'
+                ? state.requirements.filter(requirement => requirement.todoId !== action.payload.itemId)
+                : state.requirements.filter(requirement => requirement.rewardId !== action.payload.itemId)
+            }
+        case requirementsActionTypes.DELETE_REQUIREMENT:
+            return {
+                ...state,
+                requirements: state.requirements.filter(
+                    requirement => requirement.todoId !== action.payload.todoId || requirement.rewardId !== action.payload.rewardId
+                )
+            }
         case requirementsActionTypes.EDIT_REQUIREMENT_TEXT:
             return {
                 ...state,
