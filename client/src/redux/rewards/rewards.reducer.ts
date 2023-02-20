@@ -16,6 +16,11 @@ const rewardsReducer: Reducer<RewardsReducer, Action> = (state = initalState, ac
                 ...state,
                 rewards: [...state.rewards, action.payload]
             }
+        case rewardsActionTypes.DELETE_REWARD:
+            return {
+                ...state,
+                rewards: state.rewards.filter(reward => reward.rewardId !== action.payload)
+            }
         case rewardsActionTypes.EDIT_REWARD_TEXT:
             return {
                 ...state,

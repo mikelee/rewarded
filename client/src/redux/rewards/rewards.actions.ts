@@ -7,6 +7,11 @@ export const addReward = (reward: Reward) => ({
     payload: reward
 });
 
+export const deleteReward = (rewardId: number) => ({
+    type: rewardsActionTypes.DELETE_REWARD,
+    payload: rewardId
+});
+
 export const editRewardText = (reward: Reward) => ({
     type: rewardsActionTypes.EDIT_REWARD_TEXT,
     payload: reward
