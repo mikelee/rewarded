@@ -11,8 +11,8 @@ import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-import { editTodoText } from '../../redux/todos/todos.actions';
-import { editRequirementText } from '../../redux/requirements/requirements.actions';
+import { deleteTodo, editTodoText } from '../../redux/todos/todos.actions';
+import { deleteItemRequirements, editRequirementText } from '../../redux/requirements/requirements.actions';
 
 interface OwnProps {
     id: number,
@@ -25,7 +25,9 @@ interface OwnProps {
 }
 
 interface DispatchProps {
+    deleteTodo: (todoId:  number) => void,
     editTodoText: (todo: Todo) => void,
+    deleteItemRequirements: (type:  'todo' | 'reward', itemId: number) => void,
     editRequirementText: (todo: Todo) => void
 }
 
@@ -117,10 +119,10 @@ class TodoItem extends React.Component<Props, State> {
         const method = 'DELETE';
         const body = { todo_id: this.props.id };
 
-        await fetchData(path, method, body);
+        const { todo }: { todo: Todo } = await fetchData(path, method, body);
 
-        this.props.fetchTodos();
-        this.props.fetchRequirements();
+        this.props.deleteTodo(todo.todoId);
+        this.props.deleteItemRequirements('todo', todo.todoId);
     }
 
     toggleTodoCompleted = async () => {
@@ -198,8 +200,10 @@ class TodoItem extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispach: Dispatch<Action>) => ({
-   editTodoText: (todo: Todo) => dispach(editTodoText(todo)),
-   editRequirementText: (todo: Todo) => dispach(editRequirementText(todo))
+    deleteTodo: (todoId: number) => dispach(deleteTodo(todoId)),
+    editTodoText: (todo: Todo) => dispach(editTodoText(todo)),
+    deleteItemRequirements: (type: 'todo' | 'reward', itemId: number) => dispach(deleteItemRequirements(type, itemId)),
+    editRequirementText: (todo: Todo) => dispach(editRequirementText(todo))
 });
 
 export default connect(null, mapDispatchToProps)(TodoItem);
