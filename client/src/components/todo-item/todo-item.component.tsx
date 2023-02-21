@@ -11,8 +11,8 @@ import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
-import { deleteTodo, editTodoText } from '../../redux/todos/todos.actions';
-import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirementText } from '../../redux/requirements/requirements.actions';
+import { deleteTodo, editTodoCompleted, editTodoText } from '../../redux/todos/todos.actions';
+import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText } from '../../redux/requirements/requirements.actions';
 
 interface OwnProps {
     id: number,
@@ -26,10 +26,12 @@ interface OwnProps {
 
 interface DispatchProps {
     deleteTodo: (todoId:  number) => void,
+    editTodoCompleted: (todo: Todo) => void,
     editTodoText: (todo: Todo) => void,
     addRequirement: (requirement: Requirement) => void,
     deleteItemRequirements: (type:  'todo' | 'reward', itemId: number) => void,
     deleteRequirement: (todoId: number, rewardId: number) => void,
+    editRequirementCompleted: (todo: Todo) => void
     editRequirementText: (todo: Todo) => void
 }
 
@@ -132,10 +134,10 @@ class TodoItem extends React.Component<Props, State> {
         const method = 'POST';
         const body = { todo_id: this.props.id };
 
-        await fetchData(path, method, body);
+        const updatedTodo = await fetchData(path, method, body);
 
-        this.props.fetchTodos();
-        this.props.fetchRequirements();
+        this.props.editTodoCompleted(updatedTodo);
+        this.props.editRequirementCompleted(updatedTodo);
     }
 
     createOrDeleteRequirement = async () => {
@@ -212,10 +214,12 @@ class TodoItem extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispach: Dispatch<Action>) => ({
     deleteTodo: (todoId: number) => dispach(deleteTodo(todoId)),
+    editTodoCompleted: (todo: Todo) => dispach(editTodoCompleted(todo)),
     editTodoText: (todo: Todo) => dispach(editTodoText(todo)),
     addRequirement: (requirement: Requirement) => dispach(addRequirement(requirement)),
     deleteItemRequirements: (type: 'todo' | 'reward', itemId: number) => dispach(deleteItemRequirements(type, itemId)),
     deleteRequirement: (todoId: number, rewardId: number) => dispach(deleteRequirement(todoId, rewardId)),
+    editRequirementCompleted: (todo: Todo) => dispach(editRequirementCompleted(todo)),
     editRequirementText: (todo: Todo) => dispach(editRequirementText(todo))
 });
 
