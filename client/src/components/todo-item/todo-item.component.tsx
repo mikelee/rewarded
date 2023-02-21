@@ -5,14 +5,14 @@ import { fetchData } from '../../utils';
 import './todo-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { Action, Todo } from '../../../types';
+import { Action, Requirement, Todo } from '../../../types';
 
 import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
 import { deleteTodo, editTodoText } from '../../redux/todos/todos.actions';
-import { deleteItemRequirements, editRequirementText } from '../../redux/requirements/requirements.actions';
+import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirementText } from '../../redux/requirements/requirements.actions';
 
 interface OwnProps {
     id: number,
@@ -27,7 +27,9 @@ interface OwnProps {
 interface DispatchProps {
     deleteTodo: (todoId:  number) => void,
     editTodoText: (todo: Todo) => void,
+    addRequirement: (requirement: Requirement) => void,
     deleteItemRequirements: (type:  'todo' | 'reward', itemId: number) => void,
+    deleteRequirement: (todoId: number, rewardId: number) => void,
     editRequirementText: (todo: Todo) => void
 }
 
@@ -147,7 +149,9 @@ class TodoItem extends React.Component<Props, State> {
                 todo_id: this.props.id
             };
 
-            const result = await fetchData(path, method, body);
+            const deletedRequirement: Requirement = await fetchData(path, method, body);
+
+            this.props.deleteRequirement(deletedRequirement.todoId, deletedRequirement.rewardId);
         } else {
             const path = '/api/requirement/create';
             const method = 'POST';
@@ -156,10 +160,17 @@ class TodoItem extends React.Component<Props, State> {
                 todo_id: this.props.id
             };
 
-            const result = await fetchData(path, method, body);
-        }
+            const newRequirement: Requirement = await fetchData(path, method, body);
 
-        this.props.fetchRequirements();
+            /*
+                Requirements in database only have todoId and rewardId.
+                These lines "join" the todo text and completed values with the requirement.
+            */
+            newRequirement.text = this.props.text;
+            newRequirement.completed = this.props.completed;
+
+            this.props.addRequirement(newRequirement);
+        }
     }
 
     render() {
@@ -202,7 +213,9 @@ class TodoItem extends React.Component<Props, State> {
 const mapDispatchToProps = (dispach: Dispatch<Action>) => ({
     deleteTodo: (todoId: number) => dispach(deleteTodo(todoId)),
     editTodoText: (todo: Todo) => dispach(editTodoText(todo)),
+    addRequirement: (requirement: Requirement) => dispach(addRequirement(requirement)),
     deleteItemRequirements: (type: 'todo' | 'reward', itemId: number) => dispach(deleteItemRequirements(type, itemId)),
+    deleteRequirement: (todoId: number, rewardId: number) => dispach(deleteRequirement(todoId, rewardId)),
     editRequirementText: (todo: Todo) => dispach(editRequirementText(todo))
 });
 
