@@ -6,6 +6,11 @@ export const addRequirement = (requirement: Requirement) => ({
     payload: requirement
 });
 
+export const editRequirementCompleted = (todo: Todo) => ({
+    type: requirementsActionTypes.EDIT_REQUIREMENT_COMPLETED,
+    payload: todo
+});
+
 export const editRequirementText = (todo: Todo) => ({
     type: requirementsActionTypes.EDIT_REQUIREMENT_TEXT,
     payload: todo
