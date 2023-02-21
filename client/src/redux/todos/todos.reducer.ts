@@ -13,6 +13,20 @@ const todosReducer: Reducer<TodosReducer, Action> = (state = initialState, actio
                 ...state,
                 todos: [...state.todos, action.payload]
             };
+        case todosActionTypes.EDIT_TODO_COMPLETED:
+            return {
+                ...state,
+                todos: state.todos.map(todo => {
+                    if (todo.todoId === action.payload.todoId) {
+                        return {
+                            ...todo,
+                            completed: action.payload.completed
+                        }
+                    }
+
+                    return todo;
+                })
+            }
         case todosActionTypes.EDIT_TODO_TEXT:
             return {
                 ...state,
