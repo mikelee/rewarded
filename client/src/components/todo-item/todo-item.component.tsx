@@ -19,9 +19,7 @@ interface OwnProps {
     text: string,
     completed: number,
     selectedRewardId: number | null,
-    selected: boolean,
-    fetchTodos: () => void,
-    fetchRequirements: () => void
+    selected: boolean
 }
 
 interface DispatchProps {

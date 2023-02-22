@@ -20,9 +20,7 @@ import { deleteItemRequirements } from '../../redux/requirements/requirements.ac
 
 export interface OwnProps {
     id: number,
-    text: string,
-    fetchRewards: () => void,
-    fetchRequirements: () => void
+    text: string
 }
 
 interface StateProps {

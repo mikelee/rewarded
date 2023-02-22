@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { fetchData } from '../../utils';
 
 import './user-page.styles.scss';
 
@@ -64,24 +63,6 @@ class UserPage extends React.Component<Props> {
         }
     }
 
-    fetchTodos = async () => {
-        const todos = await fetchData('/api/todo', 'GET');
-
-        this.props.setTodos(todos);
-    }
-
-    fetchRewards = async () => {
-        const rewards = await fetchData('/api/reward', 'GET');
-
-        this.props.setRewards(rewards);
-    }
-
-    fetchRequirements = async () => {
-        const requirements = await fetchData('/api/requirement', 'GET');
-
-        this.props.setRequirements(requirements);
-    }
-
     scrollToSelection = () => {
         this.selectionTitle.current?.scrollIntoView({behavior: 'smooth'});
     }
@@ -104,8 +85,6 @@ class UserPage extends React.Component<Props> {
                     <div className='list'>
                         {todos.map(todo =>
                             <TodoItem
-                                fetchTodos={this.fetchTodos}
-                                fetchRequirements={this.fetchRequirements}
                                 key={todo.todoId}
                                 id={todo.todoId}
                                 text={todo.text}
@@ -122,8 +101,6 @@ class UserPage extends React.Component<Props> {
                     <div className='list'>
                         {rewards.map(reward =>
                             <RewardItem
-                                fetchRewards={this.fetchRewards}
-                                fetchRequirements={this.fetchRequirements}
                                 key={reward.rewardId} id={reward.rewardId}
                                 text={reward.text}
                             />)
