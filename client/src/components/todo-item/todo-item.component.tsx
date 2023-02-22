@@ -19,7 +19,7 @@ interface OwnProps {
     text: string,
     completed: number,
     selectedRewardId: number | null,
-    associatedReward: number | undefined,
+    selected: boolean,
     fetchTodos: () => void,
     fetchRequirements: () => void
 }
@@ -141,7 +141,7 @@ class TodoItem extends React.Component<Props, State> {
     }
 
     createOrDeleteRequirement = async () => {
-        let selected = this.props.selectedRewardId === this.props.associatedReward;
+        const { selected } = this.props;
 
         if (selected) {
             const path = '/api/requirement/delete';
@@ -176,7 +176,7 @@ class TodoItem extends React.Component<Props, State> {
     }
 
     render() {
-        const { id, text, completed, selectedRewardId, associatedReward } = this.props;
+        const { id, text, completed, selectedRewardId, selected } = this.props;
 
         return (
             <div
@@ -193,7 +193,7 @@ class TodoItem extends React.Component<Props, State> {
             >
                 {!selectedRewardId
                 ? <ToggleButton type='forTodo' completed={completed} toggleTodoCompleted={this.toggleTodoCompleted} />
-                : <ToggleButton type='forRequirement' selectedRewardId={selectedRewardId} associatedReward={associatedReward} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
+                : <ToggleButton type='forRequirement' selectedRewardId={selectedRewardId} selected={selected} completed={completed} toggleRequirement={this.createOrDeleteRequirement} />
                 }
                 <form className='todo-edit-form' id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
                     <input name='text' className={`todo-edit-form-textfield ${completed ? 'text-completed': ''}`} onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
