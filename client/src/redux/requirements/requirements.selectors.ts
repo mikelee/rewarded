@@ -17,3 +17,19 @@ export const getRewardRequirements = createSelector(
     ],
     (requirements, props) => requirements.requirements?.filter((requirement: Requirement) => requirement.rewardId === props.id)
 );
+
+export const getSelectedRewardRequirements = createSelector(
+    [
+        selectRequirements,
+        (state: ReduxState) => state.rewards.selectedRewardId
+    ],
+    (requirements, selectedRewardId) => {
+        const selectedRewardRequirements = new Set<number>();
+
+        requirements.requirements.forEach(requirement => {
+            if (requirement.rewardId === selectedRewardId) selectedRewardRequirements.add(requirement.todoId);
+        });
+
+        return selectedRewardRequirements;
+    }
+);

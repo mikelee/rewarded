@@ -7,21 +7,20 @@ import equal from 'fast-deep-equal';
 import './reward-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { Requirement, Action } from '../../../types';
+import { Action, Requirement, Reward } from '../../../types';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
 import { getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
-import { setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { deleteReward, editRewardText, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
+import { deleteItemRequirements } from '../../redux/requirements/requirements.actions';
 
 export interface OwnProps {
     id: number,
-    text: string,
-    fetchRewards: () => void,
-    fetchRequirements: () => void
+    text: string
 }
 
 interface StateProps {
@@ -30,6 +29,9 @@ interface StateProps {
 }
 
 interface DispatchProps {
+    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => void,
+    deleteReward: (rewardId: number) => void,
+    editRewardText: (reward: Reward) => void,
     setSelectedRewardId: (rewardId: number | null) => void
 }
 
@@ -93,9 +95,9 @@ class RewardItem extends React.Component<Props, State> {
             text: this.state.text
         };
 
-        await fetchData(path, method, body);
+        const updatedReward = await fetchData(path, method, body);
 
-        this.props.fetchRewards();
+        this.props.editRewardText(updatedReward);
     }
 
     deleteReward = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -105,10 +107,10 @@ class RewardItem extends React.Component<Props, State> {
         const method = 'DELETE';
         const body = { reward_id: this.props.id };
 
-        await fetchData(path, method, body);
+        const { reward }: { reward: Reward } = await fetchData(path, method, body);
 
-        this.props.fetchRewards();
-        this.props.fetchRequirements();
+        this.props.deleteReward(reward.rewardId);
+        this.props.deleteItemRequirements('reward', reward.rewardId);
     }
 
     addOrDeleteRequirement = async () => {
@@ -130,7 +132,7 @@ class RewardItem extends React.Component<Props, State> {
                         <div className='requirements-list'>
                             {
                                 rewardRequirements?.map(rewardRequirements =>
-                                    <RequirementItem key={rewardRequirements.todoId} fetchRequirements={this.props.fetchRequirements} {...rewardRequirements}/>
+                                    <RequirementItem key={rewardRequirements.todoId} {...rewardRequirements}/>
                                 )
                             }
                         </div>
@@ -157,6 +159,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
+    deleteReward: (rewardId: number) => dispatch(deleteReward(rewardId)),
+    editRewardText: (reward: Reward) => dispatch(editRewardText(reward)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
 });
 

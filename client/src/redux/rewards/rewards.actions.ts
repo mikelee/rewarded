@@ -2,6 +2,21 @@ import rewardsActionTypes from './rewards.types';
 
 import { Reward, SetIsUnlockedData } from '../../../types';
 
+export const addReward = (reward: Reward) => ({
+    type: rewardsActionTypes.ADD_REWARD,
+    payload: reward
+});
+
+export const deleteReward = (rewardId: number) => ({
+    type: rewardsActionTypes.DELETE_REWARD,
+    payload: rewardId
+});
+
+export const editRewardText = (reward: Reward) => ({
+    type: rewardsActionTypes.EDIT_REWARD_TEXT,
+    payload: reward
+});
+
 export const setRewards = (rewards: Reward[]) => ({
     type: rewardsActionTypes.SET_REWARDS,
     payload: rewards

@@ -10,19 +10,19 @@ import { AddRounded } from '@material-ui/icons';
 interface Props {
     type: string,
     currentUser: User,
-    fetchItems: () => void
+    addItemToRedux: (item: any) => void
 }
 
-const AddItem: React.FC<Props> = ({ type, currentUser, fetchItems }) => {
+const AddItem: React.FC<Props> = ({ type, currentUser, addItemToRedux }) => {
 
     const addItem = async () => {
         const path = `/api/${type}/create`;
         const method = 'POST';
         const body = currentUser;
 
-        await fetchData(path, method, body);
+        const newItem = await fetchData(path, method, body);
         
-        fetchItems();
+        addItemToRedux(newItem);
     }
 
     return (

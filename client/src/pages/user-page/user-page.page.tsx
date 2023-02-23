@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { fetchData } from '../../utils';
 
 import './user-page.styles.scss';
 
@@ -15,10 +14,10 @@ import AddItem from '../../components/add-item/add-item.component';
 import RewardItem from '../../components/reward-item/reward-item.component';
 
 import { getTodos } from '../../redux/todos/todos.selectors'
-import { setTodos } from '../../redux/todos/todos.actions';
+import { addTodo, setTodos } from '../../redux/todos/todos.actions';
 import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
-import { setRewards, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
-import { getRequirements } from '../../redux/requirements/requirements.selectors';
+import { addReward, setRewards, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { getRequirements, getSelectedRewardRequirements } from '../../redux/requirements/requirements.selectors';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
@@ -31,12 +30,15 @@ interface StateProps {
     todos: Todo[],
     rewards: Reward[],
     selectedRewardId: number | null,
+    selectedRewardRequirements: Set<number>,
     requirements: Requirement[],
     colorTheme: string | null
 }
 
 interface DispatchProps {
+    addTodo: (todo: Todo) => void,
     setTodos: (todos: Todo[]) => void,
+    addReward: (reward: Reward) => void,
     setRewards: (rewards: Reward[]) => void,
     setSelectedRewardId: (rewardId: number | null) => void,
     setRequirements: (requirements: Requirement[]) => void,
@@ -54,49 +56,11 @@ class UserPage extends React.Component<Props> {
         this.selectionTitle = React.createRef<HTMLHeadingElement>();
     }
 
-    componentDidMount() {
-        if (this.props.selectedRewardId !== null) {
-            this.fetchTodosForSelection();
-        }
-    }
-
     componentDidUpdate(prevProps: Readonly<Props>) {
         // if there is a selected reward and it changed
         if (this.props.selectedRewardId !== null && prevProps.selectedRewardId !== this.props.selectedRewardId) {
-            this.fetchTodosForSelection();
             this.scrollToSelection();
         }
-        
-        // if there is a selected reward and the requirements changed
-        if (this.props.selectedRewardId !== null && prevProps.requirements !== this.props.requirements) {
-            this.fetchTodosForSelection();
-        }
-    }
-
-    fetchTodos = async () => {
-        const todos = await fetchData('/api/todo', 'GET');
-
-        this.props.setTodos(todos);
-    }
-
-    fetchRewards = async () => {
-        const rewards = await fetchData('/api/reward', 'GET');
-
-        this.props.setRewards(rewards);
-    }
-
-    fetchRequirements = async () => {
-        const requirements = await fetchData('/api/requirement', 'GET');
-
-        this.props.setRequirements(requirements);
-    }
-
-    fetchTodosForSelection = async () => {
-        const rewardId = this.props.selectedRewardId!;
-
-        const todosForSelection = await fetchData(`/api/todos-for-selection?reward_id=${rewardId}`, 'GET');
-
-        this.props.setTodos(todosForSelection);
     }
 
     scrollToSelection = () => {
@@ -105,11 +69,10 @@ class UserPage extends React.Component<Props> {
 
     exitSelection = () => {
         this.props.setSelectedRewardId(null);
-        this.fetchTodos();
     }
 
     render() {
-        const { todos, rewards, selectedRewardId } = this.props;
+        const { todos, rewards, selectedRewardId, addTodo, addReward } = this.props;
 
         return (
             <div className='user-page'>
@@ -122,32 +85,28 @@ class UserPage extends React.Component<Props> {
                     <div className='list'>
                         {todos.map(todo =>
                             <TodoItem
-                                fetchTodos={this.fetchTodos}
-                                fetchRequirements={this.fetchRequirements}
                                 key={todo.todoId}
                                 id={todo.todoId}
                                 text={todo.text}
                                 completed={todo.completed}
                                 selectedRewardId={this.props.selectedRewardId}
-                                associatedReward={todo.rewardId}
+                                selected={this.props.selectedRewardRequirements?.has(todo.todoId)}
                             />)
                         }
                     </div>
-                    <AddItem fetchItems={this.fetchTodos} type='todo' currentUser={this.props.currentUser} />
+                    <AddItem addItemToRedux={addTodo} type='todo' currentUser={this.props.currentUser} />
                 </section>
                 <section className='rewards-section'>
                     <h3 className='title'>Rewards</h3>
                     <div className='list'>
                         {rewards.map(reward =>
                             <RewardItem
-                                fetchRewards={this.fetchRewards}
-                                fetchRequirements={this.fetchRequirements}
                                 key={reward.rewardId} id={reward.rewardId}
                                 text={reward.text}
                             />)
                         }
                     </div>
-                    <AddItem fetchItems={this.fetchRewards} type='reward' currentUser={this.props.currentUser} />
+                    <AddItem addItemToRedux={addReward} type='reward' currentUser={this.props.currentUser} />
                 </section>
             </div>
         );
@@ -158,12 +117,15 @@ const mapStateToProps = createStructuredSelector({
     todos: getTodos,
     rewards: getRewards,
     selectedRewardId: getSelectedRewardId,
+    selectedRewardRequirements: getSelectedRewardRequirements,
     requirements: getRequirements,
     colorTheme: getColorTheme
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    addTodo: (todo: Todo) => dispatch(addTodo(todo)),
     setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
+    addReward: (reward: Reward) => dispatch(addReward(reward)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId)),
     setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
