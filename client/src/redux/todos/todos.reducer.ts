@@ -13,6 +13,11 @@ const todosReducer: Reducer<TodosReducer, Action> = (state = initialState, actio
                 ...state,
                 todos: [...state.todos, action.payload]
             };
+        case todosActionTypes.DELETE_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.todoId !== action.payload)
+            }
         case todosActionTypes.EDIT_TODO_COMPLETED:
             return {
                 ...state,
@@ -40,11 +45,6 @@ const todosReducer: Reducer<TodosReducer, Action> = (state = initialState, actio
 
                     return todo;
                 })
-            }
-        case todosActionTypes.DELETE_TODO:
-            return {
-                ...state,
-                todos: state.todos.filter(todo => todo.todoId !== action.payload)
             }
         case todosActionTypes.SET_TODOS:
             return {

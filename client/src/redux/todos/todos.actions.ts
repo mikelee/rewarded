@@ -6,6 +6,11 @@ export const addTodo = (todo: Todo) => ({
     payload: todo
 });
 
+export const deleteTodo = (todoId: number) => ({
+    type: todosActionTypes.DELETE_TODO,
+    payload: todoId
+});
+
 export const editTodoCompleted = (todo: Todo) => ({
     type: todosActionTypes.EDIT_TODO_COMPLETED,
     payload: todo
@@ -14,11 +19,6 @@ export const editTodoCompleted = (todo: Todo) => ({
 export const editTodoText = (todo: Todo) => ({
     type: todosActionTypes.EDIT_TODO_TEXT,
     payload: todo
-});
-
-export const deleteTodo = (todoId: number) => ({
-    type: todosActionTypes.DELETE_TODO,
-    payload: todoId
 });
 
 export const setTodos = (todos: Todo[]) => ({
