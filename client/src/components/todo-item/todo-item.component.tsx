@@ -210,15 +210,15 @@ class TodoItem extends React.Component<Props, State> {
     }
 }
 
-const mapDispatchToProps = (dispach: Dispatch<Action>) => ({
-    deleteTodo: (todoId: number) => dispach(deleteTodo(todoId)),
-    editTodoCompleted: (todo: Todo) => dispach(editTodoCompleted(todo)),
-    editTodoText: (todo: Todo) => dispach(editTodoText(todo)),
-    addRequirement: (requirement: Requirement) => dispach(addRequirement(requirement)),
-    deleteItemRequirements: (type: 'todo' | 'reward', itemId: number) => dispach(deleteItemRequirements(type, itemId)),
-    deleteRequirement: (todoId: number, rewardId: number) => dispach(deleteRequirement(todoId, rewardId)),
-    editRequirementCompleted: (todo: Todo) => dispach(editRequirementCompleted(todo)),
-    editRequirementText: (todo: Todo) => dispach(editRequirementText(todo))
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    deleteTodo: (todoId: number) => dispatch(deleteTodo(todoId)),
+    editTodoCompleted: (todo: Todo) => dispatch(editTodoCompleted(todo)),
+    editTodoText: (todo: Todo) => dispatch(editTodoText(todo)),
+    addRequirement: (requirement: Requirement) => dispatch(addRequirement(requirement)),
+    deleteItemRequirements: (type: 'todo' | 'reward', itemId: number) => dispatch(deleteItemRequirements(type, itemId)),
+    deleteRequirement: (todoId: number, rewardId: number) => dispatch(deleteRequirement(todoId, rewardId)),
+    editRequirementCompleted: (todo: Todo) => dispatch(editRequirementCompleted(todo)),
+    editRequirementText: (todo: Todo) => dispatch(editRequirementText(todo))
 });
 
 export default connect(null, mapDispatchToProps)(TodoItem);
