@@ -5,33 +5,26 @@ import './toggle-button.styles.scss';
 import { CheckRounded } from '@material-ui/icons';
 
 interface OwnProps {
-    type: string,
     completed: number,
-    selectedRewardId?: number,
-    selected?: boolean,
-    toggleTodoCompleted?: () => void,
-    toggleRequirement?: () => void
+    selected: boolean,
+    onClick: () => void
 }
 
 type Props = OwnProps;
 
-const ToggleButton: React.FC<Props> = ({ type, completed, selectedRewardId, selected, toggleTodoCompleted, toggleRequirement }) => {
+const ToggleButton: React.FC<Props> = ({ completed, selected, onClick }) => {
 
-    const determineClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const click = (event: React.MouseEvent<HTMLButtonElement>) => {
         if (event.detail > 1) return;
 
-        if (type === 'forTodo' && toggleTodoCompleted) {
-            toggleTodoCompleted();
-        } else if (type === 'forRequirement' && toggleRequirement) {
-            toggleRequirement();
-        }
+        onClick();
     }
 
     return (
         <div className='toggle-button-container'>
-            <button className={`toggle-button ${selected && selectedRewardId !== null && type === 'forRequirement' ? 'selected' : ''}`} onClick={event => determineClick(event)} >
-                {completed
-                ? <CheckRounded className={`check-icon ${selected && selectedRewardId !== null && type === 'forRequirement' ? 'selected' : ''}`} fontSize='large'/>
+            <button className={`toggle-button ${selected ? 'selected' : ''}`} onClick={event => click(event)} >
+                { completed
+                ? <CheckRounded className={`check-icon ${selected ? 'selected' : ''}`} fontSize='large'/>
                 : null
                 }
             </button>
