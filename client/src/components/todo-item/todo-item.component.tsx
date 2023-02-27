@@ -27,7 +27,7 @@ interface DispatchProps {
     editTodoCompleted: (todo: Todo) => void,
     editTodoText: (todo: Todo) => void,
     addRequirement: (requirement: Requirement) => void,
-    deleteItemRequirements: (type:  'todo' | 'reward', itemId: number) => void,
+    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => void,
     deleteRequirement: (todoId: number, rewardId: number) => void,
     editRequirementCompleted: (todo: Todo) => void
     editRequirementText: (todo: Todo) => void
@@ -215,7 +215,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     editTodoCompleted: (todo: Todo) => dispatch(editTodoCompleted(todo)),
     editTodoText: (todo: Todo) => dispatch(editTodoText(todo)),
     addRequirement: (requirement: Requirement) => dispatch(addRequirement(requirement)),
-    deleteItemRequirements: (type: 'todo' | 'reward', itemId: number) => dispatch(deleteItemRequirements(type, itemId)),
+    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
     deleteRequirement: (todoId: number, rewardId: number) => dispatch(deleteRequirement(todoId, rewardId)),
     editRequirementCompleted: (todo: Todo) => dispatch(editRequirementCompleted(todo)),
     editRequirementText: (todo: Todo) => dispatch(editRequirementText(todo))
