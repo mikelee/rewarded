@@ -29,7 +29,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => void,
+    deleteItemRequirements: (itemType: 'reward', itemId: number) => void,
     deleteReward: (rewardId: number) => void,
     editRewardText: (reward: Reward) => void,
     setSelectedRewardId: (rewardId: number | null) => void
@@ -159,7 +159,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    deleteItemRequirements: (itemType: 'todo' | 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
+    deleteItemRequirements: (itemType: 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
     deleteReward: (rewardId: number) => dispatch(deleteReward(rewardId)),
     editRewardText: (reward: Reward) => dispatch(editRewardText(reward)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
