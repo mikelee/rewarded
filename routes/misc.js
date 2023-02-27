@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const sql = require('../db');
-const { isRewardOwner } = require('../middleware');
 
 // Get all todos, rewards, and requirements
 router.get('/user-data', async (req, res) => {
