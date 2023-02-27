@@ -4,10 +4,8 @@ import { createStructuredSelector } from 'reselect';
 
 import './user-page.styles.scss';
 
-import { User } from '../../../types';
-
 import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, Action } from '../../../types';
+import { Todo, Reward, Requirement, Action, User } from '../../../types';
 
 import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
