@@ -92,7 +92,7 @@ class UserPage extends React.Component<Props> {
                             />)
                         }
                     </div>
-                    <AddItem addItemToRedux={addTodo} type='todo' currentUser={this.props.currentUser} />
+                    <AddItem addItemToRedux={addTodo} type='todo' />
                 </section>
                 <section className='rewards-section'>
                     <h3 className='title'>Rewards</h3>
@@ -104,7 +104,7 @@ class UserPage extends React.Component<Props> {
                             />)
                         }
                     </div>
-                    <AddItem addItemToRedux={addReward} type='reward' currentUser={this.props.currentUser} />
+                    <AddItem addItemToRedux={addReward} type='reward' />
                 </section>
             </div>
         );

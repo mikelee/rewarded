@@ -3,24 +3,20 @@ import { fetchData } from '../../utils';
 
 import './add-item.styles.scss';
 
-import { User } from '../../../types';
-
 import { AddRounded } from '@material-ui/icons';
 
 interface Props {
     type: string,
-    currentUser: User,
     addItemToRedux: (item: any) => void
 }
 
-const AddItem: React.FC<Props> = ({ type, currentUser, addItemToRedux }) => {
+const AddItem: React.FC<Props> = ({ type, addItemToRedux }) => {
 
     const addItem = async () => {
         const path = `/api/${type}/create`;
         const method = 'POST';
-        const body = currentUser;
 
-        const newItem = await fetchData(path, method, body);
+        const newItem = await fetchData(path, method);
         
         addItemToRedux(newItem);
     }
