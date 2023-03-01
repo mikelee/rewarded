@@ -12,11 +12,9 @@ import { User, Action, Color } from '../../../types';
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
-import { getCurrentUser } from '../../redux/user/user.selectors';
 
 interface StateProps {
-    submenuCategory: string | null,
-    currentUser: User | null
+    submenuCategory: string | null
 }
 
 interface DispatchProps {
@@ -59,10 +57,7 @@ class Submenu extends React.Component<Props> {
 
         const path = '/api/settings/color-theme/update';
         const method = 'PUT';
-        const body = {
-            color: colorName,
-            userId: this.props.currentUser?.userId
-        };
+        const body = { color: colorName };
 
         await fetchData(path, method, body);
 
@@ -98,8 +93,7 @@ class Submenu extends React.Component<Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-    submenuCategory: getSubmenuCategory,
-    currentUser: getCurrentUser
+    submenuCategory: getSubmenuCategory
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

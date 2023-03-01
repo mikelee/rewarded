@@ -3,7 +3,8 @@ const router = express.Router();
 const sql = require('../db');
 
 router.put('/color-theme/update', async (req, res) => {
-    const { color, userId: user_id } = req.body;
+    const { user_id } = req.user;
+    const { color } = req.body;
 
     const result = await sql`
         UPDATE settings
