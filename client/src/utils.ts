@@ -75,3 +75,21 @@ function AZ<T extends { text: string }>(item1: T, item2: T) {
 function ZA<T extends { text: string }>(item1: T, item2: T) {
     return item1.text.toLowerCase() > item2.text.toLowerCase() ? true : false;
 }
+
+// Sort functions
+
+export function sortNewest<T extends { text: string, timestamp: string }>(items: T[]) {
+    return quickSort(items, newestFirst);
+}
+
+export function sortOldest<T extends { text: string, timestamp: string }>(items: T[]) {
+    return quickSort(items, oldestFirst);
+}
+
+export function sortAZ<T extends { text: string, timestamp: string }>(items: T[]) {
+    return quickSort(items, AZ);
+}
+
+export function sortZA<T extends { text: string, timestamp: string }>(items: T[]) {
+    return quickSort(items, ZA);
+}
