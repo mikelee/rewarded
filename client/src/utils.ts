@@ -56,3 +56,22 @@ function quickSort<T extends { text: string, timestamp: string }>(items: T[], co
         items[item2Index] = temp;
     }
 }
+
+// Compare functions
+// All compare functions return true if the first argument should come before the second argument
+
+function newestFirst<T extends { timestamp: string }>(item1: T, item2: T) {
+    return item1.timestamp > item2.timestamp ? true : false;
+}
+
+function oldestFirst<T extends { timestamp: string }>(item1: T, item2: T) {
+    return item1.timestamp < item2.timestamp ? true : false;
+}
+
+function AZ<T extends { text: string }>(item1: T, item2: T) {
+    return item1.text.toLowerCase() < item2.text.toLowerCase() ? true : false;
+}
+
+function ZA<T extends { text: string }>(item1: T, item2: T) {
+    return item1.text.toLowerCase() > item2.text.toLowerCase() ? true : false;
+}
