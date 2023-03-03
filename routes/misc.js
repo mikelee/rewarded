@@ -7,14 +7,14 @@ router.get('/user-data', async (req, res) => {
     const { user_id } = req.user;
 
     const todosQuery = sql`
-        SELECT todo_id AS "todoId", text, completed
+        SELECT todo_id AS "todoId", text, completed, timestamp
         FROM todos
         WHERE user_id = ${user_id}
         ORDER BY completed, todo_id desc;
     `;
 
     const rewardsQuery = sql`
-        SELECT reward_id AS "rewardId", text
+        SELECT reward_id AS "rewardId", text, timestamp
         FROM rewards
         WHERE user_id = ${user_id};
     `;
