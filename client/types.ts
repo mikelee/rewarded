@@ -3,13 +3,15 @@
 export interface Todo {
     todoId: number,
     text: string,
-    completed: number
+    completed: number,
+    timestamp: string,
     rewardId?: number
 }
 
 export interface Reward {
     rewardId: number,
     text: string,
+    timestamp: string,
     isUnlocked?: boolean
 }
 
