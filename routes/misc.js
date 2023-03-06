@@ -20,7 +20,7 @@ router.get('/user-data', async (req, res) => {
     `;
 
     const requirementsQuery = sql`
-        SELECT q.reward_id AS "rewardId", q.todo_id AS "todoId", t.text as text, t.completed AS completed
+        SELECT q.reward_id AS "rewardId", q.todo_id AS "todoId", t.text as text, t.completed AS completed, t.timestamp
         FROM requirements q
         LEFT JOIN todos t 
         ON q.todo_id = t.todo_id
