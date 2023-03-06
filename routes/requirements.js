@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const { user_id } = req.user;
 
     const requirements = await sql`
-        SELECT t.todo_id AS "todoId", text, completed, reward_id AS "rewardId" 
+        SELECT t.todo_id AS "todoId", text, completed, reward_id AS "rewardId", t.timestamp
         FROM todos t 
         INNER JOIN requirements q
         ON t.todo_id = q.todo_id 
