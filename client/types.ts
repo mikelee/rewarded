@@ -19,7 +19,8 @@ export interface Requirement {
     rewardId: number,
     todoId: number,
     text: string,
-    completed: number
+    completed: number,
+    timestamp: string
 }
 
 export interface User {
