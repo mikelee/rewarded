@@ -8,6 +8,11 @@ export const selectMenuVisible = createSelector(
     menu => menu.visible
 );
 
+export const getSort = createSelector(
+    [selectMenu],
+    menu => menu.sort
+);
+
 export const getSubmenuCategory = createSelector(
     [selectMenu],
     menu => menu.submenuCategory
