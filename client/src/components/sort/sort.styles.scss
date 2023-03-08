@@ -1,0 +1,22 @@
+.sort {
+    display: flex;
+    flex-direction: column;
+
+    .sort-order {
+        background: none;
+        border: none;
+        border-bottom: 1px solid var(--color-primary);
+        padding: 2rem;
+        font-size: 1.6rem;
+        cursor: pointer;
+
+        &:last-child {
+            border: none;
+        }
+
+        &.selected {
+            background-color: var(--color-primary-faded);
+            color: white;
+        }
+    }
+}
