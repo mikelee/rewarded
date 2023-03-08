@@ -9,6 +9,8 @@ import './submenu.styles.scss';
 import { Dispatch } from 'redux';
 import { User, Action, Color } from '../../../types';
 
+import Sort from '../sort/sort.component';
+
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
 import { setSubmenuCategory } from '../../redux/menu/menu.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
@@ -43,6 +45,8 @@ class Submenu extends React.Component<Props> {
                         <button className='color-button purple' onClick={this.toggleColor} name='purple'/>                   
                     </div>
                 );
+            case 'Sort':
+                return <Sort sortOrders={['Newest First', 'Oldest First', 'A-Z', 'Z-A']} />;
             default:
                 return null;
         }
