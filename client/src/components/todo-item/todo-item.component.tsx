@@ -17,7 +17,7 @@ import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirem
 interface OwnProps {
     id: number,
     text: string,
-    completed: number,
+    completed: boolean,
     selectedRewardId: number | null,
     selected: boolean
     timestamp: string,

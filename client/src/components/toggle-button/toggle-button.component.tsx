@@ -5,7 +5,7 @@ import './toggle-button.styles.scss';
 import { CheckRounded } from '@material-ui/icons';
 
 interface OwnProps {
-    completed: number,
+    completed: boolean,
     selected: boolean,
     onClick: () => void
 }

@@ -3,7 +3,7 @@
 export interface Todo {
     todoId: number,
     text: string,
-    completed: number,
+    completed: boolean,
     timestamp: string,
     rewardId?: number
 }
@@ -19,7 +19,7 @@ export interface Requirement {
     rewardId: number,
     todoId: number,
     text: string,
-    completed: number,
+    completed: boolean,
     timestamp: string
 }
 
