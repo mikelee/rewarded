@@ -76,20 +76,70 @@ function ZA<T extends { text: string }>(item1: T, item2: T) {
     return item1.text.toLowerCase() > item2.text.toLowerCase() ? true : false;
 }
 
+// Group completed items together
+
+function groupCompletedLast<T extends { completed: boolean }>(items: T[]) {
+    const beginning: T[] = [];
+    const end: T[] = [];
+
+    items.forEach(item => {
+        if (item.completed) {
+            end.push(item);
+        } else {
+            beginning.push(item);
+        }
+    });
+
+    return {
+        beginning,
+        end
+    }
+}
+
 // Sort functions
+// All sort functions sort completed at the end
 
-export function sortNewest<T extends { text: string, timestamp: string }>(items: T[]) {
-    return quickSort(items, newestFirst);
+export function sortNewest<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+    const { beginning, end } = groupCompletedLast(items);
+
+    const sortedItems = [
+        ...quickSort(beginning, newestFirst),
+        ...quickSort(end, newestFirst)
+    ];
+
+    return sortedItems;
 }
 
-export function sortOldest<T extends { text: string, timestamp: string }>(items: T[]) {
-    return quickSort(items, oldestFirst);
+
+export function sortOldest<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+    const { beginning, end } = groupCompletedLast(items);
+
+    const sortedItems = [
+        ...quickSort(beginning, oldestFirst),
+        ...quickSort(end, oldestFirst)
+    ];
+
+    return sortedItems;
 }
 
-export function sortAZ<T extends { text: string, timestamp: string }>(items: T[]) {
-    return quickSort(items, AZ);
+export function sortAZ<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+    const { beginning, end } = groupCompletedLast(items);
+
+    const sortedItems = [
+        ...quickSort(beginning, AZ),
+        ...quickSort(end, AZ)
+    ];
+
+    return sortedItems;
 }
 
-export function sortZA<T extends { text: string, timestamp: string }>(items: T[]) {
-    return quickSort(items, ZA);
+export function sortZA<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+    const { beginning, end } = groupCompletedLast(items);
+
+    const sortedItems = [
+        ...quickSort(beginning, ZA),
+        ...quickSort(end, ZA)
+    ];
+
+    return sortedItems;
 }
