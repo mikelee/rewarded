@@ -87,6 +87,7 @@ class UserPage extends React.Component<Props> {
                                 id={todo.todoId}
                                 text={todo.text}
                                 completed={todo.completed}
+                                timestamp={todo.timestamp}
                                 selectedRewardId={this.props.selectedRewardId}
                                 selected={this.props.selectedRewardRequirements?.has(todo.todoId)}
                             />)
