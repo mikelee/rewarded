@@ -1,3 +1,5 @@
+import { SortOrder } from './src/components/sort/sort.component';
+
 // Data
 
 export interface Todo {
@@ -70,6 +72,7 @@ export interface RequirementsReducer {
 
 export interface MenuReducer {
     visible: boolean,
+    sort: SortOrder,
     submenuCategory: string | null
 }
 
