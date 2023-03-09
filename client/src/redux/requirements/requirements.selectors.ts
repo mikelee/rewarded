@@ -1,21 +1,26 @@
 import { createSelector } from 'reselect';
+
 import { Requirement } from '../../../types';
 import { ReduxState } from '../root-reducer';
+import { sortItems } from '../../utils';
 import { OwnProps } from '../../components/reward-item/reward-item.component';
 
 const selectRequirements = (state: ReduxState) => state.requirements;
 
 export const getRequirements = createSelector(
-    [selectRequirements],
-    requirements => requirements.requirements
+    [
+        selectRequirements,
+        (state: ReduxState) => state.menu.sort
+    ],
+    (requirements, sort) => sortItems(requirements.requirements, sort)
 );
 
 export const getRewardRequirements = createSelector(
     [
-        selectRequirements,
+        getRequirements,
         (state: ReduxState, props: OwnProps) => props
     ],
-    (requirements, props) => requirements.requirements?.filter((requirement: Requirement) => requirement.rewardId === props.id)
+    (requirements, props) => requirements?.filter((requirement: Requirement) => requirement.rewardId === props.id)
 );
 
 export const getSelectedRewardRequirements = createSelector(
