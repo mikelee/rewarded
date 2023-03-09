@@ -14,7 +14,7 @@ router.get('/user-data', async (req, res) => {
     `;
 
     const rewardsQuery = sql`
-        SELECT reward_id AS "rewardId", text, timestamp
+        SELECT reward_id AS "rewardId", text, completed, timestamp
         FROM rewards
         WHERE user_id = ${user_id};
     `;

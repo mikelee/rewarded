@@ -13,8 +13,8 @@ export interface Todo {
 export interface Reward {
     rewardId: number,
     text: string,
+    completed: boolean
     timestamp: string,
-    isUnlocked?: boolean
 }
 
 export interface Requirement {
@@ -41,9 +41,9 @@ export interface UserData {
     settings: Settings
 }
 
-export interface SetIsUnlockedData {
+export interface SetCompletedData {
     rewardId: number,
-    isUnlocked: boolean
+    completed: boolean
 }
 
 export type Color = 'red' | 'green' | 'blue' | 'purple';

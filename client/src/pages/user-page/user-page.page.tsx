@@ -102,6 +102,7 @@ class UserPage extends React.Component<Props> {
                             <RewardItem
                                 key={reward.rewardId} id={reward.rewardId}
                                 text={reward.text}
+                                completed={reward.completed}
                             />)
                         }
                     </div>

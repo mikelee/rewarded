@@ -40,19 +40,19 @@ const testStoreState: ReduxState = {
                 rewardId: 1,
                 text: 'Reward 1',
                 timestamp: '2023-03-08T06:49:53.064Z',
-                unlocked: false
+                completed: false
             },
             {
                 rewardId: 2,
                 text: 'Reward 2',
                 timestamp: '2023-03-08T06:49:58.519Z',
-                unlocked: true
+                completed: true
             },
             {
                 rewardId: 3,
                 text: 'Reward 3',
                 timestamp: '2023-03-08T06:50:03.270Z',
-                unlocked: true
+                completed: true
             }
         ],
         selectedRewardId: null
