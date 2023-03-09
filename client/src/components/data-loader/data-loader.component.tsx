@@ -61,7 +61,7 @@ export class DataLoader extends React.Component<Props, State> {
                 todos: data[0],
                 rewards: data[1],
                 requirements: data[2],
-                settings: data[3]
+                settings: data[3][0]
             }
 
             return userData;
@@ -84,28 +84,29 @@ export class DataLoader extends React.Component<Props, State> {
         this.applySettings(userData.settings);
     }
 
-    applySettings = (settings: Setting[]) => {
+    applySettings = (settings: Setting) => {
         const settingsActions = new Map();
         settingsActions.set('color_theme', this.props.setColorTheme);
 
-        settings.forEach(setting => {
-            const key: string = Object.keys(setting)[0];
-            const value = setting[key];
-            const settingAction = settingsActions.get(key);
+        for (const setting in settings) {
+            const settingAction = settingsActions.get(setting);
+            const settingValue = settings[setting];
 
-            settingAction(value);
+            console.log('sss', settingValue)
 
-            switch (key) {
+            settingAction(settingValue);
+
+            switch (setting) {
                 case 'color_theme':
-                    if (value) applyColorTheme(value);
+                    // applyColorTheme(settingValue);
                     // for: if colorTheme doesn't exist because the user is using a different computer
                     // or colorTheme is different from a different user previously logged in
-                    if (value && localStorage.getItem('colorTheme') !== value) localStorage.setItem('colorTheme', value);
+                    if (localStorage.getItem('colorTheme') !== settingValue) localStorage.setItem('colorTheme', settingValue);
                     break;
                 default:
                     return null;
             }
-        });
+        }
     }
 
     render() {
