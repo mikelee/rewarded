@@ -1,4 +1,5 @@
 import { Method } from '../types';
+import { SortOrder } from './components/sort/sort.component';
 
 export const fetchData = async (path: string, method: Method, body?: any ) => {
     const headers: HeadersInit = {
@@ -99,7 +100,7 @@ function groupCompletedLast<T extends { completed: boolean }>(items: T[]) {
 // Sort functions
 // All sort functions sort completed at the end
 
-export function sortNewest<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+function sortNewest<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
     const { beginning, end } = groupCompletedLast(items);
 
     const sortedItems = [
@@ -111,7 +112,7 @@ export function sortNewest<T extends { completed: boolean, text: string, timesta
 }
 
 
-export function sortOldest<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+function sortOldest<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
     const { beginning, end } = groupCompletedLast(items);
 
     const sortedItems = [
@@ -122,7 +123,7 @@ export function sortOldest<T extends { completed: boolean, text: string, timesta
     return sortedItems;
 }
 
-export function sortAZ<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+function sortAZ<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
     const { beginning, end } = groupCompletedLast(items);
 
     const sortedItems = [
@@ -133,7 +134,7 @@ export function sortAZ<T extends { completed: boolean, text: string, timestamp: 
     return sortedItems;
 }
 
-export function sortZA<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
+function sortZA<T extends { completed: boolean, text: string, timestamp: string }>(items: T[]) {
     const { beginning, end } = groupCompletedLast(items);
 
     const sortedItems = [
@@ -142,4 +143,19 @@ export function sortZA<T extends { completed: boolean, text: string, timestamp: 
     ];
 
     return sortedItems;
+}
+
+export function sortItems<T extends { completed: boolean, text: string, timestamp: string }>(items: T[], sort: SortOrder) {
+    switch (sort) {
+        case 'Newest First':
+            return sortNewest(items);
+        case 'Oldest First':
+            return sortOldest(items);
+        case 'A-Z':
+            return sortAZ(items);
+        case 'Z-A':
+            return sortZA(items);
+        default:
+            return items;
+    }
 }
