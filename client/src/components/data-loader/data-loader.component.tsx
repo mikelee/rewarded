@@ -92,13 +92,11 @@ export class DataLoader extends React.Component<Props, State> {
             const settingAction = settingsActions.get(setting);
             const settingValue = settings[setting];
 
-            console.log('sss', settingValue)
-
             settingAction(settingValue);
 
             switch (setting) {
                 case 'color_theme':
-                    // applyColorTheme(settingValue);
+                    applyColorTheme(settingValue);
                     // for: if colorTheme doesn't exist because the user is using a different computer
                     // or colorTheme is different from a different user previously logged in
                     if (localStorage.getItem('colorTheme') !== settingValue) localStorage.setItem('colorTheme', settingValue);
