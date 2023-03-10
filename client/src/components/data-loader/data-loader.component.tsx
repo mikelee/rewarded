@@ -4,7 +4,7 @@ import { fetchData } from '../../utils';
 import { applyColorTheme } from '../color-theme/color-theme.component';
 
 import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, User, Setting, UserData } from '../../../types';
+import { Todo, Reward, Requirement, User, Settings, UserData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
 import UserPage from '../../pages/user-page/user-page.page';
@@ -84,7 +84,7 @@ export class DataLoader extends React.Component<Props, State> {
         this.applySettings(userData.settings);
     }
 
-    applySettings = (settings: Setting) => {
+    applySettings = (settings: Settings) => {
         const settingsActions = new Map();
         settingsActions.set('color_theme', this.props.setColorTheme);
 

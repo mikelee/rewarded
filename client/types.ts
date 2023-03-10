@@ -25,7 +25,7 @@ export interface User {
     username: string
 }
 
-export interface Setting {
+export interface Settings {
     [key: string]: any
 }
 
@@ -33,7 +33,7 @@ export interface UserData {
     todos: Todo[],
     rewards: Reward[],
     requirements: Requirement[],
-    settings: Setting[]
+    settings: Settings
 }
 
 export interface SetIsUnlockedData {
