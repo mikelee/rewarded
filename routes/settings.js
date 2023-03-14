@@ -15,4 +15,17 @@ router.put('/color-theme/update', async (req, res) => {
     res.json(result);
 });
 
+router.put('/sort/update', async (req, res) => {
+    const { user_id } = req.user;
+    const { sort } = req.body;
+
+    const result = await sql`
+        UPDATE settings
+        SET sort = ${sort}
+        WHERE user_id = ${user_id};
+    `;
+
+    res.json(result);
+});
+
 module.exports = router;

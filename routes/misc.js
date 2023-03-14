@@ -28,7 +28,7 @@ router.get('/user-data', async (req, res) => {
     `;
 
     const settingsQuery = sql`
-        SELECT color_theme
+        SELECT color_theme, sort
         FROM SETTINGS WHERE user_id = ${user_id};
     `;
     

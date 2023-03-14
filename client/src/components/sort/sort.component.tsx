@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { fetchData } from '../../utils';
 
 import './sort.styles.scss';
 
@@ -27,10 +28,20 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const Sort: React.FC<Props> = ({ sortOrders, sort, setSort }) => {
 
-    const changeSortOrder = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const changeSortOrder = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const sortOrder = (e.target as HTMLButtonElement).name;
 
-        setSort((sortOrder as SortOrder));;
+        try {
+            const path = 'api/settings/sort/update';
+            const method = 'PUT';
+            const body = { sort: sortOrder };
+
+            await fetchData(path, method, body);
+
+            setSort((sortOrder as SortOrder));
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
