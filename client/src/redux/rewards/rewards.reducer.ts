@@ -35,6 +35,14 @@ const rewardsReducer: Reducer<RewardsReducer, Action> = (state = initalState, ac
                     return reward;
                 })
             }
+        case rewardsActionTypes.SET_COMPLETED:
+            return {
+                ...state,
+                rewards: state.rewards?.map(reward => reward.rewardId === action.payload.rewardId
+                    ? {...reward, completed: action.payload.completed}
+                    : {...reward}
+                )
+            }
         case rewardsActionTypes.SET_REWARDS:
             return {
                 ...state,
@@ -44,14 +52,6 @@ const rewardsReducer: Reducer<RewardsReducer, Action> = (state = initalState, ac
             return {
                 ...state,
                 selectedRewardId: action.payload
-            }
-        case rewardsActionTypes.SET_UNLOCKED:
-            return {
-                ...state,
-                rewards: state.rewards?.map(reward => reward.rewardId === action.payload.rewardId
-                    ? {...reward, isUnlocked: action.payload.isUnlocked}
-                    : {...reward}
-                )
             }
         default:
             return state;

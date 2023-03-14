@@ -7,20 +7,21 @@ import equal from 'fast-deep-equal';
 import './reward-item.styles.scss';
 
 import { Dispatch } from 'redux';
-import { Action, Requirement, Reward } from '../../../types';
+import { Action, Requirement, Reward, SetCompletedData } from '../../../types';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@material-ui/core';
 import { Add, Clear } from '@material-ui/icons';
 
 import { getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
-import { deleteReward, editRewardText, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { deleteReward, editRewardText, setCompleted, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
 import { deleteItemRequirements } from '../../redux/requirements/requirements.actions';
 
 export interface OwnProps {
     id: number,
-    text: string
+    text: string,
+    completed: boolean
 }
 
 interface StateProps {
@@ -32,14 +33,14 @@ interface DispatchProps {
     deleteItemRequirements: (itemType: 'reward', itemId: number) => void,
     deleteReward: (rewardId: number) => void,
     editRewardText: (reward: Reward) => void,
+    setCompleted: (data: SetCompletedData) => void,
     setSelectedRewardId: (rewardId: number | null) => void
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
 
 interface State {
-    text: string,
-    isUnlocked: boolean
+    text: string
 }
 
 class RewardItem extends React.Component<Props, State> {
@@ -47,32 +48,21 @@ class RewardItem extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            text: this.props.text,
-            isUnlocked: false
+            text: this.props.text
         }
     }
 
-    componentDidMount() {
-        if (this.props.rewardRequirements) {
-            this.assignUnlock(this.props.rewardRequirements);
-        }
-    }
-
-    componentDidUpdate(prevProps: Readonly<Props>) {
+    async componentDidUpdate(prevProps: Readonly<Props>) {
         const currentRequirements = this.props.rewardRequirements;
         const prevRequirements = prevProps.rewardRequirements;
 
         if (currentRequirements && !equal(currentRequirements, prevRequirements)) {
-            this.assignUnlock(currentRequirements);
-        }
-    }
+            const isCompleted = this.isCompleted(currentRequirements);
 
-    assignUnlock = (requirements: Requirement[]) => {
-        const isUnlocked = requirements.every(requirement => requirement.completed);
-        
-        this.setState({
-            isUnlocked: isUnlocked
-        });
+            if (isCompleted !== prevProps.completed) {
+                this.updateCompleted(isCompleted);
+            }
+        }
     }
 
     handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,12 +107,33 @@ class RewardItem extends React.Component<Props, State> {
         this.props.setSelectedRewardId(this.props.id);
     }
 
+    isCompleted = (requirements: Requirement[]) => {
+        return requirements.every(requirement => requirement.completed);
+    }
+
+    updateCompleted = async (isCompleted: boolean) => {
+        const path = '/api/reward/complete';
+        const method = 'PUT';
+        const body = {
+            reward_id: this.props.id,
+            completed: isCompleted
+        };
+
+        const updatedReward: Reward = await fetchData(path, method, body);
+
+        const setCompletedData = {
+            rewardId: updatedReward.rewardId,
+            completed: updatedReward.completed
+        }
+
+        this.props.setCompleted(setCompletedData);
+    }
+
     render() {
-        const { id, text, rewardRequirements } = this.props;
-        const { isUnlocked } = this.state;
+        const { id, text, completed, rewardRequirements } = this.props;
 
         return (
-            <div className={`reward ${isUnlocked ? '' : 'locked'}`} data-testid={`reward-${id}`}>
+            <div className={`reward ${!completed ? 'locked': ''}`} data-testid={`reward-${id}`}>
                 <form className='reward-form' id={`reward-form-${id}`} onBlur={this.editReward} onSubmit={this.editReward} >
                     <input className='reward-form-textfield' defaultValue={text} name='text' onChange={this.handleTextChange} />
                 </form>
@@ -162,6 +173,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     deleteItemRequirements: (itemType: 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
     deleteReward: (rewardId: number) => dispatch(deleteReward(rewardId)),
     editRewardText: (reward: Reward) => dispatch(editRewardText(reward)),
+    setCompleted: (data: SetCompletedData) => dispatch(setCompleted(data)),
     setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
 });
 

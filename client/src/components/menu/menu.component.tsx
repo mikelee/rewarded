@@ -54,6 +54,7 @@ class Menu extends React.Component<Props> {
                 {
                 !submenuCategory ? 
                     <div className='menu-items' onClick={event => this.clickMenuItem(event)}>
+                        <p className='menu-item menu-sort' data-name='Sort'>Sort</p>
                         <p className='menu-item menu-colors' data-name='Color Theme'>Color Theme</p>
                         <p className='menu-item menu-logout-button' onClick={this.logout}>Logout</p>
                     </div>

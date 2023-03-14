@@ -15,7 +15,7 @@ interface OwnProps {
     todoId: number,
     rewardId: number,
     text: string,
-    completed: number
+    completed: boolean
 }
 
 interface DispatchProps {

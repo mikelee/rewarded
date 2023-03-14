@@ -4,6 +4,7 @@ import { fetchData } from '../../utils';
 import { applyColorTheme } from '../color-theme/color-theme.component';
 
 import { Dispatch } from 'redux';
+import { SortOrder } from '../sort/sort.component';
 import { Todo, Reward, Requirement, User, Settings, UserData } from '../../../types';
 
 import Preloader from '../preloader/preloader.component';
@@ -13,6 +14,7 @@ import { setTodos } from '../../redux/todos/todos.actions';
 import { setRewards } from '../../redux/rewards/rewards.actions';
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { setColorTheme } from '../../redux/user/user.actions';
+import { setSort } from '../../redux/menu/menu.actions';
 import { Action } from 'redux';
 
 interface OwnProps {
@@ -23,7 +25,8 @@ interface DispatchProps {
     setTodos: (todos: Todo[]) => void,
     setRewards: (rewards: Reward[]) => void,
     setRequirements: (requirements: Requirement[]) => void,
-    setColorTheme: (color: string) => void
+    setColorTheme: (color: string) => void,
+    setSort: (sort: SortOrder) => void,
 }
 
 type Props = OwnProps & DispatchProps;
@@ -87,6 +90,7 @@ export class DataLoader extends React.Component<Props, State> {
     applySettings = (settings: Settings) => {
         const settingsActions = new Map();
         settingsActions.set('color_theme', this.props.setColorTheme);
+        settingsActions.set('sort', this.props.setColorTheme);
 
         for (const setting in settings) {
             const settingAction = settingsActions.get(setting);
@@ -123,7 +127,8 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
     setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
     setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
-    setColorTheme: (color: string) => dispatch(setColorTheme(color))
+    setColorTheme: (color: string) => dispatch(setColorTheme(color)),
+    setSort: (sort: SortOrder) => dispatch(setSort(sort))
 });
 
 export default connect(null, mapDispatchToProps)(DataLoader);

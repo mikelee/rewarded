@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import { sortItems } from '../../utils';
+
 import { Reward } from '../../../types';
 import { ReduxState } from '../root-reducer';
 import { OwnProps } from '../../components/reward-item/reward-item.component';
@@ -12,16 +14,14 @@ const selectSpecificReward = (state: ReduxState, props: OwnProps) => {
 };
 
 export const getRewards = createSelector(
-    [selectRewards],
-    rewards => rewards.rewards
+    [
+        selectRewards,
+        (state: ReduxState) => state.menu.sort
+    ],
+    (rewards, sort) => sortItems(rewards.rewards, sort)
 );
 
 export const getSelectedRewardId = createSelector(
     [selectRewards],
     rewards => rewards.selectedRewardId
-);
-
-export const getIsUnlocked = createSelector(
-    [selectSpecificReward],
-    reward => reward?.isUnlocked
 );

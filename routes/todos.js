@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const { user_id } = req.user;
 
     const todos = await sql`
-        SELECT todo_id AS "todoId", text, completed
+        SELECT todo_id AS "todoId", text, completed, timestamp
         FROM todos
         WHERE user_id = ${user_id}
         ORDER BY completed, todo_id desc;
@@ -24,7 +24,7 @@ router.post('/create', async (req, res) => {
     const result = await sql`
         INSERT INTO todos (user_id)
         VALUES (${user_id})
-        RETURNING todo_id AS "todoId", text, completed;
+        RETURNING todo_id AS "todoId", text, completed, timestamp;
     `;
 
     const newTodo = result[0];
@@ -40,7 +40,7 @@ router.put('/update', isTodoOwner, async (req, res) => {
         UPDATE todos
         SET text = ${text}
         WHERE todo_id = ${todo_id}
-        RETURNING todo_id AS "todoId", text, completed;
+        RETURNING todo_id AS "todoId", text, completed, timestamp;
     `;
 
     const updatedTodo = result[0];
@@ -56,7 +56,7 @@ router.post('/complete', isTodoOwner, async (req, res) => {
         UPDATE todos
         SET completed = NOT completed
         WHERE todo_id = ${todo_id}
-        RETURNING todo_id AS "todoId", text, completed;
+        RETURNING todo_id AS "todoId", text, completed, timestamp;
     `;
 
     const updatedTodo = result[0];
@@ -71,7 +71,7 @@ router.delete('/delete', isTodoOwner, async (req, res) => {
     const todosQuery = sql`
         DELETE FROM todos
         WHERE todo_id = ${todo_id}
-        RETURNING todo_id AS "todoId", text, completed;
+        RETURNING todo_id AS "todoId", text, completed, timestamp;
     `;
 
     const requirementsQuery = sql`

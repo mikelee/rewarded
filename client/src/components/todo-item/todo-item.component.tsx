@@ -17,9 +17,10 @@ import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirem
 interface OwnProps {
     id: number,
     text: string,
-    completed: number,
+    completed: boolean,
     selectedRewardId: number | null,
     selected: boolean
+    timestamp: string,
 }
 
 interface DispatchProps {
@@ -164,10 +165,11 @@ class TodoItem extends React.Component<Props, State> {
 
             /*
                 Requirements in database only have todoId and rewardId.
-                These lines "join" the todo text and completed values with the requirement.
+                These lines "join" the todo's text, completed, and timestamp values with the requirement.
             */
             newRequirement.text = this.props.text;
             newRequirement.completed = this.props.completed;
+            newRequirement.timestamp = this.props.timestamp;
 
             this.props.addRequirement(newRequirement);
         }

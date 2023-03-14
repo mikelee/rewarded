@@ -1,23 +1,28 @@
+import { SortOrder } from './src/components/sort/sort.component';
+
 // Data
 
 export interface Todo {
     todoId: number,
     text: string,
-    completed: number
+    completed: boolean,
+    timestamp: string,
     rewardId?: number
 }
 
 export interface Reward {
     rewardId: number,
     text: string,
-    isUnlocked?: boolean
+    completed: boolean
+    timestamp: string,
 }
 
 export interface Requirement {
     rewardId: number,
     todoId: number,
     text: string,
-    completed: number
+    completed: boolean,
+    timestamp: string
 }
 
 export interface User {
@@ -36,9 +41,9 @@ export interface UserData {
     settings: Settings
 }
 
-export interface SetIsUnlockedData {
+export interface SetCompletedData {
     rewardId: number,
-    isUnlocked: boolean
+    completed: boolean
 }
 
 export type Color = 'red' | 'green' | 'blue' | 'purple';
@@ -67,6 +72,7 @@ export interface RequirementsReducer {
 
 export interface MenuReducer {
     visible: boolean,
+    sort: SortOrder,
     submenuCategory: string | null
 }
 

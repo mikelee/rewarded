@@ -1,6 +1,6 @@
 import rewardsActionTypes from './rewards.types';
 
-import { Reward, SetIsUnlockedData } from '../../../types';
+import { Reward, SetCompletedData } from '../../../types';
 
 export const addReward = (reward: Reward) => ({
     type: rewardsActionTypes.ADD_REWARD,
@@ -17,6 +17,11 @@ export const editRewardText = (reward: Reward) => ({
     payload: reward
 });
 
+export const setCompleted = (data: SetCompletedData) => ({
+    type: rewardsActionTypes.SET_COMPLETED,
+    payload: data
+});
+
 export const setRewards = (rewards: Reward[]) => ({
     type: rewardsActionTypes.SET_REWARDS,
     payload: rewards
@@ -25,9 +30,4 @@ export const setRewards = (rewards: Reward[]) => ({
 export const setSelectedRewardId = (rewardId: number | null) => ({
     type: rewardsActionTypes.SET_SELECTED_REWARD_ID,
     payload: rewardId
-});
-
-export const setIsUnlocked = (data: SetIsUnlockedData) => ({
-    type: rewardsActionTypes.SET_UNLOCKED,
-    payload: data
 });
