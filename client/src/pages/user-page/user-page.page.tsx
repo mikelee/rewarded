@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import './user-page.styles.scss';
 
 import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, Action, User } from '../../../types';
+import { Todo, Reward, Requirement, Action } from '../../../types';
 
 import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
@@ -19,10 +19,6 @@ import { getRequirements, getSelectedRewardRequirements } from '../../redux/requ
 import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
 import { setColorTheme } from '../../redux/user/user.actions';
-
-interface OwnProps {
-    currentUser: User
-}
 
 interface StateProps {
     todos: Todo[],
@@ -43,7 +39,7 @@ interface DispatchProps {
     setColorTheme: (color: string) => void
 }
 
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = StateProps & DispatchProps;
 
 class UserPage extends React.Component<Props> {
     private selectionTitle: React.RefObject<HTMLHeadingElement>

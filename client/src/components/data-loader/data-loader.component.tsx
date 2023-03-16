@@ -116,7 +116,7 @@ export class DataLoader extends React.Component<Props, State> {
 
         return (
             dataLoaded ?
-                <UserPage currentUser={this.props.currentUser} />
+                <UserPage />
             :
                 <Preloader />
         );
