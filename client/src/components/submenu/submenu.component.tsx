@@ -7,7 +7,7 @@ import { applyColorTheme } from '../color-theme/color-theme.component';
 import './submenu.styles.scss';
 
 import { Dispatch } from 'redux';
-import { User, Action, Color } from '../../../types';
+import { Action, Color } from '../../../types';
 
 import Sort from '../sort/sort.component';
 
