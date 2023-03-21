@@ -1,15 +1,15 @@
 import rewardsReducer from './rewards.reducer';
-import { setRewards, setSelectedRewardId, setIsUnlocked } from './rewards.actions';
+import { setRewards, setSelectedRewardId, setCompleted } from './rewards.actions';
 
 const initialState = {
-    rewards: null,
+    rewards: [],
     selectedRewardId: null
 };
 
 const rewards = [
-    {rewardId: 1, userId: 9, text: 'reward 1'},
-    {rewardId: 2, userId: 9, text: 'reward 2'},
-    {rewardId: 3, userId: 9, text: 'reward 3'}
+    {rewardId: 1, text: 'reward 1', completed: false, timestamp: '2023-03-08T06:49:53.064Z'},
+    {rewardId: 2, text: 'reward 2', completed: true, timestamp: '2023-03-08T06:49:58.519Z'},
+    {rewardId: 3, text: 'reward 3', completed: true, timestamp: '2023-03-08T06:50:03.270Z'}
 ];
 
 const selectedRewardId = 1;
@@ -19,54 +19,46 @@ it('should set the rewards', () => {
 });
 
 it('should set the selected reward', () => {
-    expect(rewardsReducer(initialState, setSelectedRewardId(selectedRewardId))).toEqual({rewards: null, selectedRewardId: 1});
+    expect(rewardsReducer(initialState, setSelectedRewardId(selectedRewardId))).toEqual({rewards: [], selectedRewardId: 1});
 });
 
-it('should unlock reward with id: 1', () => {
-    const unlockData = {
+it('should set reward with id: 1 as completed', () => {
+    const setCompletedData = {
         rewardId: 1,
-        isUnlocked: true
+        completed: true
     };
 
     const state = {
-        rewards: [
-            {rewardId: 1, userId: 9, text: 'reward 1'},
-            {rewardId: 2, userId: 9, text: 'reward 2'},
-            {rewardId: 3, userId: 9, text: 'reward 3'}
-        ],
+        rewards: rewards,
         selectedRewardId: null
     };
     
-    expect(rewardsReducer(state, setIsUnlocked(unlockData))).toEqual({
+    expect(rewardsReducer(state, setCompleted(setCompletedData))).toEqual({
         rewards: [
-            {rewardId: 1, userId: 9, text: 'reward 1', isUnlocked: true},
-            {rewardId: 2, userId: 9, text: 'reward 2'},
-            {rewardId: 3, userId: 9, text: 'reward 3'},
+            {rewardId: 1, text: 'reward 1', completed: true, timestamp: '2023-03-08T06:49:53.064Z'},
+            {rewardId: 2, text: 'reward 2', completed: true, timestamp: '2023-03-08T06:49:58.519Z'},
+            {rewardId: 3, text: 'reward 3', completed: true, timestamp: '2023-03-08T06:50:03.270Z'}
         ],
         selectedRewardId: null
     });
 });
 
-it('should lock reward with id: 2', () => {
-    const unlockData = {
+it('should set reward with id: 2 as not completed', () => {
+    const setCompletedData = {
         rewardId: 2,
-        isUnlocked: false
+        completed: false
     };
 
     const state = {
-        rewards: [
-            {rewardId: 1, userId: 9, text: 'reward 1'},
-            {rewardId: 2, userId: 9, text: 'reward 2'},
-            {rewardId: 3, userId: 9, text: 'reward 3'}
-        ],
+        rewards: rewards,
         selectedRewardId: null
     };
     
-    expect(rewardsReducer(state, setIsUnlocked(unlockData))).toEqual({
+    expect(rewardsReducer(state, setCompleted(setCompletedData))).toEqual({
         rewards: [
-            {rewardId: 1, userId: 9, text: 'reward 1'},
-            {rewardId: 2, userId: 9, text: 'reward 2', isUnlocked: false},
-            {rewardId: 3, userId: 9, text: 'reward 3'},
+            {rewardId: 1, text: 'reward 1', completed: false, timestamp: '2023-03-08T06:49:53.064Z'},
+            {rewardId: 2, text: 'reward 2', completed: false, timestamp: '2023-03-08T06:49:58.519Z'},
+            {rewardId: 3, text: 'reward 3', completed: true, timestamp: '2023-03-08T06:50:03.270Z'}
         ],
         selectedRewardId: null
     });
