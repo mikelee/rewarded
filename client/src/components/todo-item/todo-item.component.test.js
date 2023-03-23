@@ -1,18 +1,32 @@
-import { shallow }  from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json'
 import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import testStore from '../../redux/testStore';
+import { Provider } from 'react-redux';
 import TodoItem from './todo-item.component';
 
-it('should render TodoItem', () => {
-    const wrapper = shallow(<TodoItem type='forTodo' id={1} text={'first'} completed={1} selectedRewardId={null}/>)
+const props = {
+    id: 1,
+    text: 'Todo 1',
+    completed: true,
+    selectedRewardId: null,
+    selected: false,
+    timestamp: '2023-03-08T06:49:33.913Z'
+}
 
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-});
+beforeEach(() => {
+    render(
+        <Provider store={testStore} >
+            <TodoItem {...props} />
+        </Provider>
+    );
+})
 
-it('should change TodoItem text to "hi"', () => {
-    const wrapper = shallow(<TodoItem type='forTodo' id={1} text={'first'} completed={1} selectedRewardId={null} />)
-
-    wrapper.find('.todo-edit-form-textfield').simulate('change', { target: { name: 'text', value: 'hi' } });
-
-    expect(wrapper.state()).toEqual({text: 'hi'});
+it('should change TodoItem text', () => {
+    const UPDATED_TEXT = 'Updated Text';
+    
+    const todoText = screen.getByLabelText('todo-text');
+    expect(todoText.value).toBe(props.text);
+    
+    fireEvent.change(todoText, { target: { value: UPDATED_TEXT } });
+    expect(todoText.value).toEqual(UPDATED_TEXT);
 });
