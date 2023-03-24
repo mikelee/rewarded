@@ -9,9 +9,11 @@
     font-size: 2rem;
     background-color: var(--color-primary);
     padding: 2rem;
+    box-shadow: 0 0rem 2rem 1rem rgba(black, .2);
 
     &-transparent {
         background-color: transparent;
+        box-shadow: none;
     }
 
     &-buttons {
