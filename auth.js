@@ -48,10 +48,14 @@ module.exports = passportSetUp = () => {
         async function(req, username1, password1, done) {
             const { username, password } = req.body;
 
+            console.log('username:', username)
+
             const foundUser = await sql`
                 SELECT * FROM users
                 WHERE username = ${username};
             `;
+
+            console.log('foundUser:', foundUser)
 
             const user = foundUser[0];
 
