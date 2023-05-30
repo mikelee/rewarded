@@ -1,5 +1,7 @@
 @import '../../variables.scss';
 
+$left-width: 55vw;
+
 .homepage {
     height: 100vh;
 
@@ -8,7 +10,7 @@
         top: 0;
         left: 0;
         z-index: -1;
-        width: 55vw;
+        width: $left-width;
         height: 100vh;
         filter: drop-shadow(8px 0px 8px rgba(black, .4));
 
@@ -33,7 +35,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 55vw;
+        width: $left-width;
         animation: slideRight .5s ease-out;
 
         .homepage-text {
