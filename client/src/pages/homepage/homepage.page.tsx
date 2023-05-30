@@ -25,32 +25,35 @@ type Props = OwnProps & StateProps;
 const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
     <div className='homepage'>
         <Nav currentUser={currentUser} isTransparent={true} />
-        <div className='homepage-container'>
-            <div className='homepage-text-container'>
-                {
-                    !loggedOutMessage ?
-                        <>
-                            <h1 className='homepage-text'>Rewarded</h1>
-                            <p className='homepage-subtext'>Achieve greatness!</p>
-                        </>
-                    :
-                        <div>
-                            <h1 className='homepage-text'>You have successfully logged out</h1>
-                            <p className='homepage-subtext'>Enjoy your day!</p>
-                        </div>
-                }
-            </div>
-            <div className='graphic-container'>
-                <div className='homepage-graphic'>
+        <div className='slant-background-container'>
+            <div className='slant-background'></div>
+        </div>
+            <div className='content'>
+                <div className='text-container'>
                     {
                         !loggedOutMessage ?
-                        <CompletedSVG />
+                            <>
+                                <h1 className='homepage-text'>Rewarded</h1>
+                                <p className='homepage-subtext'>Achieve greatness!</p>
+                            </>
                         :
-                        <HikingSVG />
+                            <div>
+                                <h1 className='homepage-text'>You have successfully logged out</h1>
+                                <p className='homepage-subtext'>Enjoy your day!</p>
+                            </div>
                     }
                 </div>
+                <div className='graphic-container'>
+                    <div className='homepage-graphic'>
+                        {
+                            !loggedOutMessage ?
+                            <CompletedSVG />
+                            :
+                            <HikingSVG />
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
 );
 
