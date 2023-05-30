@@ -33,18 +33,18 @@ const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
                     {
                         !loggedOutMessage ?
                             <>
-                                <h1 className='homepage-text'>Rewarded</h1>
-                                <p className='homepage-subtext'>Achieve greatness!</p>
+                                <h1 className='text'>Rewarded</h1>
+                                <p className='subtext'>Achieve greatness!</p>
                             </>
                         :
                             <div>
-                                <h1 className='homepage-text'>You have successfully logged out</h1>
-                                <p className='homepage-subtext'>Enjoy your day!</p>
+                                <h1 className='text'>You have successfully logged out</h1>
+                                <p className='subtext'>Enjoy your day!</p>
                             </div>
                     }
                 </div>
                 <div className='graphic-container'>
-                    <div className='homepage-graphic'>
+                    <div className='graphic'>
                         {
                             !loggedOutMessage ?
                             <CompletedSVG />

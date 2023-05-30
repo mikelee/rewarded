@@ -38,14 +38,14 @@ $left-width: 55vw;
         width: $left-width;
         animation: slideRight .5s ease-out;
 
-        .homepage-text {
+        .text {
             font-size: 6rem;
             letter-spacing: .5rem;
             width: 95%;
             margin: 0 auto 6rem auto;
         }
 
-        .homepage-subtext {
+        .subtext {
             font-size: 3rem;
             align-self: center;
         }
@@ -61,7 +61,7 @@ $left-width: 55vw;
         overflow: hidden;
     }
 
-    &-graphic {
+    .graphic {
         width: 45rem;
         z-index: -20;
     }
@@ -71,16 +71,16 @@ $left-width: 55vw;
     .homepage {
 
         .text-container {
-            .homepage-text {
+            .text {
                 font-size: 3.8rem;
             }
     
-            .homepage-subtext {
+            .subtext {
                 font-size: 2rem;
             }
         }
 
-    .homepage-graphic {
+    .graphic {
             width: 40rem;
         }
     }
@@ -109,7 +109,7 @@ $left-width: 55vw;
             flex: 1;
             animation: slideUp .5s ease-out;
 
-            .homepage-text {
+            .text {
                 padding-top: 6rem;
             }
         }
@@ -119,7 +119,7 @@ $left-width: 55vw;
             flex: 1;
         }
 
-        .homepage-graphic {
+        .graphic {
             z-index: 10;
             animation: slideUp .5s ease-out;
         }
@@ -130,11 +130,11 @@ $left-width: 55vw;
     .homepage {
 
         .text-container {
-            .homepage-text {
+            .text {
                 font-size: 4rem;
             }
     
-            .homepage-subtext {
+            .subtext {
                 font-size: 1.8rem;
             }
         }
@@ -145,11 +145,11 @@ $left-width: 55vw;
     .homepage {
 
         .text-container {
-            .homepage-text {
+            .text {
                 font-size: 2.4rem;
             }
     
-            .homepage-subtext {
+            .subtext {
                 font-size: 1.6rem;
             }
         }
