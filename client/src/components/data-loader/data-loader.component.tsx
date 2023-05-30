@@ -90,7 +90,7 @@ export class DataLoader extends React.Component<Props, State> {
     applySettings = (settings: Settings) => {
         const settingsActions = new Map();
         settingsActions.set('color_theme', this.props.setColorTheme);
-        settingsActions.set('sort', this.props.setColorTheme);
+        settingsActions.set('sort', this.props.setSort);
 
         for (const setting in settings) {
             const settingAction = settingsActions.get(setting);
