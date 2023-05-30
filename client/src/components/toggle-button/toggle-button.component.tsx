@@ -22,12 +22,14 @@ const ToggleButton: React.FC<Props> = ({ completed, selected, onClick }) => {
 
     return (
         <div className='toggle-button-container'>
-            <button className={`toggle-button ${selected ? 'selected' : ''}`} onClick={event => click(event)} >
-                { completed
-                ? <CheckRounded className={`check-icon ${selected ? 'selected' : ''}`} fontSize='large'/>
-                : null
-                }
-            </button>
+            <div className='toggle-button'>
+                <button className={`${selected ? 'selected' : ''}`} onClick={event => click(event)} >
+                    { completed
+                    ? <CheckRounded className={`check-icon ${selected ? 'selected' : ''}`} fontSize='large'/>
+                    : null
+                    }
+                </button>
+            </div>
         </div>
     );
 }
