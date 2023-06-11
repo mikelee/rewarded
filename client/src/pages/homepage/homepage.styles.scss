@@ -38,6 +38,14 @@ $left-width: 55vw;
         width: $left-width;
         animation: slideRight .5s ease-out;
 
+        & > * {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding: 0 15%;
+            box-sizing: border-box;
+        }
+
         .text {
             font-size: 6rem;
             letter-spacing: .5rem;
