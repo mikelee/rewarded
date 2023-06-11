@@ -32,7 +32,7 @@ const Sort: React.FC<Props> = ({ sortOrders, sort, setSort }) => {
         const sortOrder = (e.target as HTMLButtonElement).name;
 
         try {
-            const path = 'api/settings/sort/update';
+            const path = '/api/settings/sort/update';
             const method = 'PUT';
             const body = { sort: sortOrder };
 
