@@ -15,9 +15,14 @@
         box-shadow: 1rem 1rem 2rem rgba(black, .2);
         border-radius: .5rem;
 
-        .sign-in-left {
+        .shadow-container {
             height: 100%;
             width: 50%;
+            filter: drop-shadow(8px 0px 16px rgba(black, .4));
+        }
+
+        .sign-in-left {
+            height: 100%;
             background-image: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
             clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
             border-radius: .5rem 0 0 .5rem;
@@ -141,6 +146,11 @@
             height: 90%;
             width: 85%;
 
+            .shadow-container {
+                width: 100%;
+                filter: drop-shadow(0px -8px 16px rgba(black, .4));
+            }
+
             .sign-in-right {
                 width: 100%;
 
@@ -165,8 +175,6 @@
             .sign-in-left {
                 display: flex;
                 align-items: flex-end;
-                max-height: 35%;
-                width: 100%;
                 background-image: linear-gradient(to top, var(--color-primary), var(--color-primary-dark));
                 clip-path: polygon(calc(-.5px) 0, calc(100% + .5px) 15%, calc(100% + .5px) 100%, -.5px 100%);
                 border-radius: 0 0 .5rem .5rem;
