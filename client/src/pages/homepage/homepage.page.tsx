@@ -37,10 +37,10 @@ const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
                                 <p className='subtext'>Achieve greatness!</p>
                             </>
                         :
-                            <div>
+                            <>
                                 <h1 className='text'>You have successfully logged out</h1>
                                 <p className='subtext'>Enjoy your day!</p>
-                            </div>
+                            </>
                     }
                 </div>
                 <div className='graphic-container'>
