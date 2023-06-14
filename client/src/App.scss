@@ -6,6 +6,7 @@ body {
 @font-face {
     font-family: 'Noir';
     src: url('./assets/Noir_regular.otf');
+    font-display: swap;
 }
 
 @keyframes slideRight {
