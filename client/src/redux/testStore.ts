@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+// import { createStore,  } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './root-reducer';
 import { ReduxState } from './root-reducer';
 
@@ -92,6 +93,8 @@ const testStoreState: ReduxState = {
     }
 }
 
-const testStore = createStore(rootReducer, testStoreState);
-
+// const testStore = createStore(rootReducer, testStoreState);
+const testStore = configureStore({
+    reducer: rootReducer
+});
 export default testStore;
