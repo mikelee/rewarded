@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/mikelee/rewarded#readme",
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.19.0",
     "connect-redis": "^7.1.1",
     "cors": "^2.8.5",
