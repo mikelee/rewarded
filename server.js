@@ -27,7 +27,7 @@ app.use(cors({
     credentials: true
 }));
 
-let redisClient = redis.createClient(process.env.REDIS_URL);
+let redisClient = redis.createClient({url: process.env.REDIS_URL});
 redisClient.connect().catch(console.error);
 
 app.use(session({
