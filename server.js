@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const redis = require('redis');
+const RedisStore = require('connect-redis').default;
 const session = require('express-session');
 const passport = require('passport');
 const passportSetUp = require('./auth');
@@ -25,8 +26,9 @@ app.use(cors({
     credentials: true
 }));
 
-let RedisStore = require('connect-redis')(session);
-let redisClient = redis.createClient(process.env.REDIS_URL);
+let redisClient = redis.createClient({ url: process.env.REDIS_URL });
+redisClient.connect().catch(console.error);
+
 app.use(session({
     store: new RedisStore({ client: redisClient }),
     secret: 'raspberry',
