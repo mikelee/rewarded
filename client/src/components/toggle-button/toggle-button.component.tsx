@@ -2,7 +2,7 @@ import React from 'react';
 
 import './toggle-button.styles.scss';
 
-import { CheckRounded } from '@material-ui/icons';
+import { CheckRounded } from '@mui/icons-material';
 
 interface OwnProps {
     completed: boolean,
