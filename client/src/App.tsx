@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
@@ -21,10 +21,10 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ currentUser }) => (
     <ColorTheme>
-        <Switch>
+        <Routes>
             <Route
-                exact path='/'
-                render={() => currentUser
+                path='/'
+                element={currentUser
                     ? 
                         <>
                             <Nav currentUser={currentUser} />
@@ -36,9 +36,9 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
             />
             <Route
                 path='/sign-up'
-                render={() => currentUser
+                element={currentUser
                     ?
-                        <Redirect to='/' />
+                        <Navigate to='/' />
                     : 
                         <>
                             <Nav currentUser={currentUser} />
@@ -48,9 +48,9 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
             />
             <Route
                 path='/sign-in'
-                render={() => currentUser
+                element={currentUser
                     ?
-                        <Redirect to='/' />
+                        <Navigate to='/' />
                     : 
                         <>
                             <Nav currentUser={currentUser} />
@@ -58,7 +58,7 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
                         </>
                 }
             />
-        </Switch>
+        </Routes>
     </ColorTheme>
 );
 
