@@ -25,7 +25,7 @@ const ToggleButton: React.FC<Props> = ({ completed, selected, onClick }) => {
             <div className='toggle-button'>
                 <button className={`${selected ? 'selected' : ''}`} onClick={event => click(event)} >
                     { completed
-                    ? <CheckRounded className={`check-icon ${selected ? 'selected' : ''}`} fontSize='large'/>
+                    ? <CheckRounded data-testid='check' className={`check-icon ${selected ? 'selected' : ''}`} fontSize='large'/>
                     : null
                     }
                 </button>

@@ -21,7 +21,7 @@ describe('todos tests', () => {
     });
 
     it('should have the first todo checked completed and the second todo not completed', () => {
-        cy.get('[data-testid="todo-1"] > .toggle-button-container > .toggle-button').children().should('have.length', 1);
-        cy.get('[data-testid="todo-2"] > .toggle-button-container >.toggle-button').children().should('have.length', 0);
+        cy.get('[data-testid="todo-1"] > .toggle-button-container > .toggle-button').find('[data-testid="check"]').should('exist');
+        cy.get('[data-testid="todo-2"] > .toggle-button-container > .toggle-button').find('[data-testid="check"]').should('not.exist');
     });
 });
