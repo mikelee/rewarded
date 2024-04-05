@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
+import * as utils from '../../utils';
 import { DataLoader } from './data-loader.component';
 
 const mockUser = {
@@ -57,7 +58,28 @@ it('should call componentDidMount and then fetchUserData', () => {
     expect(instance.fetchUserData).toHaveBeenCalledTimes(1);
 });
 
-it('should return userData from fetchUserData()', async () => {
+it('should return userData structured correctly from fetchUserData()', async () => {
+    const mockResponseData = [
+        [
+            {id: 1, text: 'First todo'},
+            {id: 2, text: 'Second todo'},
+            {id: 3, text: 'Third todo'}
+        ],
+        [
+            {id: 1, text: 'First reward'},
+            {id: 2, text: 'Second reward'},
+            {id: 3, text: 'Third reward'}
+        ],
+        [
+            {id: 1, text: 'First requirement'},
+            {id: 2, text: 'Second requirement'},
+            {id: 3, text: 'Third requirement'}
+        ],
+        [
+            {color: 'red'}
+        ]
+    ];
+
     const mockUserData = {
         todos: [
             {id: 1, text: 'First todo'},
@@ -74,18 +96,17 @@ it('should return userData from fetchUserData()', async () => {
             {id: 2, text: 'Second requirement'},
             {id: 3, text: 'Third requirement'}
         ],
-        settings: [
-            {color: 'red'}
-        ]
+        settings: {color: 'red'}
     };
 
     const wrapper = shallow(<DataLoader currentUser={mockUser} />);
     const instance = wrapper.instance();
 
     jest.spyOn(instance, 'fetchUserData');
+    jest.spyOn(utils, 'fetchData').mockReturnValueOnce(mockResponseData);
     const userData = await instance.fetchUserData();
 
     expect.assertions(2);
     expect(instance.fetchUserData).toHaveBeenCalledTimes(1);
-    return expect(userData).toEqual(mockUserData);
+    expect(userData).toEqual(mockUserData);
 });
