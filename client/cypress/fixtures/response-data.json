@@ -1,0 +1,45 @@
+{
+    "data": [
+        [
+            {
+                "todoId": 1,
+                "text": "Todo 1",
+                "completed": true
+            },
+            {
+                "todoId": 2,
+                "text": "Todo 2",
+                "completed": false
+            }
+        ],
+        [
+            {
+                "rewardId": 1,
+                "text": "Reward 1"
+            },
+            {
+                "rewardId": 2,
+                "text": "Reward 2"
+            }
+        ],
+        [
+            {
+                "rewardId": 1,
+                "todoId": 1,
+                "text": "Todo 1",
+                "completed": true
+            },
+            {
+                "rewardId": 1,
+                "todoId": 2,
+                "text": "Todo 2",
+                "completed": false
+            }
+        ],
+        [
+            {
+                "color_theme": "red"
+            }
+        ]
+    ]
+}
