@@ -10,8 +10,8 @@ import { Dispatch } from 'redux';
 import { Action, Requirement, Reward, SetCompletedData } from '../../../types';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
-import { IconButton } from '@material-ui/core';
-import { Add, Clear } from '@material-ui/icons';
+import { IconButton } from '@mui/material';
+import { Add, ClearRounded } from '@mui/icons-material';
 
 import { getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
 import { deleteReward, editRewardText, setCompleted, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
@@ -154,7 +154,7 @@ class RewardItem extends React.Component<Props, State> {
                         </IconButton>
                         <form className='reward-delete-form' onSubmit={this.deleteReward}>
                             <IconButton className='reward-delete-form-button' type='submit'>
-                                <Clear className='reward-clear-icon' fontSize='large' />
+                                <ClearRounded className='reward-clear-icon' fontSize='large' />
                             </IconButton>
                         </form>
                     </div>

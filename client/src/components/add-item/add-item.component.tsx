@@ -3,7 +3,7 @@ import { fetchData } from '../../utils';
 
 import './add-item.styles.scss';
 
-import { AddRounded } from '@material-ui/icons';
+import { Add } from '@mui/icons-material';
 
 interface Props {
     type: string,
@@ -24,7 +24,7 @@ const AddItem: React.FC<Props> = ({ type, addItemToRedux }) => {
     return (
         <button className='add-item' onClick={addItem} >
             <div className='plus-container'>
-                <AddRounded className='plus-icon' fontSize='large' />
+                <Add className='plus-icon' fontSize='large' />
             </div>
             <p className='add-item-text'>{type === 'todo' ? 'Add To Do' : 'Add Reward'}</p>
         </button>

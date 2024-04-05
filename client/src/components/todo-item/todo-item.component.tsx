@@ -8,8 +8,8 @@ import { Dispatch } from 'redux';
 import { Action, Requirement, Todo } from '../../../types';
 
 import ToggleButton from '../toggle-button/toggle-button.component';
-import { Clear } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
+import { Clear } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 
 import { deleteTodo, editTodoCompleted, editTodoText } from '../../redux/todos/todos.actions';
 import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText } from '../../redux/requirements/requirements.actions';

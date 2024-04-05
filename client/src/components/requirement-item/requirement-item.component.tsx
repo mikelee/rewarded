@@ -6,8 +6,8 @@ import './requirement-item.styles.scss';
 
 import { Dispatch } from 'redux';
 
-import { CheckRounded, Clear } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
+import { CheckRounded, Clear } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 
 import { deleteRequirement } from '../../redux/requirements/requirements.actions'; 
 

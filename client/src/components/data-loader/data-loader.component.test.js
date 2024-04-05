@@ -86,6 +86,6 @@ it('should return userData from fetchUserData()', async () => {
     const userData = await instance.fetchUserData();
 
     expect.assertions(2);
-    expect(instance.fetchUserData).toBeCalledTimes(1);
+    expect(instance.fetchUserData).toHaveBeenCalledTimes(1);
     return expect(userData).toEqual(mockUserData);
 });
