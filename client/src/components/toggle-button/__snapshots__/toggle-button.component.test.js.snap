@@ -4,10 +4,14 @@ exports[`should render Toggle Button without CheckRoundedIcon 1`] = `
 <div
   className="toggle-button-container"
 >
-  <button
-    className="toggle-button "
-    onClick={[Function]}
-  />
+  <div
+    className="toggle-button"
+  >
+    <button
+      className=""
+      onClick={[Function]}
+    />
+  </div>
 </div>
 `;
 
@@ -15,14 +19,18 @@ exports[`should render ToggleButton with CheckRoundedIcon 1`] = `
 <div
   className="toggle-button-container"
 >
-  <button
-    className="toggle-button "
-    onClick={[Function]}
+  <div
+    className="toggle-button"
   >
-    <CheckRoundedIcon
-      className="check-icon "
-      fontSize="large"
-    />
-  </button>
+    <button
+      className=""
+      onClick={[Function]}
+    >
+      <Memo([object Object])
+        className="check-icon "
+        fontSize="large"
+      />
+    </button>
+  </div>
 </div>
 `;

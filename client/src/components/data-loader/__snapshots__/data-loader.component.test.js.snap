@@ -2,14 +2,4 @@
 
 exports[`should render Preloader child component 1`] = `<Preloader />`;
 
-exports[`should render UserPage child component 1`] = `
-<Connect(UserPage)
-  assignUnlock={[Function]}
-  currentUser={
-    Object {
-      "userId": 9,
-      "username": "Mike Lee",
-    }
-  }
-/>
-`;
+exports[`should render UserPage child component 1`] = `<Connect(UserPage) />`;
