@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -41,72 +41,61 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class UserPage extends React.Component<Props> {
-    private selectionTitle: React.RefObject<HTMLHeadingElement>
-
-    constructor(props: Props) {
-        super(props);
-
-        this.selectionTitle = React.createRef<HTMLHeadingElement>();
-    }
-
-    componentDidUpdate(prevProps: Readonly<Props>) {
-        // if there is a selected reward and it changed
-        if (this.props.selectedRewardId !== null && prevProps.selectedRewardId !== this.props.selectedRewardId) {
-            this.scrollToSelection();
+const UserPage: React.FC<Props> = ({ todos, rewards, selectedRewardId, selectedRewardRequirements, addTodo, addReward, setSelectedRewardId }) => {
+    const selectionTitleRef = useRef<HTMLHeadingElement | null>(null);
+    
+    useEffect(() => {
+        if (selectedRewardId !== null) {
+            scrollToSelection();
         }
+    }, [selectedRewardId]);
+
+    const scrollToSelection = () => {
+        selectionTitleRef.current?.scrollIntoView({behavior: 'smooth'});
     }
 
-    scrollToSelection = () => {
-        this.selectionTitle.current?.scrollIntoView({behavior: 'smooth'});
+    const exitSelection = () => {
+        setSelectedRewardId(null);
     }
 
-    exitSelection = () => {
-        this.props.setSelectedRewardId(null);
-    }
-
-    render() {
-        const { todos, rewards, selectedRewardId, addTodo, addReward } = this.props;
-
-        return (
-            <div className='user-page'>
-                <section className='todos-section'>
-                    {selectedRewardId
-                        ? <h2 className='title' ref={this.selectionTitle}>Select Reward Requirements</h2>
-                        : <h2 className='title'>To Do</h2>
+    return (
+        <div className='user-page'>
+            <section className='todos-section'>
+                {selectedRewardId
+                    ? <h2 className='title' ref={selectionTitleRef}>Select Reward Requirements</h2>
+                    : <h2 className='title'>To Do</h2>
+                }
+                {selectedRewardId !== null ? <button className='exit-button' onClick={exitSelection}>Done</button> : null}
+                <div className='list'>
+                    {todos.map(todo =>
+                        <TodoItem
+                            key={todo.todoId}
+                            id={todo.todoId}
+                            text={todo.text}
+                            completed={todo.completed}
+                            timestamp={todo.timestamp}
+                            selectedRewardId={selectedRewardId}
+                            selected={selectedRewardRequirements?.has(todo.todoId)}
+                        />)
                     }
-                    {this.props.selectedRewardId !== null ? <button className='exit-button' onClick={this.exitSelection}>Done</button> : null}
-                    <div className='list'>
-                        {todos.map(todo =>
-                            <TodoItem
-                                key={todo.todoId}
-                                id={todo.todoId}
-                                text={todo.text}
-                                completed={todo.completed}
-                                timestamp={todo.timestamp}
-                                selectedRewardId={this.props.selectedRewardId}
-                                selected={this.props.selectedRewardRequirements?.has(todo.todoId)}
-                            />)
-                        }
-                    </div>
-                    <AddItem addItemToRedux={addTodo} type='todo' />
-                </section>
-                <section className='rewards-section'>
-                    <h3 className='title'>Rewards</h3>
-                    <div className='list'>
-                        {rewards.map(reward =>
-                            <RewardItem
-                                key={reward.rewardId} id={reward.rewardId}
-                                text={reward.text}
-                                completed={reward.completed}
-                            />)
-                        }
-                    </div>
-                    <AddItem addItemToRedux={addReward} type='reward' />
-                </section>
-            </div>
-        );
-    }
+                </div>
+                <AddItem addItemToRedux={addTodo} type='todo' />
+            </section>
+            <section className='rewards-section'>
+                <h3 className='title'>Rewards</h3>
+                <div className='list'>
+                    {rewards.map(reward =>
+                        <RewardItem
+                            key={reward.rewardId} id={reward.rewardId}
+                            text={reward.text}
+                            completed={reward.completed}
+                        />)
+                    }
+                </div>
+                <AddItem addItemToRedux={addReward} type='reward' />
+            </section>
+        </div>
+    );
 }
 
 const mapStateToProps = createStructuredSelector({

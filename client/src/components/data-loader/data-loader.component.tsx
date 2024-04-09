@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from '../../utils';
 import { applyColorTheme } from '../color-theme/color-theme.component';
@@ -31,32 +31,25 @@ interface DispatchProps {
 
 type Props = OwnProps & DispatchProps;
 
-interface State {
-    dataLoaded: boolean
-}
+export const DataLoader: React.FC<Props> = ({ setTodos, setRewards, setRequirements, setColorTheme, setSort }) => {
 
-export class DataLoader extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
+    const [dataLoaded, setDataLoaded] = useState(false);
 
-        this.state = {
-            dataLoaded: false
-        }
-    }
-
-    async componentDidMount() {
-        const userData = await this.fetchUserData();
-
-        if (userData) {
-            this.applyUserData(userData);
+    useEffect(() => {
+        async function asyncFetchUserData() {
+            const userData = await fetchUserData();
     
-            this.setState({
-                dataLoaded: true
-            });
+            if (userData) {
+                applyUserData(userData);
+        
+                setDataLoaded(true);
+            }
         }
-    }
 
-    fetchUserData = async () => {
+        asyncFetchUserData();
+    }, []);
+
+    const fetchUserData = async () => {
         try {
             const data = await fetchData('/api/user-data', 'GET');
 
@@ -73,24 +66,18 @@ export class DataLoader extends React.Component<Props, State> {
         }
     }
 
-    applyUserData = (userData: UserData) => {
-        const {
-            setTodos,
-            setRewards,
-            setRequirements
-        } = this.props;
-
+    const applyUserData = (userData: UserData) => {
         setTodos(userData.todos);
         setRequirements(userData.requirements);
         setRewards(userData.rewards);
 
-        this.applySettings(userData.settings);
+        applySettings(userData.settings);
     }
 
-    applySettings = (settings: Settings) => {
+    const applySettings = (settings: Settings) => {
         const settingsActions = new Map();
-        settingsActions.set('color_theme', this.props.setColorTheme);
-        settingsActions.set('sort', this.props.setSort);
+        settingsActions.set('color_theme', setColorTheme);
+        settingsActions.set('sort', setSort);
 
         for (const setting in settings) {
             const settingAction = settingsActions.get(setting);
@@ -111,16 +98,12 @@ export class DataLoader extends React.Component<Props, State> {
         }
     }
 
-    render() {
-        const { dataLoaded } = this.state;
-
-        return (
-            dataLoaded ?
-                <UserPage />
-            :
-                <Preloader />
-        );
-    }
+    return (
+        dataLoaded ?
+            <UserPage />
+        :
+            <Preloader />
+    );
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

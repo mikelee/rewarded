@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { fetchData } from '../../utils';
-import equal from 'fast-deep-equal';
 
 import './reward-item.styles.scss';
 
@@ -39,41 +38,27 @@ interface DispatchProps {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-interface State {
-    text: string
-}
+const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, deleteItemRequirements, deleteReward, editRewardText, setCompleted, setSelectedRewardId }) => {
 
-class RewardItem extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
+    const [itemText, setItemText] = useState(text);
 
-        this.state = {
-            text: this.props.text
-        }
-    }
+    useEffect(() => {
+        if (rewardRequirements) {
+            const isCompleted = checkCompleted(rewardRequirements);
 
-    async componentDidUpdate(prevProps: Readonly<Props>) {
-        const currentRequirements = this.props.rewardRequirements;
-        const prevRequirements = prevProps.rewardRequirements;
-
-        if (currentRequirements && !equal(currentRequirements, prevRequirements)) {
-            const isCompleted = this.isCompleted(currentRequirements);
-
-            if (isCompleted !== prevProps.completed) {
-                this.updateCompleted(isCompleted);
+            if (isCompleted !== completed) {
+                updateCompleted(isCompleted);
             }
         }
-    }
+    }, [rewardRequirements]);
 
-    handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         
-        this.setState({
-            text: value
-        });
+        setItemText(value);
     }
 
-    editReward = async (event: React.FormEvent<HTMLFormElement>) => {
+    const editReward = async (event: React.FormEvent<HTMLFormElement>) => {
         if (event) {
             event.preventDefault();
         }
@@ -81,41 +66,41 @@ class RewardItem extends React.Component<Props, State> {
         const path = '/api/reward/update';
         const method = 'PUT';
         const body = {
-            reward_id: this.props.id,
-            text: this.state.text
+            reward_id: id,
+            text: itemText
         };
 
         const updatedReward = await fetchData(path, method, body);
 
-        this.props.editRewardText(updatedReward);
+        editRewardText(updatedReward);
     }
 
-    deleteReward = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const path = '/api/reward/delete';
         const method = 'DELETE';
-        const body = { reward_id: this.props.id };
+        const body = { reward_id: id };
 
         const { reward }: { reward: Reward } = await fetchData(path, method, body);
 
-        this.props.deleteReward(reward.rewardId);
-        this.props.deleteItemRequirements('reward', reward.rewardId);
+        deleteReward(reward.rewardId);
+        deleteItemRequirements('reward', reward.rewardId);
     }
 
-    addOrDeleteRequirement = async () => {
-        this.props.setSelectedRewardId(this.props.id);
+    const addOrDeleteRequirement = async () => {
+        setSelectedRewardId(id);
     }
 
-    isCompleted = (requirements: Requirement[]) => {
+    const checkCompleted = (requirements: Requirement[]) => {
         return requirements.every(requirement => requirement.completed);
     }
 
-    updateCompleted = async (isCompleted: boolean) => {
+    const updateCompleted = async (isCompleted: boolean) => {
         const path = '/api/reward/complete';
         const method = 'PUT';
         const body = {
-            reward_id: this.props.id,
+            reward_id: id,
             completed: isCompleted
         };
 
@@ -126,42 +111,38 @@ class RewardItem extends React.Component<Props, State> {
             completed: updatedReward.completed
         }
 
-        this.props.setCompleted(setCompletedData);
+        setCompleted(setCompletedData);
     }
 
-    render() {
-        const { id, text, completed, rewardRequirements } = this.props;
-
-        return (
-            <div className={`reward ${!completed ? 'locked': ''}`} data-testid={`reward-${id}`}>
-                <form className='reward-form' id={`reward-form-${id}`} onBlur={this.editReward} onSubmit={this.editReward} >
-                    <input className='reward-form-textfield' defaultValue={text} name='text' onChange={this.handleTextChange} />
-                </form>
-                <div className='reward-right-side'>
-                    <div className='reward-to-complete'>
-                        <h3 className='requirements-title'>Requirements</h3>
-                        <div className='requirements-list'>
-                            {
-                                rewardRequirements?.map(rewardRequirements =>
-                                    <RequirementItem key={rewardRequirements.todoId} {...rewardRequirements}/>
-                                )
-                            }
-                        </div>
-                    </div>
-                    <div className='reward-buttons'>
-                        <IconButton className='requirement-add-button' onClick={this.addOrDeleteRequirement}>
-                            <Add className='requirement-add-icon' fontSize='large'/>
-                        </IconButton>
-                        <form className='reward-delete-form' onSubmit={this.deleteReward}>
-                            <IconButton className='reward-delete-form-button' type='submit'>
-                                <ClearRounded className='reward-clear-icon' fontSize='large' />
-                            </IconButton>
-                        </form>
+    return (
+        <div className={`reward ${!completed ? 'locked': ''}`} data-testid={`reward-${id}`}>
+            <form className='reward-form' id={`reward-form-${id}`} onBlur={editReward} onSubmit={editReward} >
+                <input className='reward-form-textfield' defaultValue={text} name='text' onChange={handleTextChange} />
+            </form>
+            <div className='reward-right-side'>
+                <div className='reward-to-complete'>
+                    <h3 className='requirements-title'>Requirements</h3>
+                    <div className='requirements-list'>
+                        {
+                            rewardRequirements?.map(rewardRequirements =>
+                                <RequirementItem key={rewardRequirements.todoId} {...rewardRequirements}/>
+                            )
+                        }
                     </div>
                 </div>
+                <div className='reward-buttons'>
+                    <IconButton className='requirement-add-button' onClick={addOrDeleteRequirement}>
+                        <Add className='requirement-add-icon' fontSize='large'/>
+                    </IconButton>
+                    <form className='reward-delete-form' onSubmit={handleDelete}>
+                        <IconButton className='reward-delete-form-button' type='submit'>
+                            <ClearRounded className='reward-clear-icon' fontSize='large' />
+                        </IconButton>
+                    </form>
+                </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 const mapStateToProps = createStructuredSelector({

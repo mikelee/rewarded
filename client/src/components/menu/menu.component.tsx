@@ -27,43 +27,38 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class Menu extends React.Component<Props> {
-
-    logout = async () => {
+const Menu: React.FC<Props> = ({ submenuCategory, clearAll, setLoggedOutMessage, setSubmenuCategory }) => {
+    const logout = async () => {
         const isLoggedOut = await fetchData('/auth/logout', 'POST');
     
         if (isLoggedOut === true) {
             // Clear all redux data
-            this.props.clearAll();
+            clearAll();
 
-            this.props.setLoggedOutMessage();
+            setLoggedOutMessage();
         }
     }
 
-    clickMenuItem = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const clickMenuItem = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const el = event.target as HTMLElement;
         const category = el.getAttribute('data-name');
-        this.props.setSubmenuCategory(category);
+        setSubmenuCategory(category);
     }
-
-    render() {
-        const { submenuCategory } = this.props; 
         
-        return (
-            <div className='menu'>
-                {
-                !submenuCategory ? 
-                    <div className='menu-items' onClick={event => this.clickMenuItem(event)}>
-                        <p className='menu-item menu-sort' data-name='Sort'>Sort</p>
-                        <p className='menu-item menu-colors' data-name='Color Theme'>Color Theme</p>
-                        <p className='menu-item menu-logout-button' onClick={this.logout}>Logout</p>
-                    </div>
-                :
-                    <Submenu />
-                }
-            </div>
-        );
-    }
+    return (
+        <div className='menu'>
+            {
+            !submenuCategory ? 
+                <div className='menu-items' onClick={event => clickMenuItem(event)}>
+                    <p className='menu-item menu-sort' data-name='Sort'>Sort</p>
+                    <p className='menu-item menu-colors' data-name='Color Theme'>Color Theme</p>
+                    <p className='menu-item menu-logout-button' onClick={logout}>Logout</p>
+                </div>
+            :
+                <Submenu />
+            }
+        </div>
+    );
 }
 
 const mapStateToProps = createStructuredSelector({

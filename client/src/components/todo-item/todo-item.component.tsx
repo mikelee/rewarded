@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { fetchData } from '../../utils';
 
@@ -36,68 +36,53 @@ interface DispatchProps {
 
 type Props = OwnProps & DispatchProps;
 
-interface State {
-    text: string,
-    swipeStart: number | undefined,
-    swipeEnd: number | undefined,
-    swipeChange: number | undefined
-}
+const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, selected, timestamp, deleteTodo, editTodoCompleted, editTodoText, addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText }) => {
 
-class TodoItem extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
+    const [itemText, setItemText] = useState(text);
+    const [swipeStart, setSwipeStart] = useState<number | undefined>();
+    const [swipeEnd, setSwipeEnd] = useState<number | undefined>();
+    const [swipeChange, setSwipeChange] = useState<number | undefined>();
 
-        this.state = {
-            text: this.props.text,
-            swipeStart: undefined,
-            swipeEnd: undefined,
-            swipeChange: undefined
-        }
-    }
-
-    handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         
-        this.setState({
-            text: value
-        });
+        setItemText(value);
     }
 
-    handleSwipeStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    const handleSwipeStart = (event: React.TouchEvent<HTMLDivElement>) => {
         let x: number = event.changedTouches[0].clientX;
 
-        this.setState({swipeStart: x})
+        setSwipeStart(x);
     }
     
-    handleSwipeEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    const handleSwipeEnd = (event: React.TouchEvent<HTMLDivElement>) => {
         let x: number = event.changedTouches[0].clientX;
         let changeX;
 
-        if (this.state.swipeStart) {
-            changeX = x - this.state.swipeStart;
+        if (swipeStart) {
+            changeX = x - swipeStart;
         }
 
-        this.setState({swipeEnd: x});
+        setSwipeEnd(x);
 
-        if (this.state.swipeStart && changeX) {
+        if (swipeStart && changeX) {
             if (changeX <= -75 || 75 <= changeX) {
-                this.deleteTodo();
+                handleDelete();
             } else {
-                this.setState({swipeChange: 0});
+                setSwipeChange(0);
             }
         }
     }
 
-    handleSwipeMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    const handleSwipeMove = (event: React.TouchEvent<HTMLDivElement>) => {
         let x: number = event.changedTouches[0].clientX;
-        let start: number | undefined = this.state.swipeStart;
 
-        if (start) {
-            this.setState({swipeChange: x - start});
+        if (swipeStart) {
+            setSwipeChange(x - swipeStart);
         }
     }
 
-    updateTodo = async (event: React.FocusEvent<HTMLFormElement> | React.FormEvent<HTMLFormElement>) => {
+    const updateTodo = async (event: React.FocusEvent<HTMLFormElement> | React.FormEvent<HTMLFormElement>) => {
         if (event) {
             event.preventDefault();
         }
@@ -105,60 +90,58 @@ class TodoItem extends React.Component<Props, State> {
         const path = '/api/todo/update';
         const method = 'PUT';
         const body = {
-            todo_id: this.props.id,
-            text: this.state.text
+            todo_id: id,
+            text: itemText
         };
 
         const updatedTodo: Todo = await fetchData(path, method, body);
 
-        this.props.editTodoText(updatedTodo);
-        this.props.editRequirementText(updatedTodo);
+        editTodoText(updatedTodo);
+        editRequirementText(updatedTodo);
     }
 
-    deleteTodo = async (event: React.FormEvent<HTMLFormElement> | undefined = undefined) => {
+    const handleDelete = async (event: React.FormEvent<HTMLFormElement> | undefined = undefined) => {
         if (event) event.preventDefault();
 
         const path = '/api/todo/delete';
         const method = 'DELETE';
-        const body = { todo_id: this.props.id };
+        const body = { todo_id: id };
 
         const { todo }: { todo: Todo } = await fetchData(path, method, body);
 
-        this.props.deleteTodo(todo.todoId);
-        this.props.deleteItemRequirements('todo', todo.todoId);
+        deleteTodo(todo.todoId);
+        deleteItemRequirements('todo', todo.todoId);
     }
 
-    toggleTodoCompleted = async () => {
+    const toggleTodoCompleted = async () => {
         const path = '/api/todo/complete';
         const method = 'POST';
-        const body = { todo_id: this.props.id };
+        const body = { todo_id: id };
 
         const updatedTodo = await fetchData(path, method, body);
 
-        this.props.editTodoCompleted(updatedTodo);
-        this.props.editRequirementCompleted(updatedTodo);
+        editTodoCompleted(updatedTodo);
+        editRequirementCompleted(updatedTodo);
     }
 
-    createOrDeleteRequirement = async () => {
-        const { selected } = this.props;
-
+    const createOrDeleteRequirement = async () => {
         if (selected) {
             const path = '/api/requirement/delete';
             const method = 'DELETE';
             const body = {
-                reward_id: this.props.selectedRewardId,
-                todo_id: this.props.id
+                reward_id: selectedRewardId,
+                todo_id: id
             };
 
             const deletedRequirement: Requirement = await fetchData(path, method, body);
 
-            this.props.deleteRequirement(deletedRequirement.todoId, deletedRequirement.rewardId);
+            deleteRequirement(deletedRequirement.todoId, deletedRequirement.rewardId);
         } else {
             const path = '/api/requirement/create';
             const method = 'POST';
             const body = {
-                reward_id: this.props.selectedRewardId,
-                todo_id: this.props.id
+                reward_id: selectedRewardId,
+                todo_id: id
             };
 
             const newRequirement: Requirement = await fetchData(path, method, body);
@@ -167,49 +150,45 @@ class TodoItem extends React.Component<Props, State> {
                 Requirements in database only have todoId and rewardId.
                 These lines "join" the todo's text, completed, and timestamp values with the requirement.
             */
-            newRequirement.text = this.props.text;
-            newRequirement.completed = this.props.completed;
-            newRequirement.timestamp = this.props.timestamp;
+            newRequirement.text = text;
+            newRequirement.completed = completed;
+            newRequirement.timestamp = timestamp;
 
-            this.props.addRequirement(newRequirement);
+            addRequirement(newRequirement);
         }
     }
 
-    render() {
-        const { id, text, completed, selectedRewardId, selected } = this.props;
-
-        return (
-            <div
-                className='todo' 
-                data-testid={`todo-${id}`}
-                {...window.innerWidth <= 480 &&
-                    {
-                        onTouchStart: event => this.handleSwipeStart(event), 
-                        onTouchEnd: event => this.handleSwipeEnd(event), 
-                        onTouchMove: event => this.handleSwipeMove(event)
-                    }
-                } 
-                style={{transform: `translateX(${this.state.swipeChange}px)`}}
-            >
-                {!selectedRewardId
-                ? <ToggleButton completed={completed} selected={selected} onClick={this.toggleTodoCompleted} />
-                : <ToggleButton completed={completed} selected={selected} onClick={this.createOrDeleteRequirement} />
+    return (
+        <div
+            className='todo' 
+            data-testid={`todo-${id}`}
+            {...window.innerWidth <= 480 &&
+                {
+                    onTouchStart: event => handleSwipeStart(event), 
+                    onTouchEnd: event => handleSwipeEnd(event), 
+                    onTouchMove: event => handleSwipeMove(event)
                 }
-                <form className='todo-edit-form' id={`todo-edit-form-${id}`} test-id={`todo-edit-form-${id}`} onBlur={this.updateTodo} onSubmit={this.updateTodo} >
-                    <input aria-label='todo-text' name='text' className={`todo-edit-form-textfield ${completed ? 'text-completed': ''}`} onChange={this.handleTextChange} placeholder='I want to...' defaultValue={text}/>
+            } 
+            style={{transform: `translateX(${swipeChange}px)`}}
+        >
+            {!selectedRewardId
+            ? <ToggleButton completed={completed} selected={selected} onClick={toggleTodoCompleted} />
+            : <ToggleButton completed={completed} selected={selected} onClick={createOrDeleteRequirement} />
+            }
+            <form className='todo-edit-form' id={`todo-edit-form-${id}`} test-id={`todo-edit-form-${id}`} onBlur={updateTodo} onSubmit={updateTodo} >
+                <input aria-label='todo-text' name='text' className={`todo-edit-form-textfield ${completed ? 'text-completed': ''}`} onChange={handleTextChange} placeholder='I want to...' defaultValue={text}/>
+            </form>
+            {!selectedRewardId
+            ?
+                <form className='todo-delete-form' onSubmit={handleDelete}>
+                    <IconButton className='todo-icon-button' type='submit'>
+                        <Clear className='todo-clear-icon' fontSize='large'/>
+                    </IconButton>
                 </form>
-                {!selectedRewardId
-                ?
-                    <form className='todo-delete-form' onSubmit={this.deleteTodo}>
-                        <IconButton className='todo-icon-button' type='submit'>
-                            <Clear className='todo-clear-icon' fontSize='large'/>
-                        </IconButton>
-                    </form>
-                : null
-                }
-            </div>
-        );
-    }
+            : null
+            }
+        </div>
+    );
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

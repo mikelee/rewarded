@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from '../../utils';
 
@@ -20,31 +20,19 @@ interface DispatchProps {
 
 type Props = OwnProps & DispatchProps;
 
-interface State {
-    username: string,
-    password: string,
-    errorMessage: string
-}
+const SignIn: React.FC<Props> = ({ type, setCurrentUser }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-class SignIn extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            username: '',
-            password: '',
-            errorMessage: ''
-        }
-    }
-
-    handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
-            const path = `/auth/${this.props.type}`;
+            const path = `/auth/${type}`;
             const body = {
-                username: this.state.username,
-                password: this.state.password
+                username: username,
+                password: password
             }
 
             const responseData = await fetchData(path, 'POST', body);
@@ -56,66 +44,52 @@ class SignIn extends React.Component<Props, State> {
             const errorMessage = responseData.errorMessage;
             
             if (errorMessage) {
-                this.setState({
-                    errorMessage
-                });
+                setErrorMessage(errorMessage)
                 setTimeout(() => {
-                    this.setState({errorMessage: ''});
+                    setErrorMessage('')
                 }, 3000);
             } else {
-                this.setState({
-                    username: '',
-                    password: ''
-                });
-                this.props.setCurrentUser(user);
+                setUsername('');
+                setPassword('');
+                setCurrentUser(user);
             }
         } catch(err) {
             console.log(err);
         }
     }
 
-    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value } as any);
-    }
-
-    render() {
-        const { type } = this.props;
-        const { errorMessage } = this.state;
-
-        return (
-            <div className='sign-in'>
-                <div className='content'>
-                    <div className='shadow-container'>
-                        <div className='sign-in-left'>
-                            <div className='graphic-container'>
-                                <div className='bench-graphic'>
-                                    <BenchSVG />
-                                </div>
+    return (
+        <div className='sign-in'>
+            <div className='content'>
+                <div className='shadow-container'>
+                    <div className='sign-in-left'>
+                        <div className='graphic-container'>
+                            <div className='bench-graphic'>
+                                <BenchSVG />
                             </div>
                         </div>
                     </div>
-                    <div className='sign-in-right'>
-                        <h3 className='sign-in-title'>
-                            {type === 'sign-in'
-                            ? 'Welcome Back!'
-                            : 'Start Achieving!'
-                            }
-                        </h3>
-                        <form className='sign-in-form' onSubmit={this.handleSubmit} >
-                            <input type='text' name='username' onChange={this.handleChange} placeholder='username' autoFocus></input>
-                            <input type='password' name='password' onChange={this.handleChange} placeholder='password'></input>
-                            { type === 'sign-in' ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
-                        </form>
-                        {errorMessage === ''
-                        ? null
-                        : <p className='sign-in-error-message'>{errorMessage}</p>
+                </div>
+                <div className='sign-in-right'>
+                    <h3 className='sign-in-title'>
+                        {type === 'sign-in'
+                        ? 'Welcome Back!'
+                        : 'Start Achieving!'
                         }
-                    </div>
+                    </h3>
+                    <form className='sign-in-form' onSubmit={handleSubmit} >
+                        <input type='text' name='username' onChange={(e) => setUsername(e.target.value)} placeholder='username' autoFocus></input>
+                        <input type='password' name='password' onChange={(e) => setPassword(e.target.value)} placeholder='password'></input>
+                        { type === 'sign-in' ? <button type='submit'>Sign In</button> : <button type='submit'>Sign Up</button> }
+                    </form>
+                    {errorMessage === ''
+                    ? null
+                    : <p className='sign-in-error-message'>{errorMessage}</p>
+                    }
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
