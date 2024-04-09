@@ -12,7 +12,6 @@ import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@mui/material';
 import { Add, ClearRounded } from '@mui/icons-material';
 
-import { getSelectedRewardId } from '../../redux/rewards/rewards.selectors';
 import { deleteReward, editRewardText, setCompleted, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
 import { deleteItemRequirements } from '../../redux/requirements/requirements.actions';
@@ -24,8 +23,7 @@ export interface OwnProps {
 }
 
 interface StateProps {
-    rewardRequirements: Requirement[] | undefined,
-    selectedRewardId: number | null
+    rewardRequirements: Requirement[] | undefined
 }
 
 interface DispatchProps {
@@ -140,8 +138,7 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
 }
 
 const mapStateToProps = createStructuredSelector({
-    rewardRequirements: getRewardRequirements,
-    selectedRewardId: getSelectedRewardId
+    rewardRequirements: getRewardRequirements
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
