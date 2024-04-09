@@ -12,13 +12,11 @@ import AddItem from '../../components/add-item/add-item.component';
 import RewardItem from '../../components/reward-item/reward-item.component';
 
 import { getTodos } from '../../redux/todos/todos.selectors'
-import { addTodo, setTodos } from '../../redux/todos/todos.actions';
+import { addTodo } from '../../redux/todos/todos.actions';
 import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
-import { addReward, setRewards, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { addReward, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
 import { getRequirements, getSelectedRewardRequirements } from '../../redux/requirements/requirements.selectors';
-import { setRequirements } from '../../redux/requirements/requirements.actions';
 import { getColorTheme } from '../../redux/user/user.selectors';
-import { setColorTheme } from '../../redux/user/user.actions';
 
 interface StateProps {
     todos: Todo[],
@@ -31,12 +29,8 @@ interface StateProps {
 
 interface DispatchProps {
     addTodo: (todo: Todo) => void,
-    setTodos: (todos: Todo[]) => void,
     addReward: (reward: Reward) => void,
-    setRewards: (rewards: Reward[]) => void,
     setSelectedRewardId: (rewardId: number | null) => void,
-    setRequirements: (requirements: Requirement[]) => void,
-    setColorTheme: (color: string) => void
 }
 
 type Props = StateProps & DispatchProps;
@@ -109,12 +103,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     addTodo: (todo: Todo) => dispatch(addTodo(todo)),
-    setTodos: (todos: Todo[]) => dispatch(setTodos(todos)),
     addReward: (reward: Reward) => dispatch(addReward(reward)),
-    setRewards: (rewards: Reward[]) => dispatch(setRewards(rewards)),
-    setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId)),
-    setRequirements: (requirements: Requirement[]) => dispatch(setRequirements(requirements)),
-    setColorTheme: (color: string) => dispatch(setColorTheme(color))
+    setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
