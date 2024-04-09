@@ -39,7 +39,6 @@ type Props = OwnProps & DispatchProps;
 const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, selected, timestamp, deleteTodo, editTodoCompleted, editTodoText, addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText }) => {
 
     const [swipeStart, setSwipeStart] = useState<number | undefined>();
-    const [swipeEnd, setSwipeEnd] = useState<number | undefined>();
     const [swipeChange, setSwipeChange] = useState<number | undefined>();
 
     const handleSwipeStart = (event: React.TouchEvent<HTMLDivElement>) => {
@@ -55,8 +54,6 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
         if (swipeStart) {
             changeX = x - swipeStart;
         }
-
-        setSwipeEnd(x);
 
         if (swipeStart && changeX) {
             if (changeX <= -75 || 75 <= changeX) {
