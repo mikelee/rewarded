@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { fetchData } from '../../utils';
@@ -40,8 +40,6 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, deleteItemRequirements, deleteReward, editRewardText, setCompleted, setSelectedRewardId }) => {
 
-    const [itemText, setItemText] = useState(text);
-
     useEffect(() => {
         if (rewardRequirements) {
             const isCompleted = checkCompleted(rewardRequirements);
@@ -52,22 +50,18 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
         }
     }, [rewardRequirements]);
 
-    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        
-        setItemText(value);
-    }
-
     const editReward = async (event: React.FormEvent<HTMLFormElement>) => {
         if (event) {
             event.preventDefault();
         }
 
+        const changedText = (event.target as HTMLInputElement).value;
+
         const path = '/api/reward/update';
         const method = 'PUT';
         const body = {
             reward_id: id,
-            text: itemText
+            text: changedText
         };
 
         const updatedReward = await fetchData(path, method, body);
@@ -117,7 +111,7 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
     return (
         <div className={`reward ${!completed ? 'locked': ''}`} data-testid={`reward-${id}`}>
             <form className='reward-form' id={`reward-form-${id}`} onBlur={editReward} onSubmit={editReward} >
-                <input className='reward-form-textfield' defaultValue={text} name='text' onChange={handleTextChange} />
+                <input className='reward-form-textfield' defaultValue={text} name='text' />
             </form>
             <div className='reward-right-side'>
                 <div className='reward-to-complete'>

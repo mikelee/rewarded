@@ -38,16 +38,9 @@ type Props = OwnProps & DispatchProps;
 
 const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, selected, timestamp, deleteTodo, editTodoCompleted, editTodoText, addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText }) => {
 
-    const [itemText, setItemText] = useState(text);
     const [swipeStart, setSwipeStart] = useState<number | undefined>();
     const [swipeEnd, setSwipeEnd] = useState<number | undefined>();
     const [swipeChange, setSwipeChange] = useState<number | undefined>();
-
-    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        
-        setItemText(value);
-    }
 
     const handleSwipeStart = (event: React.TouchEvent<HTMLDivElement>) => {
         let x: number = event.changedTouches[0].clientX;
@@ -87,11 +80,13 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
             event.preventDefault();
         }
 
+        const changedText = (event.target as HTMLInputElement).value;
+
         const path = '/api/todo/update';
         const method = 'PUT';
         const body = {
             todo_id: id,
-            text: itemText
+            text: changedText
         };
 
         const updatedTodo: Todo = await fetchData(path, method, body);
@@ -176,7 +171,7 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
             : <ToggleButton completed={completed} selected={selected} onClick={createOrDeleteRequirement} />
             }
             <form className='todo-edit-form' id={`todo-edit-form-${id}`} test-id={`todo-edit-form-${id}`} onBlur={updateTodo} onSubmit={updateTodo} >
-                <input aria-label='todo-text' name='text' className={`todo-edit-form-textfield ${completed ? 'text-completed': ''}`} onChange={handleTextChange} placeholder='I want to...' defaultValue={text}/>
+                <input aria-label='todo-text' name='text' className={`todo-edit-form-textfield ${completed ? 'text-completed': ''}`} placeholder='I want to...' defaultValue={text}/>
             </form>
             {!selectedRewardId
             ?
