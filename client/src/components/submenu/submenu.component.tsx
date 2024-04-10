@@ -29,7 +29,7 @@ type Props = StateProps & DispatchProps;
 const Submenu: React.FC<Props> = ({ submenuCategory, setSubmenuCategory, setColorTheme }) => {
 
     useEffect(() => {
-        return () => setSubmenuCategory(null);
+        return () => goBackToMenu();
     }, []);
 
     const getComponent = () => {
