@@ -28,7 +28,7 @@ const App: React.FC<AppProps> = ({ currentUser }) => (
                     ? 
                         <>
                             <Nav currentUser={currentUser} />
-                            <DataLoader currentUser={currentUser} />
+                            <DataLoader />
                         </>
                     :
                         <HomePage currentUser={currentUser} />

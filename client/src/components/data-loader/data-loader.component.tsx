@@ -17,10 +17,6 @@ import { setColorTheme } from '../../redux/user/user.actions';
 import { setSort } from '../../redux/menu/menu.actions';
 import { Action } from 'redux';
 
-interface OwnProps {
-    currentUser: User
-}
-
 interface DispatchProps {
     setTodos: (todos: Todo[]) => void,
     setRewards: (rewards: Reward[]) => void,
@@ -29,7 +25,7 @@ interface DispatchProps {
     setSort: (sort: SortOrder) => void,
 }
 
-type Props = OwnProps & DispatchProps;
+type Props = DispatchProps;
 
 export const DataLoader: React.FC<Props> = ({ setTodos, setRewards, setRequirements, setColorTheme, setSort }) => {
 
