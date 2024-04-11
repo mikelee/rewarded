@@ -28,6 +28,7 @@ exports[`should render ToggleButton with CheckRoundedIcon 1`] = `
     >
       <Memo([object Object])
         className="check-icon "
+        data-testid="check"
         fontSize="large"
       />
     </button>
