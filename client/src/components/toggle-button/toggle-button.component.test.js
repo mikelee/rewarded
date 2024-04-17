@@ -1,16 +1,19 @@
-import { shallow }  from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json'
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 import ToggleButton from './toggle-button.component';
 
-it('should render ToggleButton with CheckRoundedIcon', () => {
-    const wrapper = shallow(<ToggleButton type='forTodo' completed={1} toggleTodoCompleted={jest.fn()} />)
+it('should render ToggleButton with CheckRounded icon', () => {
+    render(<ToggleButton completed={true} selected={false} onClick={jest.fn()} />);
 
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
+    const check = screen.getByTestId('check');
+
+    expect(check).toBeInTheDocument();
 });
 
-it('should render Toggle Button without CheckRoundedIcon', () => {
-    const wrapper = shallow(<ToggleButton type='forTodo' completed={0} toggleTodoCompleted={jest.fn()} />)
+it('should render Toggle Button without CheckRounded icon', () => {
+    render(<ToggleButton completed={false} selected={false} onClick={jest.fn()} />);
 
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
+    const check = screen.queryByTestId('check');
+    
+    expect(check).not.toBeInTheDocument();
 });
