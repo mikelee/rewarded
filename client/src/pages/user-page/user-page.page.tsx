@@ -53,7 +53,7 @@ const UserPage: React.FC<Props> = ({ todos, rewards, selectedRewardId, selectedR
     }
 
     return (
-        <div className='user-page'>
+        <div className='user-page' data-testid='user-page'>
             <section className='todos-section'>
                 {selectedRewardId
                     ? <h2 className='title' ref={selectionTitleRef}>Select Reward Requirements</h2>

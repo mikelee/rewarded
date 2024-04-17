@@ -3,7 +3,7 @@ import React from 'react';
 import './preloader.styles.scss';
 
 const Preloader: React.FC = () => (
-    <div className='preloader'>
+    <div className='preloader' data-testid='preloader'>
         <div className='ripple'>
             <div></div>
             <div></div>
