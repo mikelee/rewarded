@@ -54,6 +54,9 @@
     ]
   },
   "devDependencies": {
-    "jest-fetch-mock": "^3.0.3"
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "jest-fetch-mock": "^3.0.3",
+    "postgres": "^3.4.4"
   }
 }
