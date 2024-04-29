@@ -1,6 +1,6 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './root-reducer';
-import { ReduxState } from './root-reducer';
+import { ReduxState } from './store';
 
 const testStoreState: ReduxState = {
     user: {
@@ -92,6 +92,10 @@ const testStoreState: ReduxState = {
     }
 }
 
-const testStore = createStore(rootReducer, testStoreState);
+export const testStore = configureStore({
+    reducer: rootReducer,
+    preloadedState: testStoreState,
+    devTools: true
+});
 
 export default testStore;
