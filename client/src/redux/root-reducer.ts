@@ -11,8 +11,7 @@ import temporaryReducer from './temporary/temporary.reducer';
 
 import userActionTypes from './user/user.types';
 
-import { Reducer } from 'redux';
-import { Action } from '../../types';
+import { Reducer, Action } from 'redux';
 
 const persistConfig = {
     key: 'root',
