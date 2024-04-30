@@ -89,6 +89,10 @@ const testStoreState: ReduxState = {
     },
     temporary: {
         loggedOutMessage: false
+    },
+    _persist: {
+        version: -1,
+        rehydrated: false
     }
 }
 
