@@ -11,7 +11,7 @@ const menuSlice = createSlice({
     name: 'menu',
     initialState,
     reducers: {
-        menuVisibleToggled(state, action) {
+        menuVisibleToggled(state) {
             state.visible = !state.visible;
         },
         sortSet(state, action) {

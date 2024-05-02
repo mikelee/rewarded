@@ -9,7 +9,7 @@ const temporarySlice = createSlice({
     name: 'temporary',
     initialState,
     reducers: {
-        loggedOutMessageSet(state, action) {
+        loggedOutMessageSet(state) {
             state.loggedOutMessage = true;
         }
     }
