@@ -18,7 +18,7 @@ const requirementsSlice = createSlice({
             : state.requirements.filter(requirement => requirement.rewardId !== action.payload.itemId)
         },
         requirementDeleted(state, action) {
-            state.requirements.filter(requirement => requirement.todoId !== action.payload.todoId || requirement.rewardId !== action.payload.rewardId);
+            state.requirements = state.requirements.filter(requirement => requirement.todoId !== action.payload.todoId || requirement.rewardId !== action.payload.rewardId);
         },
         requirementCompletedToggled(state, action) {
             const matchingRequirement = state.requirements.find(requirement => requirement.todoId === action.payload.todoId);

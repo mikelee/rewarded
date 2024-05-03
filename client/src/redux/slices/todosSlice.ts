@@ -13,7 +13,7 @@ const todosSlice = createSlice({
             state.todos.push(action.payload);
         },
         todoDeleted(state, action) {
-            state.todos.filter(todo => todo.todoId !== action.payload);
+            state.todos = state.todos.filter(todo => todo.todoId !== action.payload);
         },
         todoCompletedToggled(state, action) {
             const matchingTodo = state.todos.find(todo => todo.todoId === action.payload.id);
