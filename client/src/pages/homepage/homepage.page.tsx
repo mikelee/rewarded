@@ -11,11 +11,9 @@ import { User } from '../../../types';
 
 import { getLoggedOutMessage } from '../../redux/temporary/temporary.selectors';
 
-interface OwnProps {
+interface Props {
     currentUser: User | null
 }
-
-type Props = OwnProps;
 
 const HomePage: React.FC<Props> = ({ currentUser }) => {
     const loggedOutMessage = useSelector(getLoggedOutMessage);

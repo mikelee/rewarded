@@ -9,11 +9,9 @@ import { sortSet } from '../../redux/slices/menuSlice';
 
 export type SortOrder = 'Newest First' | 'Oldest First' | 'A-Z' | 'Z-A';
 
-interface OwnProps {
+interface Props {
     sortOrders: SortOrder[]
 }
-
-type Props = OwnProps;
 
 const Sort: React.FC<Props> = ({ sortOrders }) => {
     const sort = useSelector(getSort);

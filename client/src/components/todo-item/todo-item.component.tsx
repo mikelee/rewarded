@@ -13,7 +13,7 @@ import { IconButton } from '@mui/material';
 import { todoCompletedToggled, todoDeleted, todoTextEdited } from '../../redux/slices/todosSlice';
 import { itemRequirementsDeleted, requirementAdded, requirementCompletedToggled, requirementDeleted, requirementTextEdited } from '../../redux/slices/requirementsSlice';
 
-interface OwnProps {
+interface Props {
     id: number,
     text: string,
     completed: boolean,
@@ -21,8 +21,6 @@ interface OwnProps {
     selected: boolean
     timestamp: string,
 }
-
-type Props = OwnProps;
 
 const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, selected, timestamp }) => {
     const [swipeStart, setSwipeStart] = useState<number | undefined>();

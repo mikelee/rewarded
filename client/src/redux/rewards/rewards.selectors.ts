@@ -3,11 +3,11 @@ import { sortItems } from '../../utils';
 
 import { Reward } from '../../../types';
 import { ReduxState } from '../root-reducer';
-import { OwnProps } from '../../components/reward-item/reward-item.component';
+import { Props } from '../../components/reward-item/reward-item.component';
 
 const selectRewards = (state: ReduxState) => state.rewards;
 
-const selectSpecificReward = (state: ReduxState, props: OwnProps) => {
+const selectSpecificReward = (state: ReduxState, props: Props) => {
     const rewards = state.rewards.rewards;
     
     return rewards?.find((reward: Reward) => reward.rewardId === props.id);

@@ -9,14 +9,12 @@ import { IconButton } from '@mui/material';
 
 import { requirementDeleted } from '../../redux/slices/requirementsSlice';
 
-interface OwnProps {
+interface Props {
     todoId: number,
     rewardId: number,
     text: string,
     completed: boolean
 }
-
-type Props = OwnProps;
 
 const RequirementItem: React.FC<Props> = ({ todoId, rewardId, text, completed }) => {
     const dispatch = useDispatch();

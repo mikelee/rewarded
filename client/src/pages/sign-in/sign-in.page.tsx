@@ -7,11 +7,9 @@ import BenchSVG from '../../components/svg-components/bench-svg.component';
 
 import { currentUserSet } from '../../redux/slices/userSlice';
 
-interface OwnProps {
+interface Props {
     type: string
 }
-
-type Props = OwnProps;
 
 const SignIn: React.FC<Props> = ({ type }) => {
     const [username, setUsername] = useState('');

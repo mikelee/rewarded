@@ -15,13 +15,11 @@ import { rewardDeleted, rewardTextEdited, rewardCompletedToggled, selectedReward
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
 import { itemRequirementsDeleted } from '../../redux/slices/requirementsSlice';
 
-export interface OwnProps {
+export interface Props {
     id: number,
     text: string,
     completed: boolean
 }
-
-type Props = OwnProps;
 
 const RewardItem: React.FC<Props> = ({ id, text, completed }) => {
     const rewardRequirements = useSelector((state: ReduxState) => getRewardRequirements(state, id));

@@ -12,12 +12,10 @@ import Menu from '../menu/menu.component';
 import { menuVisibleToggled } from '../../redux/slices/menuSlice';
 import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 
-interface OwnProps {
+interface Props {
     currentUser: User | null,
     isTransparent?: boolean
 }
-
-type Props = OwnProps;
 
 const Nav: React.FC<Props> = ({ currentUser, isTransparent }) => {
     const visible = useSelector(selectMenuVisible);
