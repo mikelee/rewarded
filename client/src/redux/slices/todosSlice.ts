@@ -16,12 +16,13 @@ const todosSlice = createSlice({
             state.todos = state.todos.filter(todo => todo.todoId !== action.payload);
         },
         todoCompletedToggled(state, action) {
-            const matchingTodo = state.todos.find(todo => todo.todoId === action.payload.id);
+            console.log('payload', action.payload)
+            const matchingTodo = state.todos.find(todo => todo.todoId === action.payload.todoId);
 
             if (matchingTodo) matchingTodo.completed = action.payload.completed;
         },
         todoTextEdited(state, action) {
-            const matchingTodo = state.todos.find(todo => todo.todoId === action.payload.id);
+            const matchingTodo = state.todos.find(todo => todo.todoId === action.payload.todoId);
 
             if (matchingTodo) matchingTodo.text = action.payload.text;
         },

@@ -17,12 +17,12 @@ const rewardsSlice = createSlice({
             state.rewards = state.rewards.filter(reward => reward.rewardId !== action.payload);
         },
         rewardCompletedToggled(state, action) {
-            const matchingReward = state.rewards.find(reward => reward.rewardId === action.payload.id);
-
+            const matchingReward = state.rewards.find(reward => reward.rewardId === action.payload.rewardId);
+            
             if (matchingReward) matchingReward.completed = action.payload.completed;
         },
         rewardTextEdited(state, action) {
-            const matchingReward = state.rewards.find(reward => reward.rewardId === action.payload.id);
+            const matchingReward = state.rewards.find(reward => reward.rewardId === action.payload.rewardId);
 
             if (matchingReward) matchingReward.text = action.payload.text;
         },
