@@ -14,8 +14,7 @@ export const store = configureStore({
             }
         });
 
-        defaultMiddleware.concat(logger);
-        return defaultMiddleware;
+        return defaultMiddleware.concat(logger);
     }
 });
 
