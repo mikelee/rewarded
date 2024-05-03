@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 
 import Nav from '../../components/nav/nav.component';
 
@@ -16,49 +15,45 @@ interface OwnProps {
     currentUser: User | null
 }
 
-interface StateProps {
-    loggedOutMessage: boolean
-}
+type Props = OwnProps;
 
-type Props = OwnProps & StateProps;
+const HomePage: React.FC<Props> = ({ currentUser }) => {
+    const loggedOutMessage = useSelector(getLoggedOutMessage);
 
-const HomePage: React.FC<Props> = ({ currentUser, loggedOutMessage }) => (
-    <div className='homepage'>
-        <Nav currentUser={currentUser} isTransparent={true} />
-        <div className='slant-background-container'>
-            <div className='slant-background'></div>
-        </div>
-            <div className='content'>
-                <div className='text-container'>
-                    {
-                        !loggedOutMessage ?
-                            <>
-                                <h1 className='text'>Rewarded</h1>
-                                <p className='subtext'>Achieve greatness!</p>
-                            </>
-                        :
-                            <>
-                                <h1 className='text'>You have successfully logged out</h1>
-                                <p className='subtext'>Enjoy your day!</p>
-                            </>
-                    }
-                </div>
-                <div className='graphic-container'>
-                    <div className='graphic'>
+    return (
+        <div className='homepage'>
+            <Nav currentUser={currentUser} isTransparent={true} />
+            <div className='slant-background-container'>
+                <div className='slant-background'></div>
+            </div>
+                <div className='content'>
+                    <div className='text-container'>
                         {
                             !loggedOutMessage ?
-                            <CompletedSVG />
+                                <>
+                                    <h1 className='text'>Rewarded</h1>
+                                    <p className='subtext'>Achieve greatness!</p>
+                                </>
                             :
-                            <HikingSVG />
+                                <>
+                                    <h1 className='text'>You have successfully logged out</h1>
+                                    <p className='subtext'>Enjoy your day!</p>
+                                </>
                         }
                     </div>
+                    <div className='graphic-container'>
+                        <div className='graphic'>
+                            {
+                                !loggedOutMessage ?
+                                <CompletedSVG />
+                                :
+                                <HikingSVG />
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
-    </div>
-);
+        </div>
+    );
+}
 
-const mapStateToProps = createStructuredSelector({
-    loggedOutMessage: getLoggedOutMessage
-});
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

@@ -1,15 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchData } from '../../utils';
 
 import './requirement-item.styles.scss';
 
-import { Dispatch } from 'redux';
-
 import { CheckRounded, Clear } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-import { deleteRequirement } from '../../redux/requirements/requirements.actions'; 
+import { requirementDeleted } from '../../redux/slices/requirementsSlice';
 
 interface OwnProps {
     todoId: number,
@@ -18,13 +16,10 @@ interface OwnProps {
     completed: boolean
 }
 
-interface DispatchProps {
-    deleteRequirement: (todoId: number, rewardId: number) => void
-}
+type Props = OwnProps;
 
-type Props = OwnProps & DispatchProps;
-
-const RequirementItem: React.FC<Props> = ({ todoId, rewardId, text, completed, deleteRequirement }) => {
+const RequirementItem: React.FC<Props> = ({ todoId, rewardId, text, completed }) => {
+    const dispatch = useDispatch();
 
     const handleDeleteRequirement = (todoId: number) => {
         return async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +34,7 @@ const RequirementItem: React.FC<Props> = ({ todoId, rewardId, text, completed, d
 
             const deletedRequirement: { todoId: number, rewardId: number } = await fetchData(path, method, body);
 
-            deleteRequirement(deletedRequirement.todoId, deletedRequirement.rewardId);
+            dispatch(requirementDeleted({ todoId: deletedRequirement.todoId, rewardId: deletedRequirement.rewardId }));
         }
     }
     
@@ -61,8 +56,4 @@ const RequirementItem: React.FC<Props> = ({ todoId, rewardId, text, completed, d
     );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    deleteRequirement: (todoId: number, rewardId: number) => dispatch(deleteRequirement(todoId, rewardId))
-});
-
-export default connect(null, mapDispatchToProps)(RequirementItem);
+export default RequirementItem;

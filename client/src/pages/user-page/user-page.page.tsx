@@ -1,41 +1,31 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './user-page.styles.scss';
 
-import { Dispatch } from 'redux';
-import { Todo, Reward, Requirement, Action } from '../../../types';
+import { ReduxState } from '../../redux/root-reducer';
 
 import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
 import RewardItem from '../../components/reward-item/reward-item.component';
 
 import { getTodos } from '../../redux/todos/todos.selectors'
-import { addTodo } from '../../redux/todos/todos.actions';
+import { todoAdded } from '../../redux/slices/todosSlice';
 import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
-import { addReward, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { rewardAdded, selectedRewardIdSet } from '../../redux/slices/rewardsSlice';
 import { getRequirements, getSelectedRewardRequirements } from '../../redux/requirements/requirements.selectors';
 import { getColorTheme } from '../../redux/user/user.selectors';
 
-interface StateProps {
-    todos: Todo[],
-    rewards: Reward[],
-    selectedRewardId: number | null,
-    selectedRewardRequirements: Set<number>,
-    requirements: Requirement[],
-    colorTheme: string | null
-}
+const UserPage: React.FC = () => {
+    const todos = useSelector((state: ReduxState) => getTodos(state));
+    const rewards = useSelector((state: ReduxState) => getRewards(state));
+    const selectedRewardId = useSelector((state: ReduxState) => getSelectedRewardId(state));
+    const selectedRewardRequirements = useSelector((state: ReduxState) => getSelectedRewardRequirements(state));
+    const requirements = useSelector((state: ReduxState) => getRequirements(state));
+    const colorTheme = useSelector((state: ReduxState) => getColorTheme(state));
 
-interface DispatchProps {
-    addTodo: (todo: Todo) => void,
-    addReward: (reward: Reward) => void,
-    setSelectedRewardId: (rewardId: number | null) => void,
-}
+    const dispatch = useDispatch();
 
-type Props = StateProps & DispatchProps;
-
-const UserPage: React.FC<Props> = ({ todos, rewards, selectedRewardId, selectedRewardRequirements, addTodo, addReward, setSelectedRewardId }) => {
     const selectionTitleRef = useRef<HTMLHeadingElement | null>(null);
     
     useEffect(() => {
@@ -49,7 +39,7 @@ const UserPage: React.FC<Props> = ({ todos, rewards, selectedRewardId, selectedR
     }
 
     const exitSelection = () => {
-        setSelectedRewardId(null);
+        dispatch(selectedRewardIdSet(null));
     }
 
     return (
@@ -73,7 +63,7 @@ const UserPage: React.FC<Props> = ({ todos, rewards, selectedRewardId, selectedR
                         />)
                     }
                 </div>
-                <AddItem addItemToRedux={addTodo} type='todo' />
+                <AddItem addItemToRedux={todo => dispatch(todoAdded(todo))} type='todo' />
             </section>
             <section className='rewards-section'>
                 <h3 className='title'>Rewards</h3>
@@ -86,25 +76,10 @@ const UserPage: React.FC<Props> = ({ todos, rewards, selectedRewardId, selectedR
                         />)
                     }
                 </div>
-                <AddItem addItemToRedux={addReward} type='reward' />
+                <AddItem addItemToRedux={reward => dispatch(rewardAdded(reward))} type='reward' />
             </section>
         </div>
     );
 }
 
-const mapStateToProps = createStructuredSelector({
-    todos: getTodos,
-    rewards: getRewards,
-    selectedRewardId: getSelectedRewardId,
-    selectedRewardRequirements: getSelectedRewardRequirements,
-    requirements: getRequirements,
-    colorTheme: getColorTheme
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    addTodo: (todo: Todo) => dispatch(addTodo(todo)),
-    addReward: (reward: Reward) => dispatch(addReward(reward)),
-    setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+export default UserPage;
