@@ -4,7 +4,7 @@ import { fetchData } from '../../utils';
 
 import './sort.styles.scss';
 
-import { getSort } from '../../redux/menu/menu.selectors';
+import { getSort } from '../../redux/selectors/menu.selectors';
 import { sortSet } from '../../redux/slices/menuSlice';
 
 export type SortOrder = 'Newest First' | 'Oldest First' | 'A-Z' | 'Z-A';

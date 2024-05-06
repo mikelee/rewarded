@@ -12,7 +12,7 @@ import { IconButton } from '@mui/material';
 import { Add, ClearRounded } from '@mui/icons-material';
 
 import { rewardDeleted, rewardTextEdited, rewardCompletedToggled, selectedRewardIdSet } from '../../redux/slices/rewardsSlice';
-import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
+import { getRewardRequirements } from '../../redux/selectors/requirements.selectors';
 import { itemRequirementsDeleted } from '../../redux/slices/requirementsSlice';
 
 export interface Props {

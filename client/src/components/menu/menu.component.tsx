@@ -8,7 +8,7 @@ import { ReduxState } from 'redux/root-reducer';
 
 import Submenu from '../submenu/submenu.component'
 
-import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
+import { getSubmenuCategory } from '../../redux/selectors/menu.selectors';
 import { submenuCategorySet } from '../../redux/slices/menuSlice';
 import { stateCleared } from '../../redux/extraActions';
 import { loggedOutMessageSet } from '../../redux/slices/temporarySlice';

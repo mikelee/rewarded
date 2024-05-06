@@ -9,7 +9,7 @@ import { Color } from '../../../types';
 
 import Sort from '../sort/sort.component';
 
-import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
+import { getSubmenuCategory } from '../../redux/selectors/menu.selectors';
 import { submenuCategorySet } from '../../redux/slices/menuSlice';
 import { setColorTheme } from '../../redux/user/user.actions';
 

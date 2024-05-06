@@ -9,7 +9,7 @@ import HikingSVG from '../../components/svg-components/hiking-svg.component';
 
 import { User } from '../../../types';
 
-import { getLoggedOutMessage } from '../../redux/temporary/temporary.selectors';
+import { getLoggedOutMessage } from '../../redux/selectors/temporary.selectors';
 
 interface Props {
     currentUser: User | null
