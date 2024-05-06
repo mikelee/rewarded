@@ -1,5 +1,4 @@
-import requirementsReducer from './requirements.reducer';
-import { setRequirements } from './requirements.actions';
+import requirementsReducer, { requirementsSet } from './requirementsSlice';
 
 const requirements = [
     {rewardId: 1, todoId: 2, text: 'requirement 1', completed: 1, timestamp: '2023-03-08T06:49:33.913Z'},
@@ -16,5 +15,5 @@ it('should set the requirements', () => {
         requirements: []
     };
 
-    expect(requirementsReducer(initialState, setRequirements(requirements))).toEqual({ requirements: requirements});
+    expect(requirementsReducer(initialState, requirementsSet(requirements))).toEqual({ requirements: requirements});
 });
