@@ -11,7 +11,7 @@ import Sort from '../sort/sort.component';
 
 import { getSubmenuCategory } from '../../redux/selectors/menu.selectors';
 import { submenuCategorySet } from '../../redux/slices/menuSlice';
-import { setColorTheme } from '../../redux/user/user.actions';
+import { colorThemeSet } from '../../redux/slices/userSlice';
 
 const Submenu: React.FC = () => {
     const submenuCategory = useSelector(getSubmenuCategory);
@@ -53,7 +53,7 @@ const Submenu: React.FC = () => {
 
         await fetchData(path, method, body);
 
-        setColorTheme(colorName);
+        colorThemeSet(colorName);
 
         applyColorTheme(colorName);
 
