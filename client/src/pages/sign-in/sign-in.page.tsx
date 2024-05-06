@@ -5,7 +5,7 @@ import { fetchData } from '../../utils';
 import './sign-in.styles.scss';
 import BenchSVG from '../../components/svg-components/bench-svg.component';
 
-import { currentUserSet } from '../../redux/slices/userSlice';
+import { currentUserSet } from '../../redux/user/userSlice';
 
 interface Props {
     type: string

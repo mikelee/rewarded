@@ -9,8 +9,8 @@ import { User } from '../../../types';
 
 import Menu from '../menu/menu.component';
 
-import { menuVisibleToggled } from '../../redux/slices/menuSlice';
-import { selectMenuVisible } from '../../redux/selectors/menu.selectors';
+import { menuVisibleToggled } from '../../redux/menu/menuSlice';
+import { selectMenuVisible } from '../../redux/menu/menu.selectors';
 
 interface Props {
     currentUser: User | null,

@@ -9,9 +9,9 @@ import { Color } from '../../../types';
 
 import Sort from '../sort/sort.component';
 
-import { getSubmenuCategory } from '../../redux/selectors/menu.selectors';
-import { submenuCategorySet } from '../../redux/slices/menuSlice';
-import { colorThemeSet } from '../../redux/slices/userSlice';
+import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
+import { submenuCategorySet } from '../../redux/menu/menuSlice';
+import { colorThemeSet } from '../../redux/user/userSlice';
 
 const Submenu: React.FC = () => {
     const submenuCategory = useSelector(getSubmenuCategory);

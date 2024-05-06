@@ -11,9 +11,9 @@ import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@mui/material';
 import { Add, ClearRounded } from '@mui/icons-material';
 
-import { rewardDeleted, rewardTextEdited, rewardCompletedToggled, selectedRewardIdSet } from '../../redux/slices/rewardsSlice';
-import { getRewardRequirements } from '../../redux/selectors/requirements.selectors';
-import { itemRequirementsDeleted } from '../../redux/slices/requirementsSlice';
+import { rewardDeleted, rewardTextEdited, rewardCompletedToggled, selectedRewardIdSet } from '../../redux/rewards/rewardsSlice';
+import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
+import { itemRequirementsDeleted } from '../../redux/requirements/requirementsSlice';
 
 export interface Props {
     id: number,

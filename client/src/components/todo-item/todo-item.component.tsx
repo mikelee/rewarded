@@ -10,8 +10,8 @@ import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-import { todoCompletedToggled, todoDeleted, todoTextEdited } from '../../redux/slices/todosSlice';
-import { itemRequirementsDeleted, requirementAdded, requirementCompletedToggled, requirementDeleted, requirementTextEdited } from '../../redux/slices/requirementsSlice';
+import { todoCompletedToggled, todoDeleted, todoTextEdited } from '../../redux/todos/todosSlice';
+import { itemRequirementsDeleted, requirementAdded, requirementCompletedToggled, requirementDeleted, requirementTextEdited } from '../../redux/requirements/requirementsSlice';
 
 interface Props {
     id: number,

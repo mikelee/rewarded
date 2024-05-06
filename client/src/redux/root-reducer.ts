@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import userReducer from './slices/userSlice';
-import todosReducer from './slices/todosSlice';
-import rewardsReducer from './slices/rewardsSlice';
-import requirementsReducer from './slices/requirementsSlice';
-import menuReducer from './slices/menuSlice';
-import temporaryReducer from './slices/temporarySlice';
+import userReducer from './user/userSlice';
+import todosReducer from './todos/todosSlice';
+import rewardsReducer from './rewards/rewardsSlice';
+import requirementsReducer from './requirements/requirementsSlice';
+import menuReducer from './menu/menuSlice';
+import temporaryReducer from './temporary/temporarySlice';
 
 import { stateCleared } from './extraActions';
 

@@ -13,7 +13,7 @@ import HomePage from './pages/homepage/homepage.page';
 import SignIn from './pages/sign-in/sign-in.page';
 import DataLoader from './components/data-loader/data-loader.component';
 
-import { getCurrentUser } from './redux/selectors/user.selectors';
+import { getCurrentUser } from './redux/user/user.selectors';
 
 interface AppProps {
     currentUser: User | null

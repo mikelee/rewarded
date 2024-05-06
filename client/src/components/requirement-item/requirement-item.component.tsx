@@ -7,7 +7,7 @@ import './requirement-item.styles.scss';
 import { CheckRounded, Clear } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-import { requirementDeleted } from '../../redux/slices/requirementsSlice';
+import { requirementDeleted } from '../../redux/requirements/requirementsSlice';
 
 interface Props {
     todoId: number,

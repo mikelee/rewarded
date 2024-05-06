@@ -9,11 +9,11 @@ import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
 import RewardItem from '../../components/reward-item/reward-item.component';
 
-import { getTodos } from '../../redux/selectors/todos.selectors'
-import { todoAdded } from '../../redux/slices/todosSlice';
-import { getRewards, getSelectedRewardId } from '../../redux/selectors/rewards.selectors'
-import { rewardAdded, selectedRewardIdSet } from '../../redux/slices/rewardsSlice';
-import { getSelectedRewardRequirements } from '../../redux/selectors/requirements.selectors';
+import { getTodos } from '../../redux/todos/todos.selectors'
+import { todoAdded } from '../../redux/todos/todosSlice';
+import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
+import { rewardAdded, selectedRewardIdSet } from '../../redux/rewards/rewardsSlice';
+import { getSelectedRewardRequirements } from '../../redux/requirements/requirements.selectors';
 
 const UserPage: React.FC = () => {
     const todos = useSelector((state: ReduxState) => getTodos(state));

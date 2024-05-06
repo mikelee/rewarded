@@ -8,11 +8,11 @@ import { Settings, UserData } from '../../../types';
 import Preloader from '../preloader/preloader.component';
 import UserPage from '../../pages/user-page/user-page.page';
 
-import { todosSet } from '../../redux/slices/todosSlice';
-import { rewardsSet } from '../../redux/slices/rewardsSlice';
-import { requirementsSet } from '../../redux/slices/requirementsSlice';
-import { colorThemeSet } from '../../redux/slices/userSlice';
-import { sortSet } from '../../redux/slices/menuSlice';
+import { todosSet } from '../../redux/todos/todosSlice';
+import { rewardsSet } from '../../redux/rewards/rewardsSlice';
+import { requirementsSet } from '../../redux/requirements/requirementsSlice';
+import { colorThemeSet } from '../../redux/user/userSlice';
+import { sortSet } from '../../redux/menu/menuSlice';
 
 export const DataLoader: React.FC = () => {
     const [dataLoaded, setDataLoaded] = useState(false);
