@@ -9,20 +9,17 @@ import TodoItem from '../../components/todo-item/todo-item.component';
 import AddItem from '../../components/add-item/add-item.component';
 import RewardItem from '../../components/reward-item/reward-item.component';
 
-import { getTodos } from '../../redux/todos/todos.selectors'
+import { getTodos } from '../../redux/selectors/todos.selectors'
 import { todoAdded } from '../../redux/slices/todosSlice';
-import { getRewards, getSelectedRewardId } from '../../redux/rewards/rewards.selectors'
+import { getRewards, getSelectedRewardId } from '../../redux/selectors/rewards.selectors'
 import { rewardAdded, selectedRewardIdSet } from '../../redux/slices/rewardsSlice';
-import { getRequirements, getSelectedRewardRequirements } from '../../redux/requirements/requirements.selectors';
-import { getColorTheme } from '../../redux/user/user.selectors';
+import { getSelectedRewardRequirements } from '../../redux/selectors/requirements.selectors';
 
 const UserPage: React.FC = () => {
     const todos = useSelector((state: ReduxState) => getTodos(state));
     const rewards = useSelector((state: ReduxState) => getRewards(state));
     const selectedRewardId = useSelector((state: ReduxState) => getSelectedRewardId(state));
     const selectedRewardRequirements = useSelector((state: ReduxState) => getSelectedRewardRequirements(state));
-    const requirements = useSelector((state: ReduxState) => getRequirements(state));
-    const colorTheme = useSelector((state: ReduxState) => getColorTheme(state));
 
     const dispatch = useDispatch();
 
