@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import './App.scss';
 
 import { User } from '../types';
+import { ReduxState } from 'redux/root-reducer';
 
 import ColorTheme from './components/color-theme/color-theme.component';
 import Nav from './components/nav/nav.component';
@@ -19,51 +19,51 @@ interface AppProps {
     currentUser: User | null
 }
 
-const App: React.FC<AppProps> = ({ currentUser }) => (
-    <ColorTheme>
-        <Routes>
-            <Route
-                path='/'
-                element={currentUser
-                    ? 
-                        <>
-                            <Nav currentUser={currentUser} />
-                            <DataLoader />
-                        </>
-                    :
-                        <HomePage currentUser={currentUser} />
-                }
-            />
-            <Route
-                path='/sign-up'
-                element={currentUser
-                    ?
-                        <Navigate to='/' />
-                    : 
-                        <>
-                            <Nav currentUser={currentUser} />
-                            <SignIn type='sign-up' />
-                        </>
-                }
-            />
-            <Route
-                path='/sign-in'
-                element={currentUser
-                    ?
-                        <Navigate to='/' />
-                    : 
-                        <>
-                            <Nav currentUser={currentUser} />
-                            <SignIn type='sign-in' />
-                        </>
-                }
-            />
-        </Routes>
-    </ColorTheme>
-);
+const App: React.FC<AppProps> = () => {
+    const currentUser = useSelector((state: ReduxState) => getCurrentUser(state));
 
-const mapStateToProps = createStructuredSelector({
-	currentUser: getCurrentUser
-});
+    return (
+        <ColorTheme>
+            <Routes>
+                <Route
+                    path='/'
+                    element={currentUser
+                        ? 
+                            <>
+                                <Nav currentUser={currentUser} />
+                                <DataLoader />
+                            </>
+                        :
+                            <HomePage currentUser={currentUser} />
+                    }
+                />
+                <Route
+                    path='/sign-up'
+                    element={currentUser
+                        ?
+                            <Navigate to='/' />
+                        : 
+                            <>
+                                <Nav currentUser={currentUser} />
+                                <SignIn type='sign-up' />
+                            </>
+                    }
+                />
+                <Route
+                    path='/sign-in'
+                    element={currentUser
+                        ?
+                            <Navigate to='/' />
+                        : 
+                            <>
+                                <Nav currentUser={currentUser} />
+                                <SignIn type='sign-in' />
+                            </>
+                    }
+                />
+            </Routes>
+        </ColorTheme>
+    );
+}
 
-export default connect(mapStateToProps)(App);
+export default App;

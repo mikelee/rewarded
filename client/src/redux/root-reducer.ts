@@ -2,17 +2,16 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import userReducer from './user/user.reducer';
-import todosReducer from './todos/todos.reducer';
-import rewardsReducer from './rewards/rewards.reducer';
-import requirementsReducer from './requirements/requirements.reducer';
-import menuReducer from './menu/menu.reducer';
-import temporaryReducer from './temporary/temporary.reducer';
+import userReducer from './user/userSlice';
+import todosReducer from './todos/todosSlice';
+import rewardsReducer from './rewards/rewardsSlice';
+import requirementsReducer from './requirements/requirementsSlice';
+import menuReducer from './menu/menuSlice';
+import temporaryReducer from './temporary/temporarySlice';
 
-import userActionTypes from './user/user.types';
+import { stateCleared } from './extraActions';
 
-import { Reducer } from 'redux';
-import { Action } from '../../types';
+import { Reducer, Action } from 'redux';
 
 const persistConfig = {
     key: 'root',
@@ -30,7 +29,7 @@ const appReducer = combineReducers({
 });
 
 const rootReducer: Reducer<ReduxState, Action> = (state, action) => {
-    if (action.type === userActionTypes.CLEAR_ALL) {
+    if (action.type === stateCleared.type) {
         state = undefined
     }
 

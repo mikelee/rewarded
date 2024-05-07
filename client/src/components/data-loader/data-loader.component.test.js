@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { DataLoader } from './data-loader.component';
+import testStore from 'redux/testStore';
 
 const mockResponseData = [
     [
@@ -26,7 +28,11 @@ const mockResponseData = [
 fetch.mockResponse(JSON.stringify(mockResponseData));
 
 beforeEach(() => {
-    render(<DataLoader />);
+    render(
+        <Provider store={testStore}>
+            <DataLoader />
+        </Provider>
+    );
 });
 
 it('should render Preloader child component and not UserPage', () => {

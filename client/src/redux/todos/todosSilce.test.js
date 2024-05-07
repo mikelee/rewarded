@@ -1,5 +1,4 @@
-import todosReducer from './todos.reducer';
-import { setTodos } from './todos.actions'
+import todosReducer, { todosSet } from './todosSlice';
 
 it('should set the todos', () => {
     const todos = [
@@ -12,5 +11,5 @@ it('should set the todos', () => {
         todos: null
     };
 
-    expect(todosReducer(intialState, setTodos(todos))).toEqual({todos: todos});
+    expect(todosReducer(intialState, todosSet(todos))).toEqual({todos: todos});
 });

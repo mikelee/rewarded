@@ -1,32 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils';
 
 import './sort.styles.scss';
 
-import { Dispatch } from 'redux';
-
 import { getSort } from '../../redux/menu/menu.selectors';
-import { setSort } from '../../redux/menu/menu.actions';
+import { sortSet } from '../../redux/menu/menuSlice';
 
 export type SortOrder = 'Newest First' | 'Oldest First' | 'A-Z' | 'Z-A';
 
-interface OwnProps {
+interface Props {
     sortOrders: SortOrder[]
 }
 
-interface StateProps {
-    sort: SortOrder
-}
+const Sort: React.FC<Props> = ({ sortOrders }) => {
+    const sort = useSelector(getSort);
 
-interface DispatchProps {
-    setSort: (sortOrder: SortOrder) => void
-}
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const Sort: React.FC<Props> = ({ sortOrders, sort, setSort }) => {
+    const dispatch = useDispatch();
 
     const changeSortOrder = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const sortOrder = (e.target as HTMLButtonElement).name;
@@ -38,7 +28,7 @@ const Sort: React.FC<Props> = ({ sortOrders, sort, setSort }) => {
 
             await fetchData(path, method, body);
 
-            setSort((sortOrder as SortOrder));
+            dispatch(sortSet((sortOrder as SortOrder)));
         } catch (e) {
             console.log(e);
         }
@@ -59,12 +49,4 @@ const Sort: React.FC<Props> = ({ sortOrders, sort, setSort }) => {
     );
 }
 
-const mapStateToProps = createStructuredSelector({
-    sort: getSort
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    setSort: (sortOrder: SortOrder) => dispatch(setSort(sortOrder))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sort);
+export default Sort;

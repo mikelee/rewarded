@@ -1,6 +1,7 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './root-reducer';
-import { ReduxState } from './root-reducer';
+import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import { ReduxState } from './store';
 
 const testStoreState: ReduxState = {
     user: {
@@ -89,9 +90,26 @@ const testStoreState: ReduxState = {
     },
     temporary: {
         loggedOutMessage: false
+    },
+    _persist: {
+        version: -1,
+        rehydrated: false
     }
 }
 
-const testStore = createStore(rootReducer, testStoreState);
+export const testStore = configureStore({
+    reducer: rootReducer,
+    preloadedState: testStoreState,
+    devTools: true,
+    middleware: (getDefaultMiddleware) => {
+        const defaultMiddleware = getDefaultMiddleware({
+            serializableCheck: {
+              ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            }
+        });
+
+        return defaultMiddleware;
+    }
+});
 
 export default testStore;

@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchData } from '../../utils';
 
 import './todo-item.styles.scss';
 
-import { Dispatch } from 'redux';
-import { Action, Requirement, Todo } from '../../../types';
+import { Requirement, Todo } from '../../../types';
 
 import ToggleButton from '../toggle-button/toggle-button.component';
 import { Clear } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-import { deleteTodo, editTodoCompleted, editTodoText } from '../../redux/todos/todos.actions';
-import { addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText } from '../../redux/requirements/requirements.actions';
+import { todoCompletedToggled, todoDeleted, todoTextEdited } from '../../redux/todos/todosSlice';
+import { itemRequirementsDeleted, requirementAdded, requirementCompletedToggled, requirementDeleted, requirementTextEdited } from '../../redux/requirements/requirementsSlice';
 
-interface OwnProps {
+interface Props {
     id: number,
     text: string,
     completed: boolean,
@@ -23,23 +22,11 @@ interface OwnProps {
     timestamp: string,
 }
 
-interface DispatchProps {
-    deleteTodo: (todoId:  number) => void,
-    editTodoCompleted: (todo: Todo) => void,
-    editTodoText: (todo: Todo) => void,
-    addRequirement: (requirement: Requirement) => void,
-    deleteItemRequirements: (itemType: 'todo', itemId: number) => void,
-    deleteRequirement: (todoId: number, rewardId: number) => void,
-    editRequirementCompleted: (todo: Todo) => void
-    editRequirementText: (todo: Todo) => void
-}
-
-type Props = OwnProps & DispatchProps;
-
-const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, selected, timestamp, deleteTodo, editTodoCompleted, editTodoText, addRequirement, deleteItemRequirements, deleteRequirement, editRequirementCompleted, editRequirementText }) => {
-
+const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, selected, timestamp }) => {
     const [swipeStart, setSwipeStart] = useState<number | undefined>();
     const [swipeChange, setSwipeChange] = useState<number | undefined>();
+
+    const dispatch = useDispatch();
 
     const handleSwipeStart = (event: React.TouchEvent<HTMLDivElement>) => {
         let x: number = event.changedTouches[0].clientX;
@@ -88,8 +75,8 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
 
         const updatedTodo: Todo = await fetchData(path, method, body);
 
-        editTodoText(updatedTodo);
-        editRequirementText(updatedTodo);
+        dispatch(todoTextEdited(updatedTodo));
+        dispatch(requirementTextEdited(updatedTodo));
     }
 
     const handleDelete = async (event: React.FormEvent<HTMLFormElement> | undefined = undefined) => {
@@ -101,8 +88,8 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
 
         const { todo }: { todo: Todo } = await fetchData(path, method, body);
 
-        deleteTodo(todo.todoId);
-        deleteItemRequirements('todo', todo.todoId);
+        dispatch(todoDeleted(todo.todoId));
+        dispatch(itemRequirementsDeleted({ itemType: 'todo', itemId: todo.todoId }));
     }
 
     const toggleTodoCompleted = async () => {
@@ -112,8 +99,8 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
 
         const updatedTodo = await fetchData(path, method, body);
 
-        editTodoCompleted(updatedTodo);
-        editRequirementCompleted(updatedTodo);
+        dispatch(todoCompletedToggled(updatedTodo));
+        dispatch(requirementCompletedToggled(updatedTodo));
     }
 
     const createOrDeleteRequirement = async () => {
@@ -127,7 +114,7 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
 
             const deletedRequirement: Requirement = await fetchData(path, method, body);
 
-            deleteRequirement(deletedRequirement.todoId, deletedRequirement.rewardId);
+            dispatch(requirementDeleted({ todoId: deletedRequirement.todoId, rewardId: deletedRequirement.rewardId }));
         } else {
             const path = '/api/requirement/create';
             const method = 'POST';
@@ -146,7 +133,7 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
             newRequirement.completed = completed;
             newRequirement.timestamp = timestamp;
 
-            addRequirement(newRequirement);
+            dispatch(requirementAdded(newRequirement));
         }
     }
 
@@ -183,15 +170,4 @@ const TodoItem: React.FC<Props> = ({ id, text, completed, selectedRewardId, sele
     );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    deleteTodo: (todoId: number) => dispatch(deleteTodo(todoId)),
-    editTodoCompleted: (todo: Todo) => dispatch(editTodoCompleted(todo)),
-    editTodoText: (todo: Todo) => dispatch(editTodoText(todo)),
-    addRequirement: (requirement: Requirement) => dispatch(addRequirement(requirement)),
-    deleteItemRequirements: (itemType: 'todo', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
-    deleteRequirement: (todoId: number, rewardId: number) => dispatch(deleteRequirement(todoId, rewardId)),
-    editRequirementCompleted: (todo: Todo) => dispatch(editRequirementCompleted(todo)),
-    editRequirementText: (todo: Todo) => dispatch(editRequirementText(todo))
-});
-
-export default connect(null, mapDispatchToProps)(TodoItem);
+export default TodoItem;

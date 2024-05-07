@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchData } from '../../utils';
 
 import './sign-in.styles.scss';
 import BenchSVG from '../../components/svg-components/bench-svg.component';
 
-import { Dispatch } from 'redux';
-import { User, Action } from '../../../types';
+import { currentUserSet } from '../../redux/user/userSlice';
 
-import { setCurrentUser } from '../../redux/user/user.actions';
-
-interface OwnProps {
+interface Props {
     type: string
 }
 
-interface DispatchProps {
-    setCurrentUser: (user: User) => void
-}
-
-type Props = OwnProps & DispatchProps;
-
-const SignIn: React.FC<Props> = ({ type, setCurrentUser }) => {
+const SignIn: React.FC<Props> = ({ type }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    const dispatch = useDispatch();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -51,7 +44,7 @@ const SignIn: React.FC<Props> = ({ type, setCurrentUser }) => {
             } else {
                 setUsername('');
                 setPassword('');
-                setCurrentUser(user);
+                dispatch(currentUserSet(user));
             }
         } catch(err) {
             console.log(err);
@@ -92,8 +85,4 @@ const SignIn: React.FC<Props> = ({ type, setCurrentUser }) => {
     );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    setCurrentUser: (user: User) => dispatch(setCurrentUser(user))
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

@@ -1,42 +1,30 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils';
 
 import './reward-item.styles.scss';
 
-import { Dispatch } from 'redux';
-import { Action, Requirement, Reward, SetCompletedData } from '../../../types';
+import { Requirement, Reward } from '../../../types';
+import { ReduxState } from 'redux/root-reducer';
 
 import RequirementItem from '../requirement-item/requirement-item.component';
 import { IconButton } from '@mui/material';
 import { Add, ClearRounded } from '@mui/icons-material';
 
-import { deleteReward, editRewardText, setCompleted, setSelectedRewardId } from '../../redux/rewards/rewards.actions';
+import { rewardDeleted, rewardTextEdited, rewardCompletedToggled, selectedRewardIdSet } from '../../redux/rewards/rewardsSlice';
 import { getRewardRequirements } from '../../redux/requirements/requirements.selectors';
-import { deleteItemRequirements } from '../../redux/requirements/requirements.actions';
+import { itemRequirementsDeleted } from '../../redux/requirements/requirementsSlice';
 
-export interface OwnProps {
+export interface Props {
     id: number,
     text: string,
     completed: boolean
 }
 
-interface StateProps {
-    rewardRequirements: Requirement[] | undefined
-}
+const RewardItem: React.FC<Props> = ({ id, text, completed }) => {
+    const rewardRequirements = useSelector((state: ReduxState) => getRewardRequirements(state, id));
 
-interface DispatchProps {
-    deleteItemRequirements: (itemType: 'reward', itemId: number) => void,
-    deleteReward: (rewardId: number) => void,
-    editRewardText: (reward: Reward) => void,
-    setCompleted: (data: SetCompletedData) => void,
-    setSelectedRewardId: (rewardId: number | null) => void
-}
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, deleteItemRequirements, deleteReward, editRewardText, setCompleted, setSelectedRewardId }) => {
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (rewardRequirements) {
@@ -64,7 +52,7 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
 
         const updatedReward = await fetchData(path, method, body);
 
-        editRewardText(updatedReward);
+        dispatch(rewardTextEdited(updatedReward))
     }
 
     const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -76,12 +64,12 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
 
         const { reward }: { reward: Reward } = await fetchData(path, method, body);
 
-        deleteReward(reward.rewardId);
-        deleteItemRequirements('reward', reward.rewardId);
+        dispatch(rewardDeleted(reward.rewardId));
+        dispatch(itemRequirementsDeleted({ itemType: 'reward', itemId: reward.rewardId }));
     }
 
     const addOrDeleteRequirement = async () => {
-        setSelectedRewardId(id);
+        dispatch(selectedRewardIdSet(id));
     }
 
     const checkCompleted = (requirements: Requirement[]) => {
@@ -103,7 +91,7 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
             completed: updatedReward.completed
         }
 
-        setCompleted(setCompletedData);
+        dispatch(rewardCompletedToggled(setCompletedData));
     }
 
     return (
@@ -137,16 +125,4 @@ const RewardItem: React.FC<Props> = ({ id, text, completed, rewardRequirements, 
     );
 }
 
-const mapStateToProps = createStructuredSelector({
-    rewardRequirements: getRewardRequirements
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    deleteItemRequirements: (itemType: 'reward', itemId: number) => dispatch(deleteItemRequirements(itemType, itemId)),
-    deleteReward: (rewardId: number) => dispatch(deleteReward(rewardId)),
-    editRewardText: (reward: Reward) => dispatch(editRewardText(reward)),
-    setCompleted: (data: SetCompletedData) => dispatch(setCompleted(data)),
-    setSelectedRewardId: (rewardId: number | null) => dispatch(setSelectedRewardId(rewardId))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(RewardItem);
+export default RewardItem;

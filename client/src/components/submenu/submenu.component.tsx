@@ -1,32 +1,22 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils';
 import { applyColorTheme } from '../color-theme/color-theme.component';
 
 import './submenu.styles.scss';
 
-import { Dispatch } from 'redux';
-import { Action, Color } from '../../../types';
+import { Color } from '../../../types';
 
 import Sort from '../sort/sort.component';
 
 import { getSubmenuCategory } from '../../redux/menu/menu.selectors';
-import { setSubmenuCategory } from '../../redux/menu/menu.actions';
-import { setColorTheme } from '../../redux/user/user.actions';
+import { submenuCategorySet } from '../../redux/menu/menuSlice';
+import { colorThemeSet } from '../../redux/user/userSlice';
 
-interface StateProps {
-    submenuCategory: string | null
-}
+const Submenu: React.FC = () => {
+    const submenuCategory = useSelector(getSubmenuCategory);
 
-interface DispatchProps {
-    setSubmenuCategory: (category: string | null) => void,
-    setColorTheme: (color: string) => void
-}
-
-type Props = StateProps & DispatchProps;
-
-const Submenu: React.FC<Props> = ({ submenuCategory, setSubmenuCategory, setColorTheme }) => {
+    const dispatch = useDispatch();
 
     useEffect(() => {
         return () => goBackToMenu();
@@ -51,7 +41,7 @@ const Submenu: React.FC<Props> = ({ submenuCategory, setSubmenuCategory, setColo
     }
 
     const goBackToMenu = () => {
-        setSubmenuCategory(null);
+        dispatch(submenuCategorySet(null));
     }
 
     const toggleColor = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,7 +53,7 @@ const Submenu: React.FC<Props> = ({ submenuCategory, setSubmenuCategory, setColo
 
         await fetchData(path, method, body);
 
-        setColorTheme(colorName);
+        colorThemeSet(colorName);
 
         applyColorTheme(colorName);
 
@@ -73,7 +63,7 @@ const Submenu: React.FC<Props> = ({ submenuCategory, setSubmenuCategory, setColo
     return (
         <div className='submenu'>
             <div className='submenu-top'>
-                <svg className='back-button' onClick={() => setSubmenuCategory(null)} width="406px" height="238px" viewBox="0 0 406 238" version="1.1">
+                <svg className='back-button' onClick={() => dispatch(submenuCategorySet(null))} width="406px" height="238px" viewBox="0 0 406 238" version="1.1">
                     <title>Back Button</title>
                     <g id="back-button" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                         <g id="back-arrow" fill="#000000">
@@ -90,13 +80,4 @@ const Submenu: React.FC<Props> = ({ submenuCategory, setSubmenuCategory, setColo
     );
 }
 
-const mapStateToProps = createStructuredSelector({
-    submenuCategory: getSubmenuCategory
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    setSubmenuCategory: (category: string | null) => dispatch(setSubmenuCategory(category)),
-    setColorTheme: (color: string) => dispatch(setColorTheme(color))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Submenu);
+export default Submenu;
